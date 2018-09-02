@@ -1,0 +1,55 @@
+<div class="p-3">
+  <div fxLayout="row" fxLayoutAlign="center start">
+    <div fxLayout="column" fxFlex="50" [fxFlex.sm]="80" [fxFlex.xs]="100">
+      <mat-card *ngIf="isLoading === false; loading">
+        <form [formGroup]="form" (submit)="transactionCreate()">
+          <mat-form-field style="width: 100%;">
+            <mat-select placeholder="Account" formControlName="account">
+              <mat-option *ngFor="let option of accountList" [value]="option._id">
+                {{option.name}}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+          <mat-form-field style="width: 100%;">
+            <mat-select placeholder="Category" formControlName="category">
+              <mat-optgroup *ngFor="let group of categoryList" [label]="group.name">
+                <mat-option *ngFor="let option of group.categories" [value]="option._id">
+                  {{option.name}}
+                </mat-option>
+              </mat-optgroup>
+            </mat-select>
+          </mat-form-field>
+          <mat-form-field style="width: 100%;">
+            <input type="text" placeholder="Contractor" aria-label="Number" matInput formControlName="contractor" [matAutocomplete]="contractorAutocomplete">
+            <mat-autocomplete #contractorAutocomplete="matAutocomplete" [displayWith]="contractorAutocompleteDisplay">
+              <mat-option *ngFor="let option of contractorListFiltered | async" [value]="option">
+                {{option.name}}
+              </mat-option>
+            </mat-autocomplete>
+          </mat-form-field>
+          <mat-form-field style="width: 100%;">
+            <input matInput [matDatepicker]="dp" placeholder="Date" formControlName="date">
+            <mat-datepicker-toggle matSuffix [for]="dp"></mat-datepicker-toggle>
+            <mat-datepicker #dp startView="month"></mat-datepicker>
+          </mat-form-field>
+          <mat-form-field style="width: 100%;">
+            <input matInput placeholder="Income" formControlName="income">
+          </mat-form-field>
+          <mat-form-field style="width: 100%;">
+            <input matInput placeholder="Expense" formControlName="expense">
+          </mat-form-field>
+          <mat-form-field style="width: 100%;">
+            <input matInput placeholder="Description" formControlName="description">
+          </mat-form-field>
+          <button mat-raised-button color="primary">
+            Add
+          </button>
+        </form>
+      </mat-card>
+    </div>
+  </div>
+</div>
+
+<ng-template #loading>
+  <mat-spinner></mat-spinner>
+</ng-template>

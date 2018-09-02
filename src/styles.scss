@@ -1,0 +1,28 @@
+//@import "assets/variables";
+@import '~ngx-toastr/toastr.css';
+@import "themes/violet-theme";
+$config: mat-typography-config();
+@import "app/layout/app-layout-footer/app-layout-footer-theme";
+@include app-footer-theme($violet-app-theme, $config);
+
+@import "assets/app";
+
+app-root {
+  display: flex;
+  flex-direction: column;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+}
+
+a {
+  color: black;
+  text-decoration: none;
+}
+
+.button-row button,
+.button-row a {
+  margin-right: 8px;
+}

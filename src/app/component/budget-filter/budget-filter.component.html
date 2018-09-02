@@ -1,0 +1,7 @@
+<form [formGroup]="form">
+  <mat-form-field>
+    <input matInput [matDatepicker]="dp" placeholder="Month" formControlName="month">
+    <mat-datepicker-toggle matSuffix [for]="dp"></mat-datepicker-toggle>
+    <mat-datepicker #dp startView="year" (monthSelected)="onChangeMonth($event, dp)"></mat-datepicker>
+  </mat-form-field>
+</form>

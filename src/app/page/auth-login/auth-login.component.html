@@ -1,0 +1,9 @@
+<form [formGroup]="loginForm" (submit)="login()">
+  <mat-form-field style="width: 100%">
+    <input matInput placeholder="E-mail" formControlName="email">
+  </mat-form-field>
+  <mat-form-field style="width: 100%">
+    <input matInput type="password" placeholder="Hasło" formControlName="password">
+  </mat-form-field>
+  <button mat-raised-button color="primary">Zaloguj się</button>
+</form>

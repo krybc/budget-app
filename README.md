@@ -1,0 +1,41 @@
+# Home budgeting - app
+
+## About
+
+This is a front-end of home budgeting app.
+
+
+## Installation
+
+1. run `git clone https://github.com/kamil-rybczynski/budget-app` command
+2. run `npm install` command
+3. edit `src/environments/environment.ts` file and set `apiUrl` param which must be url to installed `budget-api` repository
+4. run `npm run start` command and open http://localhost:4200 url in web browser
+
+
+## Roadmap
+
+### 0.3.0
+
+- [ ] Feature: Monthly budget planning
+- [ ] Feature: Progress bar of monthly budget plan realisation on budget table
+- [ ] Feature: Current month plan realisation on dashboard
+
+### 0.2.0
+
+- [ ] Feature: Statistics for contractors
+- [ ] Feature: Statistics for accounts
+- [ ] Change dashboard stats to three months comparison
+- [ ] Add modals for delete operations confirmation
+- [ ] Responsive ennhancements on main menu
+
+### 0.1.0
+
+- [ ] Removing transaction
+- [ ] Removing category group
+- [ ] Removing category
+- [x] Transactions list filtering by month
+- [ ] Travis CI and Coveralls integration
+- [ ] e2e testing for auth
+- [ ] unit testing for pages, components and services
+
