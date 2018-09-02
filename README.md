@@ -4,6 +4,7 @@
 
 This is a front-end of home budgeting app.
 
+![](./docs/preview.png)
 
 ## Installation
 
