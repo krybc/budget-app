@@ -23,8 +23,6 @@ export class ContractorEditComponent implements OnInit {
   ngOnInit() {
     this.route.params.subscribe((params) => {
       this.prepareContractor(params.id);
-
-      this.createForm();
     });
 
   }
