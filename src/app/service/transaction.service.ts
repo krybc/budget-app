@@ -3,6 +3,7 @@ import {HttpClient} from '@angular/common/http';
 import {Observable} from 'rxjs';
 import {DatePipe} from '@angular/common';
 import * as moment from 'moment';
+import {FiltersState} from '../state/filters.state';
 
 @Injectable({
   providedIn: 'root',
@@ -14,7 +15,7 @@ export class TransactionService {
     private datePipe: DatePipe,
   ) { }
 
-  list(filters?: any, sort: any = null, limit: number = 1000): Observable<any[]> {
+  list(filters?: FiltersState, sort: any = null, limit: number = 1000): Observable<any[]> {
     const params = this.prepareParams(filters, sort, limit);
 
     return this.http.get<any[]>('transactions', { ...params });
@@ -44,17 +45,22 @@ export class TransactionService {
     return this.http.get<any>('transactions/summary', { ...params });
   }
 
-  prepareParams(filters?: any, sort: any = null, limit: number = 1000) {
-    // console.log(filters);
-    if (filters.month) {
-      const dateFrom = moment(filters.month).startOf('month').format('YYYY-MM-DD');
-      const dateTo = moment(filters.month).endOf('month').format('YYYY-MM-DD');
-      delete filters.month;
-      filters = {...filters, dateFrom, dateTo};
+  prepareParams(filters?: FiltersState, sort: any = null, limit: number = 1000) {
+    let result = {};
+    if (filters.month !== null) {
+      const dateFrom = filters.month.startOf('month').format('YYYY-MM-DD');
+      const dateTo = filters.month.endOf('month').format('YYYY-MM-DD');
+      result = {...result, dateFrom, dateTo};
     }
 
-    // console.log(filters);
+    if (filters.category !== null) {
+      result = {...result, ...{category: filters.category._id}};
+    }
 
-    return { params: {...filters, ...sort, limit: limit }};
+    if (filters.contractor !== null) {
+      result = {...result, ...{contractor: filters.contractor._id}};
+    }
+
+    return { params: {...result, ...sort, limit: limit }};
   }
 }

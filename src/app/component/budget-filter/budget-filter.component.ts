@@ -7,6 +7,7 @@ import {DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE} from '@angular/material/
 import {MAT_MOMENT_DATE_ADAPTER_OPTIONS, MomentDateAdapter} from '@angular/material-moment-adapter';
 import {Moment} from 'moment';
 import {MatDatepicker} from '@angular/material';
+import {FiltersStore} from '../../store/filters.store';
 
 export const MY_FORMATS = {
   parse: {
@@ -31,20 +32,23 @@ export const MY_FORMATS = {
   ],
 })
 export class BudgetFilterComponent implements OnInit {
-  @Input() filtersSubject: BehaviorSubject<any>;
+  filters: FiltersState;
   form: FormGroup;
 
   constructor(
-    private filtersState: FiltersState,
+    private filtersStore: FiltersStore,
   ) { }
 
   ngOnInit() {
-    this.createForm();
+    this.filtersStore.state$.subscribe(filters => {
+      this.filters = filters;
+      this.createForm();
+    });
   }
 
   createForm() {
     this.form = new FormGroup({
-      month: new FormControl(new Date(Date.now()), [
+      month: new FormControl(this.filters.month, [
         Validators.required
       ]),
     });
@@ -53,7 +57,7 @@ export class BudgetFilterComponent implements OnInit {
   onChangeMonth(month: Moment, datepicker: MatDatepicker<Moment>): void {
     if (this.form.valid) {
       this.form.get('month').setValue(month);
-      this.filtersSubject.next({month});
+      this.filtersStore.setMonth(month);
       datepicker.close();
     }
   }

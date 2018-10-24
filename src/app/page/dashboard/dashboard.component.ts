@@ -1,9 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {TransactionService} from '../../service/transaction.service';
-import {ToastrService} from 'ngx-toastr';
-import {AccountService} from '../../service/account.service';
-import {ActivatedRoute, Router} from '@angular/router';
-import * as moment from 'moment';
+import {FiltersState} from '../../state/filters.state';
 
 @Component({
   selector: 'app-dashboard',
@@ -12,24 +9,19 @@ import * as moment from 'moment';
 })
 export class DashboardComponent implements OnInit {
   latestTransactions: any[] = null;
-  filters = {
-    month: moment()
-  };
+  filters: FiltersState;
 
   constructor(
     private transactionService: TransactionService,
-    private accountService: AccountService,
-    private toastrService: ToastrService,
-    private route: ActivatedRoute,
-    private router: Router,
   ) { }
 
   ngOnInit() {
-    this.prepareLatestTransactions();
+    this.filters = new FiltersState();
+    this.prepareLatestTransactions(this.filters);
   }
 
-  prepareLatestTransactions() {
-    this.transactionService.list({month: new Date(Date.now())}, null, 10)
+  prepareLatestTransactions(filters: FiltersState) {
+    this.transactionService.list(filters, null, 10)
       .subscribe((result) => {
         this.latestTransactions = result;
       });

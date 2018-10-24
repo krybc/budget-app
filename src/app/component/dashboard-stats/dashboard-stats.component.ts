@@ -1,6 +1,7 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {TransactionService} from '../../service/transaction.service';
 import {PieChartComponent} from '@swimlane/ngx-charts';
+import {FiltersState} from '../../state/filters.state';
 
 @Component({
   selector: 'app-dashboard-stats',
@@ -8,7 +9,7 @@ import {PieChartComponent} from '@swimlane/ngx-charts';
   styleUrls: ['./dashboard-stats.component.scss']
 })
 export class DashboardStatsComponent implements OnInit {
-  @Input() filters: any;
+  @Input() filters: FiltersState;
   stats: any;
   colors: any;
 

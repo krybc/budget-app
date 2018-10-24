@@ -11,6 +11,8 @@ import * as moment from 'moment';
 import {BehaviorSubject} from 'rxjs';
 import {Moment} from 'moment';
 import {MatSelectChange} from '@angular/material';
+import {FiltersStore} from '../../store/filters.store';
+import {FiltersState} from '../../state/filters.state';
 
 export const MY_FORMATS = {
   parse: {
@@ -38,28 +40,18 @@ export const MY_FORMATS = {
 export class TransactionFilterComponent implements OnInit {
   @Input() categoryList: any[];
   @Input() contractorList: any[];
-  @Input() filtersSubject: BehaviorSubject<any>;
+  filters: FiltersState;
   form: FormGroup;
-  filters: any = {
-    category: null,
-    month: null,
-    contractor: null
-  };
 
   constructor(
-    private contractorService: ContractorService,
-    private categoryService: CategoryService,
-    private activatedRoute: ActivatedRoute,
-    private router: Router,
-    private datePipe: DatePipe,
+    private filtersStore: FiltersStore
   ) { }
 
   ngOnInit() {
-    this.filtersSubject.subscribe((filters) => {
+    this.filtersStore.state$.subscribe(filters => {
       this.filters = filters;
+      this.createForm();
     });
-
-    this.createForm();
   }
 
   createForm() {
@@ -79,8 +71,7 @@ export class TransactionFilterComponent implements OnInit {
   onChangeMonth(month: Moment, datepicker: MatDatepicker<Moment>): void {
     if (this.form.valid) {
       this.form.get('month').setValue(month);
-      this.filters = this.form.value;
-      this.filtersSubject.next(this.filters);
+      this.filtersStore.setMonth(month);
       datepicker.close();
     }
   }
@@ -89,7 +80,7 @@ export class TransactionFilterComponent implements OnInit {
     if (this.form.valid) {
       this.form.get('category').setValue(category.value);
       this.filters = this.form.value;
-      this.filtersSubject.next(this.filters);
+      this.filtersStore.setCategory(category.value);
     }
   }
 
@@ -97,13 +88,13 @@ export class TransactionFilterComponent implements OnInit {
     if (this.form.valid) {
       this.form.get('contractor').setValue(contractor.value);
       this.filters = this.form.value;
-      this.filtersSubject.next(this.filters);
+      this.filtersStore.setContractor(contractor.value);
     }
   }
 
   onSubmit() {
     if (this.form.valid) {
-      this.filtersSubject.next({...this.form.value});
+      this.filtersStore.setState({...this.form.value});
     }
   }
 

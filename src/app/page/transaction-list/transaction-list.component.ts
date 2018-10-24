@@ -6,9 +6,8 @@ import {CategoryService} from '../../service/category.service';
 import {ContractorService} from '../../service/contractor.service';
 import {ToastrService} from 'ngx-toastr';
 import {AccountService} from '../../service/account.service';
-import * as moment from 'moment';
-import {BehaviorSubject} from 'rxjs';
-import {DeviceDetectorService} from 'ngx-device-detector';
+import {FiltersState} from '../../state/filters.state';
+import {FiltersStore} from '../../store/filters.store';
 
 @Component({
   selector: 'app-transaction-list',
@@ -20,16 +19,7 @@ export class TransactionListComponent implements OnInit {
   categoryList: any[];
   contractorList: any[];
   accountList: any[];
-  filters: any = {
-    category: null,
-    month: moment(),
-    contractor: null
-  };
-  filtersSubject: BehaviorSubject<any> = new BehaviorSubject<any>({
-    category: null,
-    month: moment(),
-    contractor: null
-  });
+  filters: FiltersState;
 
   constructor(
     private transactionService: TransactionService,
@@ -39,7 +29,7 @@ export class TransactionListComponent implements OnInit {
     private route: ActivatedRoute,
     private datePipe: DatePipe,
     private toastrService: ToastrService,
-    private deviceDetector: DeviceDetectorService,
+    private filtersStore: FiltersStore,
   ) { }
 
   ngOnInit() {
@@ -47,11 +37,10 @@ export class TransactionListComponent implements OnInit {
     this.prepareContractorList();
     this.prepareAccountList();
 
-    this.filtersSubject.subscribe((filters) => {
+    this.filtersStore.state$.subscribe(filters => {
       this.filters = filters;
       this.prepareTransactionList();
     });
-
   }
 
   prepareCategoryList() {

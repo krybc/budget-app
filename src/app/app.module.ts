@@ -52,6 +52,7 @@ import {DeviceDetectorModule} from 'ngx-device-detector';
 import {ResponseInterceptor} from './interceptor/response.interceptor';
 import {MatMomentDateModule} from '@angular/material-moment-adapter';
 import {ResponsiveModule} from 'ngx-responsive';
+import {FiltersStore} from './store/filters.store';
 
 library.add(fas);
 
@@ -140,6 +141,7 @@ export function tokenGetter() {
       useClass: ResponseInterceptor,
       multi: true
     },
+    FiltersStore,
   ],
   bootstrap: [AppComponent]
 })

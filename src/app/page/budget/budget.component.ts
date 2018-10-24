@@ -4,6 +4,9 @@ import {BehaviorSubject, forkJoin} from 'rxjs';
 import {CategoryService} from '../../service/category.service';
 import {TransactionService} from '../../service/transaction.service';
 import * as moment from 'moment';
+import {FiltersStore} from '../../store/filters.store';
+import {FiltersState} from '../../state/filters.state';
+import {Moment} from 'moment';
 
 @Component({
   selector: 'app-budget',
@@ -11,12 +14,7 @@ import * as moment from 'moment';
   styleUrls: ['./budget.component.scss']
 })
 export class BudgetComponent implements OnInit {
-  filters: any = {
-    month: null
-  };
-  filtersSubject: BehaviorSubject<any> = new BehaviorSubject<any>({
-    month: moment()
-  });
+  filters: FiltersState;
   budget: any[];
   budgetSummary = {
     income: 0,
@@ -26,19 +24,18 @@ export class BudgetComponent implements OnInit {
   constructor(
     private categoryService: CategoryService,
     private transactionService: TransactionService,
+    private filtersStore: FiltersStore,
   ) { }
 
   ngOnInit() {
-    this.prepareBudget();
-
-    this.filtersSubject.subscribe((value) => {
-      if (value.month !== null) {
-        this.filters = value;
-
-        this.prepareBudget();
-      }
+    this.filtersStore.state$.subscribe(filters => {
+      this.filters = {...filters, ...{contractor: null, category: null}};
+      this.prepareBudget();
     });
+  }
 
+  onChangeMonth(month: Moment) {
+    this.filtersStore.setMonth(month);
   }
 
   prepareBudget() {
