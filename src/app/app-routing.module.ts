@@ -109,8 +109,10 @@ const routes: Routes = [
   imports: [
     RouterModule.forRoot(routes, {
       useHash: true
-    })
+    }),
   ],
-  exports: [RouterModule]
+  exports: [
+    RouterModule,
+  ]
 })
 export class AppRoutingModule { }

@@ -1,4 +1,4 @@
 export const environment = {
   production: true,
-  apiUrl: 'http://api.budget.rybczynski.me',
+  apiUrl: 'http://api.budget.rybczynski.io',
 };
