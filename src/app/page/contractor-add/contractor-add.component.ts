@@ -1,9 +1,10 @@
-import {Component, Input, OnInit, TemplateRef} from '@angular/core';
-import {BehaviorSubject} from 'rxjs';
+import {Component, OnInit} from '@angular/core';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
 import {ContractorService} from '../../service/contractor.service';
 import {ToastrService} from 'ngx-toastr';
 import {Router} from '@angular/router';
+import {plainToClass} from 'class-transformer';
+import {ContractorModel} from '../../model/contractor.model';
 
 @Component({
   selector: 'app-contractor-add',
@@ -38,7 +39,7 @@ export class ContractorAddComponent implements OnInit {
       this.contractorService.create(this.form.value)
         .subscribe(
           (result) => {
-            this.toastrService.success(`Kontrahent ${result.name} został dodany`);
+            this.toastrService.success(`Contractor ${result.name} has been added`);
             this.router.navigate(['app/contractors']);
           }
         );

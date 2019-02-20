@@ -1,23 +1,36 @@
-import {Deserializable} from './deserializable.model';
-import {Category} from './category.model';
-import {Account} from './account.model';
-import {Contractor} from './contractor.model';
+import { CategoryModel } from './category.model';
+import { AccountModel } from './account.model';
+import { ContractorModel } from './contractor.model';
+import { Expose, Transform, Type } from 'class-transformer';
+import { DateTime } from 'luxon';
 
-export class Transaction implements Deserializable {
-  _id: string;
-  category: Category;
-  account: Account;
-  contractor: string | Contractor;
-  date: string;
+export class TransactionModel {
+  @Expose({ name: '_id' })
+  id: string;
+
+  @Expose()
+  @Type(() => CategoryModel)
+  category: CategoryModel;
+
+  @Expose()
+  @Type(() => AccountModel)
+  account: AccountModel;
+
+  @Expose()
+  @Type(() => ContractorModel)
+  contractor: ContractorModel;
+
+  @Expose()
+  @Type(() => DateTime)
+  @Transform(value => DateTime.fromISO(value), { toClassOnly: true })
+  date: DateTime;
+
+  @Expose()
   income: number;
-  expense: number;
-  description: string;
 
-  deserialize(input: any) {
-    Object.assign(this, input);
-    this.category = new Category().deserialize(input.category);
-    this.account = new Account().deserialize(input.account);
-    this.contractor = typeof input.contractor === 'object' ? new Contractor().deserialize(input.contractor) : input.contractor;
-    return this;
-  }
+  @Expose()
+  expense: number;
+
+  @Expose()
+  description: string;
 }

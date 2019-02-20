@@ -5,6 +5,7 @@ import {ToastrService} from 'ngx-toastr';
 import {ActivatedRoute, Router} from '@angular/router';
 import {CategoryService} from '../../service/category.service';
 import {CategoryGroupService} from '../../service/category-group.service';
+import {CategoryGroupModel} from '../../model/category-group.model';
 
 @Component({
   selector: 'app-category-add',
@@ -12,7 +13,7 @@ import {CategoryGroupService} from '../../service/category-group.service';
   styleUrls: ['./category-add.component.scss']
 })
 export class CategoryAddComponent implements OnInit {
-  categoryGroup: any;
+  categoryGroup: CategoryGroupModel;
   isLoading: boolean;
   form: FormGroup;
 
@@ -41,7 +42,7 @@ export class CategoryAddComponent implements OnInit {
 
   createForm() {
     this.form = new FormGroup({
-      group: new FormControl(this.categoryGroup._id, [
+      group: new FormControl(this.categoryGroup.id, [
         Validators.required
       ]),
       type: new FormControl(this.categoryGroup.type, [
@@ -58,7 +59,7 @@ export class CategoryAddComponent implements OnInit {
       this.categoryService.create(this.form.value)
         .subscribe(
           (result) => {
-            this.toastrService.success(`Category ${result.name} has been added`);
+            this.toastrService.success(`Category ${result.name} has been created`);
             this.router.navigate(['app/budget']);
           }
         );

@@ -3,7 +3,8 @@ import {HttpClient} from '@angular/common/http';
 import {Observable} from 'rxjs';
 import {tap} from 'rxjs/internal/operators';
 import { JwtHelperService } from '@auth0/angular-jwt';
-import {User} from '../model/user.model';
+import {UserModel} from '../model/user.model';
+import {plainToClass} from 'class-transformer';
 
 @Injectable({
   providedIn: 'root'
@@ -19,7 +20,7 @@ export class AuthService {
     this.isAuthenticated();
   }
 
-  login(user): Observable<any> {
+  login(user: UserModel): Observable<any> {
     return this.http.post<any>('auth/signin', user)
       .pipe(
         tap((response) => {
@@ -44,7 +45,7 @@ export class AuthService {
   }
 
   getUser() {
-    return new User().deserialize(JSON.parse(localStorage.getItem(this.currentUserKey)));
+    return plainToClass(UserModel, JSON.parse(localStorage.getItem(this.currentUserKey)));
   }
 
   logout() {

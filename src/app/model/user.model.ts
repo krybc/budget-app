@@ -1,12 +1,12 @@
-import {Deserializable} from './deserializable.model';
+import {Expose} from 'class-transformer';
 
-export class User implements Deserializable {
-  _id: string;
+export class UserModel {
+  @Expose({ name: '_id' })
+  id: string;
+
+  @Expose()
   firstName: string;
-  lastName: string;
 
-  deserialize(input: any) {
-    Object.assign(this, input);
-    return this;
-  }
+  @Expose()
+  lastName: string;
 }

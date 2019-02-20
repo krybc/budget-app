@@ -1,12 +1,12 @@
-import {Deserializable} from './deserializable.model';
+import {Expose} from 'class-transformer';
 
-export class Category implements Deserializable {
-  _id: string;
+export class CategoryModel {
+  @Expose({ name: '_id' })
+  id: string;
+
+  @Expose()
   name: string;
-  type: number;
 
-  deserialize(input: any) {
-    Object.assign(this, input);
-    return this;
-  }
+  @Expose()
+  type: number;
 }

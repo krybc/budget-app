@@ -3,6 +3,8 @@ import {ContractorService} from '../../service/contractor.service';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
 import {ToastrService} from 'ngx-toastr';
 import {ActivatedRoute, Router} from '@angular/router';
+import {ContractorModel} from '../../model/contractor.model';
+import {plainToClass} from 'class-transformer';
 
 @Component({
   selector: 'app-contractor-edit',
@@ -10,8 +12,9 @@ import {ActivatedRoute, Router} from '@angular/router';
   styleUrls: ['./contractor-edit.component.scss']
 })
 export class ContractorEditComponent implements OnInit {
-  contractor: any;
+  contractor: ContractorModel;
   form: FormGroup;
+  isLoading = true;
 
   constructor(
     private contractorService: ContractorService,
@@ -28,10 +31,11 @@ export class ContractorEditComponent implements OnInit {
   }
 
   prepareContractor(id) {
-    this.contractor = this.contractorService.get(id)
+    this.contractorService.get(id)
       .subscribe((result) => {
         this.contractor = result;
         this.createForm();
+        this.isLoading = false;
       });
   }
 
@@ -47,7 +51,7 @@ export class ContractorEditComponent implements OnInit {
 
   contractorUpdate() {
     if (this.form.valid) {
-      this.contractorService.update({_id: this.contractor._id, ...this.form.value})
+      this.contractorService.update({id: this.contractor.id, ...this.form.value})
         .subscribe((result) => {
           this.toastrService.success(`Contractor ${this.form.value.name} has been saved`);
           this.router.navigate(['app/contractors']);

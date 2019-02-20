@@ -1,8 +1,9 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import {Contractor} from '../model/contractor.model';
-import {tap} from 'rxjs/operators';
+import { ContractorModel } from '../model/contractor.model';
+import { map } from 'rxjs/operators';
+import { plainToClass } from 'class-transformer';
 
 @Injectable({
   providedIn: 'root'
@@ -14,27 +15,30 @@ export class ContractorService {
   ) { }
 
   list(): Observable<any[]> {
-    return this.http.get<any[]>('contractors');
-  }
-
-  get(id: string): Observable<Contractor> {
-    return this.http.get<Contractor>(`contractor/${id}`)
+    return this.http.get<any[]>('contractors')
       .pipe(
-        tap(result => new Contractor().deserialize(result))
+        map(result => plainToClass(ContractorModel, result))
       );
   }
 
-  create(item: Contractor): Observable<Contractor> {
-    return this.http.post<Contractor>('contractor', item)
+  get(id: string): Observable<ContractorModel> {
+    return this.http.get<ContractorModel>(`contractor/${id}`)
       .pipe(
-        tap(result => new Contractor().deserialize(result))
+        map(result => plainToClass(ContractorModel, result))
       );
   }
 
-  update(item: Contractor): Observable<Contractor> {
-    return this.http.put<Contractor>(`contractor/${item._id}`, item)
+  create(item: ContractorModel): Observable<ContractorModel> {
+    return this.http.post<ContractorModel>('contractor', item)
       .pipe(
-        tap(result => new Contractor().deserialize(result))
+        map(result => plainToClass(ContractorModel, result))
+      );
+  }
+
+  update(item: ContractorModel): Observable<ContractorModel> {
+    return this.http.put<ContractorModel>(`contractor/${item.id}`, item)
+      .pipe(
+        map(result => plainToClass(ContractorModel, result))
       );
   }
 

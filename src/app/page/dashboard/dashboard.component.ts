@@ -1,6 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {TransactionService} from '../../service/transaction.service';
 import {FiltersState} from '../../state/filters.state';
+import {TransactionModel} from '../../model/transaction.model';
 
 @Component({
   selector: 'app-dashboard',
@@ -8,7 +9,7 @@ import {FiltersState} from '../../state/filters.state';
   styleUrls: ['./dashboard.component.scss']
 })
 export class DashboardComponent implements OnInit {
-  latestTransactions: any[] = null;
+  latestTransactions: TransactionModel[] = null;
   filters: FiltersState;
 
   constructor(

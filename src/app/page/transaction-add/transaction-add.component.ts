@@ -6,16 +6,19 @@ import {DatePipe} from '@angular/common';
 import {TransactionService} from '../../service/transaction.service';
 import {ToastrService} from 'ngx-toastr';
 import {ActivatedRoute, Router} from '@angular/router';
-import {BudgetPrepare} from '../../utils/budget-prepare';
 import {CategoryService} from '../../service/category.service';
 import {ContractorService} from '../../service/contractor.service';
 import {AccountService} from '../../service/account.service';
 import * as moment from 'moment';
 import {DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE} from '@angular/material/core';
 import {MAT_MOMENT_DATE_ADAPTER_OPTIONS, MAT_MOMENT_DATE_FORMATS, MomentDateAdapter} from '@angular/material-moment-adapter';
-import {Contractor} from '../../model/contractor.model';
+import { ContractorModel} from '../../model/contractor.model';
 import {map, startWith} from 'rxjs/operators';
-import {Transaction} from '../../model/transaction.model';
+import {TransactionModel} from '../../model/transaction.model';
+import {plainToClass} from 'class-transformer';
+import {CategoryModel} from '../../model/category.model';
+import {AccountModel} from '../../model/account.model';
+import {CategoryGroupModel} from '../../model/category-group.model';
 
 export const MY_FORMATS = {
   parse: {
@@ -41,10 +44,10 @@ export const MY_FORMATS = {
   ],
 })
 export class TransactionAddComponent implements OnInit {
-  categoryList: any;
-  contractorList: Contractor[];
-  contractorListFiltered: Observable<Contractor[]>;
-  accountList: any[];
+  categoryList: CategoryGroupModel[];
+  contractorList: ContractorModel[];
+  contractorListFiltered: Observable<ContractorModel[]>;
+  accountList: AccountModel[];
   isLoading: boolean;
   form: FormGroup;
   params: any = {
@@ -73,10 +76,10 @@ export class TransactionAddComponent implements OnInit {
       this.accountService.list()
     );
 
-    combine.subscribe((values) => {
-      this.categoryList = values[0];
-      this.contractorList = values[1];
-      this.accountList = values[2];
+    combine.subscribe(([categoryList, contractorList, accountList]: [CategoryGroupModel[], ContractorModel[], AccountModel[]]) => {
+      this.categoryList = categoryList;
+      this.contractorList = contractorList;
+      this.accountList = accountList;
 
       this.isLoading = false;
 
@@ -84,7 +87,7 @@ export class TransactionAddComponent implements OnInit {
 
       this.contractorListFiltered = this.form.get('contractor').valueChanges
         .pipe(
-          startWith<string | Contractor>(''),
+          startWith<string | ContractorModel>(''),
           map(value => typeof value === 'string' ? value : value.name),
           map(name => name ? this._contractorFilter(name) : this.contractorList.slice())
         );
@@ -115,13 +118,13 @@ export class TransactionAddComponent implements OnInit {
     });
   }
 
-  private _contractorFilter(value: string): Contractor[] {
+  private _contractorFilter(value: string): ContractorModel[] {
     const filterValue = value.toLowerCase();
 
     return this.contractorList.filter(option => option.name.toLowerCase().includes(filterValue));
   }
 
-  contractorAutocompleteDisplay(contractor?: Contractor): string | undefined {
+  contractorAutocompleteDisplay(contractor?: ContractorModel): string | undefined {
     return contractor ? contractor.name : undefined;
   }
 
@@ -131,7 +134,7 @@ export class TransactionAddComponent implements OnInit {
         .subscribe(
           (result) => {
             const price = (result.income > 0) ? result.income : result.expense;
-            this.toastrService.success(`Transaction for ${price} has been saved`);
+            this.toastrService.success(`Transaction for ${price} has been created`);
             this.router.navigate(['app/transactions']);
           }
         );

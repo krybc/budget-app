@@ -1,8 +1,9 @@
 import { Injectable } from '@angular/core';
-import {Observable} from 'rxjs';
-import {HttpClient} from '@angular/common/http';
-import {Account} from '../model/account.model';
-import {map, tap} from 'rxjs/operators';
+import { Observable } from 'rxjs';
+import { HttpClient } from '@angular/common/http';
+import { AccountModel } from '../model/account.model';
+import { map } from 'rxjs/operators';
+import { plainToClass } from 'class-transformer';
 
 @Injectable({
   providedIn: 'root'
@@ -13,28 +14,31 @@ export class AccountService {
     private http: HttpClient,
   ) { }
 
-  list(filters?: any): Observable<Account[]> {
-    return this.http.get<Account[]>('accounts', ...filters);
-      // .pipe(
-      //   map((item) => {
-      //     console.log(item);
-      //     return new Account().deserialize(item);
-      //   })
-      // );
-  }
-
-  get(id: string): Observable<Account> {
-    return this.http.get<Account>(`account/${id}`)
+  list(filters?: any): Observable<AccountModel[]> {
+    return this.http.get<AccountModel[]>('accounts', ...filters)
       .pipe(
-        tap((item) => new Account().deserialize(item))
+        map(result => plainToClass(AccountModel, result as Object[], { strategy: 'excludeAll' }))
       );
   }
 
-  create(item: Account): Observable<Account> {
-    return this.http.post<Account>('account', item);
+  get(id: string): Observable<AccountModel> {
+    return this.http.get<AccountModel>(`account/${id}`)
+      .pipe(
+        map(result => plainToClass(AccountModel, result as Object, { strategy: 'excludeAll' }))
+      );
   }
 
-  update(item: Account): Observable<Account> {
-    return this.http.put<Account>(`account/${item._id}`, item);
+  create(item: AccountModel): Observable<AccountModel> {
+    return this.http.post<AccountModel>('account', item)
+      .pipe(
+        map(result => plainToClass(AccountModel, result as Object))
+      );
+  }
+
+  update(item: AccountModel): Observable<AccountModel> {
+    return this.http.put<AccountModel>(`account/${item.id}`, item)
+      .pipe(
+        map(result => plainToClass(AccountModel, result as Object))
+      );
   }
 }

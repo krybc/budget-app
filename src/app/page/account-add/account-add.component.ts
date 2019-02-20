@@ -1,10 +1,10 @@
-import {Component, Input, OnInit, TemplateRef} from '@angular/core';
-import {BehaviorSubject} from 'rxjs';
+import {Component, OnInit} from '@angular/core';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
 import {AccountService} from '../../service/account.service';
 import {ToastrService} from 'ngx-toastr';
 import {Router} from '@angular/router';
-import {Account} from '../../model/account.model';
+import {AccountModel} from '../../model/account.model';
+import {plainToClass} from 'class-transformer';
 
 @Component({
   selector: 'app-account-add',
@@ -38,7 +38,7 @@ export class AccountAddComponent implements OnInit {
 
   accountCreate() {
     if (this.form.valid) {
-      this.accountService.create(new Account().deserialize(this.form.value))
+      this.accountService.create(plainToClass(AccountModel, this.form.value as Object))
         .subscribe(
           (result) => {
             this.toastrService.success(`Konto ${result.name} zostało dodane`);

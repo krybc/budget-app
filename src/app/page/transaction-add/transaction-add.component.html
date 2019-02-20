@@ -1,11 +1,11 @@
 <div class="p-3">
   <div fxLayout="row" fxLayoutAlign="center start">
     <div fxLayout="column" fxFlex="50" [fxFlex.sm]="80" [fxFlex.xs]="100">
-      <mat-card *ngIf="isLoading === false; loading">
+      <mat-card *ngIf="isLoading === false; else loading">
         <form [formGroup]="form" (submit)="transactionCreate()">
           <mat-form-field style="width: 100%;">
             <mat-select placeholder="Account" formControlName="account">
-              <mat-option *ngFor="let option of accountList" [value]="option._id">
+              <mat-option *ngFor="let option of accountList" [value]="option">
                 {{option.name}}
               </mat-option>
             </mat-select>
@@ -13,7 +13,7 @@
           <mat-form-field style="width: 100%;">
             <mat-select placeholder="Category" formControlName="category">
               <mat-optgroup *ngFor="let group of categoryList" [label]="group.name">
-                <mat-option *ngFor="let option of group.categories" [value]="option._id">
+                <mat-option *ngFor="let option of group.categories" [value]="option">
                   {{option.name}}
                 </mat-option>
               </mat-optgroup>

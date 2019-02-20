@@ -2,8 +2,8 @@ import {Injectable} from '@angular/core';
 import {Store} from './store';
 import {FiltersState} from '../state/filters.state';
 import * as moment from 'moment';
-import {Category} from '../model/category.model';
-import {Contractor} from '../model/contractor.model';
+import { CategoryModel } from '../model/category.model';
+import { ContractorModel } from '../model/contractor.model';
 
 @Injectable()
 export class FiltersStore extends Store<FiltersState> {
@@ -18,14 +18,14 @@ export class FiltersStore extends Store<FiltersState> {
     });
   }
 
-  setCategory(category: Category) {
+  setCategory(category: CategoryModel) {
     this.setState({
       ...this.state,
       ...{category}
     });
   }
 
-  setContractor(contractor: Contractor): void {
+  setContractor(contractor: ContractorModel): void {
     this.setState({
       ...this.state,
       ...{contractor}

@@ -1,7 +1,7 @@
 <div class="p-3">
   <div fxLayout="row" fxLayoutAlign="center start">
     <div fxLayout="column" fxFlex="50" [fxFlex.sm]="80" [fxFlex.xs]="100">
-      <mat-card *ngIf="isLoading === false; loading">
+      <mat-card *ngIf="isLoading === false; else loading">
         <mat-card-title>
           Edit category <b>{{category.name}}</b>
         </mat-card-title>
@@ -18,7 +18,6 @@
                 Delete
               </button>
             </div>
-
           </form>
         </mat-card-content>
       </mat-card>

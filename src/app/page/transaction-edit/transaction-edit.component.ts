@@ -1,7 +1,6 @@
 import {Component, Input, OnInit, TemplateRef} from '@angular/core';
-// import {BsModalRef, BsModalService} from 'ngx-bootstrap';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
-import {BehaviorSubject, forkJoin} from 'rxjs';
+import {forkJoin} from 'rxjs';
 import {TransactionService} from '../../service/transaction.service';
 import {ToastrService} from 'ngx-toastr';
 import {ActivatedRoute, Router} from '@angular/router';
@@ -10,6 +9,10 @@ import {CategoryService} from '../../service/category.service';
 import {AccountService} from '../../service/account.service';
 import {DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE} from '@angular/material/core';
 import {MAT_MOMENT_DATE_ADAPTER_OPTIONS, MomentDateAdapter} from '@angular/material-moment-adapter';
+import {CategoryGroupModel} from '../../model/category-group.model';
+import {ContractorModel} from '../../model/contractor.model';
+import {AccountModel} from '../../model/account.model';
+import {TransactionModel} from '../../model/transaction.model';
 
 export const MY_FORMATS = {
   parse: {
@@ -34,10 +37,10 @@ export const MY_FORMATS = {
   ],
 })
 export class TransactionEditComponent implements OnInit {
-  categoryList: any;
-  contractorList: any[];
-  accountList: any[];
-  transaction: any;
+  categoryList: CategoryGroupModel[];
+  contractorList: ContractorModel[];
+  accountList: AccountModel[];
+  transaction: TransactionModel;
   isLoading: boolean;
   form: FormGroup;
 
@@ -58,10 +61,10 @@ export class TransactionEditComponent implements OnInit {
       this.accountService.list()
     );
 
-    combine.subscribe((values) => {
-      this.categoryList = values[0];
-      this.contractorList = values[1];
-      this.accountList = values[2];
+    combine.subscribe(([categoryList, contractorList, accountList]: [CategoryGroupModel[], ContractorModel[], AccountModel[]]) => {
+      this.categoryList = categoryList;
+      this.contractorList = contractorList;
+      this.accountList = accountList;
     });
 
     this.route.params.subscribe((params) => {
@@ -80,16 +83,13 @@ export class TransactionEditComponent implements OnInit {
 
   createForm() {
     this.form = new FormGroup({
-      _id: new FormControl(this.transaction._id, [
+      category: new FormControl(this.transaction.category, [
         Validators.required
       ]),
-      category: new FormControl(this.transaction.category._id, [
+      account: new FormControl(this.transaction.account, [
         Validators.required
       ]),
-      account: new FormControl(this.transaction.account._id, [
-        Validators.required
-      ]),
-      contractor: new FormControl(this.transaction.contractor._id, [
+      contractor: new FormControl(this.transaction.contractor, [
         Validators.required
       ]),
       date: new FormControl(this.transaction.date, [
@@ -103,7 +103,7 @@ export class TransactionEditComponent implements OnInit {
 
   transactionUpdate() {
     if (this.form.valid) {
-      this.transactionService.update(this.form.value)
+      this.transactionService.update({id: this.transaction.id, ...this.form.value})
         .subscribe(
           (result) => {
             const price = (result.income > 0) ? result.income : result.expense;

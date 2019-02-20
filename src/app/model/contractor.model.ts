@@ -1,13 +1,15 @@
-import {Deserializable} from './deserializable.model';
+import {Expose} from 'class-transformer';
 
-export class Contractor implements Deserializable {
-  _id: string;
+export class ContractorModel {
+  @Expose({ name: '_id' })
+  id: string;
+
+  @Expose()
   name: string;
-  street: string;
-  city: string;
 
-  deserialize(input: any) {
-    Object.assign(this, input);
-    return this;
-  }
+  @Expose()
+  street: string;
+
+  @Expose()
+  city: string;
 }

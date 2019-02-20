@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {ContractorService} from '../../service/contractor.service';
-import {BehaviorSubject} from 'rxjs';
-import {ToastrService} from 'ngx-toastr';
+import {ContractorModel} from '../../model/contractor.model';
 
 @Component({
   selector: 'app-contractor-list',
@@ -9,7 +8,7 @@ import {ToastrService} from 'ngx-toastr';
   styleUrls: ['./contractor-list.component.scss']
 })
 export class ContractorListComponent implements OnInit {
-  contractorList: any[];
+  contractorList: ContractorModel[];
   displayedColumns: string[] = ['name', 'street', 'city'];
 
   constructor(

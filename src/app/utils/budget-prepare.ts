@@ -27,7 +27,7 @@ export class BudgetPrepare {
         category.income = 0;
         category.expense = 0;
 
-        this.transactionList.filter(transaction => transaction.category._id.toString() === category._id.toString()).forEach((transaction) => {
+        this.transactionList.filter(transaction => transaction.category.id === category.id).forEach((transaction) => {
           if (transaction.income > 0) {
             category.income += transaction.income;
             group.income += transaction.income;

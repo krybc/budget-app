@@ -3,7 +3,10 @@ import {HttpClient} from '@angular/common/http';
 import {Observable} from 'rxjs';
 import {DatePipe} from '@angular/common';
 import * as moment from 'moment';
-import {FiltersState} from '../state/filters.state';
+import { FiltersState } from '../state/filters.state';
+import { TransactionModel } from '../model/transaction.model';
+import { map } from 'rxjs/operators';
+import { plainToClass } from 'class-transformer';
 
 @Injectable({
   providedIn: 'root',
@@ -15,24 +18,35 @@ export class TransactionService {
     private datePipe: DatePipe,
   ) { }
 
-  list(filters?: FiltersState, sort: any = null, limit: number = 1000): Observable<any[]> {
+  list(filters?: FiltersState, sort: any = null, limit: number = 1000): Observable<TransactionModel[]> {
     const params = this.prepareParams(filters, sort, limit);
 
-    return this.http.get<any[]>('transactions', { ...params });
+    return this.http.get<any[]>('transactions', { ...params })
+      .pipe(
+        map(result => plainToClass(TransactionModel, result))
+      );
   }
 
-  get(id: string): Observable<any[]> {
-    return this.http.get<any[]>(`transaction/${id}`);
+  get(id: string): Observable<TransactionModel> {
+    return this.http.get<any[]>(`transaction/${id}`)
+      .pipe(
+        map(result => plainToClass(TransactionModel, result as Object))
+      );
   }
 
-  create(transaction: any): Observable<any> {
-    transaction.contractor = transaction.contractor._id;
+  create(transaction: TransactionModel): Observable<TransactionModel> {
     console.log(transaction);
-    return this.http.post('transaction', transaction);
+    return this.http.post('transaction', {...transaction, ...{category: transaction.category.id, account: transaction.account.id, contractor: transaction.contractor.id}})
+      .pipe(
+        map(result => plainToClass(TransactionModel, result as Object))
+      );
   }
 
-  update(transaction: any): Observable<any> {
-    return this.http.put(`transaction/${transaction._id}`, transaction);
+  update(transaction: TransactionModel): Observable<TransactionModel> {
+    return this.http.put(`transaction/${transaction.id}`, transaction)
+      .pipe(
+        map(result => plainToClass(TransactionModel, result as Object))
+      );
   }
 
   delete(id: any): Observable<any> {
@@ -54,11 +68,11 @@ export class TransactionService {
     }
 
     if (filters.category !== null) {
-      result = {...result, ...{category: filters.category._id}};
+      result = {...result, ...{category: filters.category.id}};
     }
 
     if (filters.contractor !== null) {
-      result = {...result, ...{contractor: filters.contractor._id}};
+      result = {...result, ...{contractor: filters.contractor.id}};
     }
 
     return { params: {...result, ...sort, limit: limit }};

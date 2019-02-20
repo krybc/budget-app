@@ -1,7 +1,7 @@
 <div class="p-3">
   <div fxLayout="row" fxLayoutAlign="center start">
     <div fxLayout="column" fxFlex="50" [fxFlex.sm]="80" [fxFlex.xs]="100">
-      <mat-card>
+      <mat-card *ngIf="isLoading === false; else loading">
         <mat-card-title>
           {{account.name}} edit
         </mat-card-title>
@@ -22,3 +22,7 @@
     </div>
   </div>
 </div>
+
+<ng-template #loading>
+  <mat-spinner></mat-spinner>
+</ng-template>

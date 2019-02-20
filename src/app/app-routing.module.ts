@@ -5,7 +5,7 @@ import {AuthLoginComponent} from './page/auth-login/auth-login.component';
 import {AppLayoutComponent} from './layout/app-layout/app-layout.component';
 import {DashboardComponent} from './page/dashboard/dashboard.component';
 import {AccountListComponent} from './page/account-list/account-list.component';
-import {AuthGuardService} from './service/auth-guard.service';
+import {AuthGuardService} from './guard/auth-guard.service';
 import {AccountEditComponent} from './page/account-edit/account-edit.component';
 import {ContractorListComponent} from './page/contractor-list/contractor-list.component';
 import {ContractorEditComponent} from './page/contractor-edit/contractor-edit.component';

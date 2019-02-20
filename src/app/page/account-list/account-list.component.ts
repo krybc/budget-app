@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {AccountService} from '../../service/account.service';
+import {AccountModel} from '../../model/account.model';
 
 @Component({
   selector: 'app-account-list',
@@ -7,7 +8,7 @@ import {AccountService} from '../../service/account.service';
   styleUrls: ['./account-list.component.scss']
 })
 export class AccountListComponent implements OnInit {
-  accountList: any[];
+  accountList: AccountModel[];
   displayedColumns: string[] = ['name', 'amount'];
 
   constructor(
@@ -20,7 +21,7 @@ export class AccountListComponent implements OnInit {
 
   getList() {
     this.accountService.list()
-      .subscribe(response => { this.accountList = response; });
+      .subscribe(response => this.accountList = response);
   }
 
 }

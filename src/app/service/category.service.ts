@@ -1,8 +1,10 @@
 import { Injectable } from '@angular/core';
-import {HttpClient} from '@angular/common/http';
-import {Observable, pipe} from 'rxjs';
-import {Category} from '../model/category.model';
-import {tap} from 'rxjs/operators';
+import { HttpClient } from '@angular/common/http';
+import { Observable } from 'rxjs';
+import { CategoryModel } from '../model/category.model';
+import { map } from 'rxjs/operators';
+import { plainToClass } from 'class-transformer';
+import {CategoryGroupModel} from '../model/category-group.model';
 
 @Injectable({
   providedIn: 'root'
@@ -14,35 +16,41 @@ export class CategoryService {
   ) { }
 
   list(filters?: any): Observable<any[]> {
-    return this.http.get<any[]>('categories', ...filters);
-  }
-
-  get(id: string): Observable<Category> {
-    return this.http.get<Category>(`category/${id}`)
+    return this.http.get<any[]>('categories', ...filters)
       .pipe(
-        tap(result => new Category().deserialize(result))
+        map(items => plainToClass(CategoryModel, items))
       );
   }
 
-  tree(): Observable<any[]> {
-    return this.http.get<any[]>('categories/tree');
-  }
-
-  create(item: Category): Observable<Category> {
-    return this.http.post<Category>('category', item)
+  get(id: string): Observable<CategoryModel> {
+    return this.http.get<CategoryModel>(`category/${id}`)
       .pipe(
-        tap(result => new Category().deserialize(result))
+        map(item => plainToClass(CategoryModel, item))
       );
   }
 
-  update(item: Category): Observable<Category> {
-    return this.http.put<Category>(`category/${item._id}`, item)
+  tree(): Observable<CategoryGroupModel[]> {
+    return this.http.get<any[]>('categories/tree')
       .pipe(
-        tap(result => new Category().deserialize(result))
+        map(result => plainToClass(CategoryGroupModel, result as Object[]))
       );
   }
 
-  delete(id: any): Observable<any> {
+  create(item: CategoryModel): Observable<CategoryModel> {
+    return this.http.post<CategoryModel>('category', item)
+      .pipe(
+        map(result => plainToClass(CategoryModel, result as Object))
+      );
+  }
+
+  update(item: CategoryModel): Observable<CategoryModel> {
+    return this.http.put<CategoryModel>(`category/${item.id}`, item)
+      .pipe(
+        map(result => plainToClass(CategoryModel, result as Object))
+      );
+  }
+
+  delete(id: string): Observable<any> {
     return this.http.delete(`category/${id}`);
   }
 }

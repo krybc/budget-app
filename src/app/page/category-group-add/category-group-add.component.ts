@@ -4,6 +4,8 @@ import {BehaviorSubject} from 'rxjs';
 import {CategoryGroupService} from '../../service/category-group.service';
 import {ToastrService} from 'ngx-toastr';
 import {Router} from '@angular/router';
+import {plainToClass} from 'class-transformer';
+import {CategoryGroupModel} from '../../model/category-group.model';
 
 @Component({
   selector: 'app-category-group-add',
@@ -11,6 +13,7 @@ import {Router} from '@angular/router';
   styleUrls: ['./category-group-add.component.scss']
 })
 export class CategoryGroupAddComponent implements OnInit {
+  isLoading = true;
   form: FormGroup;
   types = [
     {
@@ -31,6 +34,7 @@ export class CategoryGroupAddComponent implements OnInit {
 
   ngOnInit() {
     this.createForm();
+    this.isLoading = false;
   }
 
   createForm() {
@@ -49,7 +53,7 @@ export class CategoryGroupAddComponent implements OnInit {
       this.categoryGroupService.create(this.form.value)
         .subscribe(
           (result) => {
-            this.toastrService.success(`Grupa ${result.name} została dodana`);
+            this.toastrService.success(`Group ${result.name} has been created`);
             this.router.navigate(['app/budget']);
           }
         );

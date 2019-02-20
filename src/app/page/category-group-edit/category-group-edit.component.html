@@ -1,13 +1,13 @@
 <div class="p-3">
   <div fxLayout="row" fxLayoutAlign="center start">
     <div fxLayout="column" fxFlex="50" [fxFlex.sm]="80" [fxFlex.xs]="100">
-      <mat-card *ngIf="isLoading === false; loading">
+      <mat-card *ngIf="isLoading === false; else loading">
         <mat-card-title>
           Edit <b>{{categoryGroup.name}}</b>
         </mat-card-title>
         <mat-card-content>
           <form [formGroup]="form" (submit)="categoryGroupUpdate()">
-            <input formControlName="_id" type="hidden">
+            <input formControlName="id" type="hidden">
             <input formControlName="type" type="hidden">
             <mat-form-field style="width: 100%;">
               <input matInput placeholder="Name" formControlName="name">

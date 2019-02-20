@@ -1,8 +1,9 @@
 import { Injectable } from '@angular/core';
 import {Observable} from 'rxjs';
 import {HttpClient} from '@angular/common/http';
-import {CategoryGroup} from '../model/categoryGroup.model';
-import {tap} from 'rxjs/operators';
+import {CategoryGroupModel} from '../model/category-group.model';
+import {map} from 'rxjs/operators';
+import {plainToClass} from 'class-transformer';
 
 @Injectable({
   providedIn: 'root'
@@ -13,18 +14,24 @@ export class CategoryGroupService {
     private http: HttpClient,
   ) { }
 
-  get(id: string): Observable<any[]> {
-    return this.http.get<any[]>(`categoryGroup/${id}`);
-  }
-
-  create(item: any): Observable<any> {
-    return this.http.post('categoryGroup', item);
-  }
-
-  update(item: CategoryGroup): Observable<CategoryGroup> {
-    return this.http.put<CategoryGroup>(`categoryGroup/${item._id}`, item)
+  get(id: string): Observable<CategoryGroupModel> {
+    return this.http.get<any[]>(`categoryGroup/${id}`)
       .pipe(
-        tap(result => new CategoryGroup().deserialize(result))
+        map(result => plainToClass(CategoryGroupModel, result as Object))
+      );
+  }
+
+  create(item: CategoryGroupModel): Observable<CategoryGroupModel> {
+    return this.http.post('categoryGroup', item)
+      .pipe(
+        map(result => plainToClass(CategoryGroupModel, result as Object))
+      );
+  }
+
+  update(item: CategoryGroupModel): Observable<CategoryGroupModel> {
+    return this.http.put<CategoryGroupModel>(`categoryGroup/${item.id}`, item)
+      .pipe(
+        map(result => plainToClass(CategoryGroupModel, result as Object))
       );
   }
 }

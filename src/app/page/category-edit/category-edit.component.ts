@@ -4,6 +4,7 @@ import {CategoryService} from '../../service/category.service';
 import {ActivatedRoute, Router} from '@angular/router';
 import {ToastrService} from 'ngx-toastr';
 import {MatDialog} from '@angular/material';
+import {CategoryModel} from '../../model/category.model';
 
 @Component({
   selector: 'app-category-edit',
@@ -11,7 +12,7 @@ import {MatDialog} from '@angular/material';
   styleUrls: ['./category-edit.component.scss']
 })
 export class CategoryEditComponent implements OnInit {
-  category: any;
+  category: CategoryModel;
   isLoading: boolean;
   form: FormGroup;
 
@@ -49,7 +50,7 @@ export class CategoryEditComponent implements OnInit {
 
   categoryUpdate() {
     if (this.form.valid) {
-      this.categoryService.update({_id: this.category._id, ...this.form.value})
+      this.categoryService.update({id: this.category.id, ...this.form.value})
         .subscribe((result) => {
           this.toastrService.success(`Category ${this.form.value.name} has been saved`);
           this.router.navigate(['app/budget']);
@@ -58,7 +59,7 @@ export class CategoryEditComponent implements OnInit {
   }
 
   categoryDelete() {
-    this.categoryService.delete(this.category._id)
+    this.categoryService.delete(this.category.id)
       .subscribe(result => {
         this.toastrService.success(`Category ${this.category.name} has been deleted`);
         this.router.navigate(['app/budget']);

@@ -8,6 +8,10 @@ import {ToastrService} from 'ngx-toastr';
 import {AccountService} from '../../service/account.service';
 import {FiltersState} from '../../state/filters.state';
 import {FiltersStore} from '../../store/filters.store';
+import {TransactionModel} from '../../model/transaction.model';
+import {CategoryModel} from '../../model/category.model';
+import {ContractorModel} from '../../model/contractor.model';
+import {AccountModel} from '../../model/account.model';
 
 @Component({
   selector: 'app-transaction-list',
@@ -15,10 +19,10 @@ import {FiltersStore} from '../../store/filters.store';
   styleUrls: ['./transaction-list.component.scss']
 })
 export class TransactionListComponent implements OnInit {
-  transactionList: any[];
-  categoryList: any[];
-  contractorList: any[];
-  accountList: any[];
+  transactionList: TransactionModel[];
+  categoryList: CategoryModel[];
+  contractorList: ContractorModel[];
+  accountList: AccountModel[];
   filters: FiltersState;
 
   constructor(
@@ -45,23 +49,17 @@ export class TransactionListComponent implements OnInit {
 
   prepareCategoryList() {
     this.categoryService.tree()
-      .subscribe((result) => {
-        this.categoryList = result;
-      });
+      .subscribe((result) => this.categoryList = result);
   }
 
   prepareContractorList() {
     this.contractorService.list()
-      .subscribe((result) => {
-        this.contractorList = result;
-      });
+      .subscribe((result) => this.contractorList = result);
   }
 
   prepareAccountList() {
     this.accountService.list()
-      .subscribe((result) => {
-        this.accountList = result;
-      });
+      .subscribe((result) => this.accountList = result);
   }
 
   prepareTransactionList() {
@@ -76,10 +74,9 @@ export class TransactionListComponent implements OnInit {
   }
 
   deleteConfirm(transaction) {
-    console.log(transaction);
     this.transactionService.delete(transaction._id)
       .subscribe((result) => {
-        this.toastrService.success(`Transakcja została usunięta`);
+        this.toastrService.success(`Transaction has been deleted`);
         this.prepareTransactionList();
       });
   }
