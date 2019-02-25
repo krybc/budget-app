@@ -9,7 +9,7 @@
     <mat-select placeholder="Category" formControlName="category" (selectionChange)="onChangeCategory($event)">
       <mat-option [value]="null">All categories</mat-option>
       <mat-optgroup *ngFor="let group of categoryList" [label]="group.name">
-        <mat-option *ngFor="let option of group.categories" [value]="option.id">
+        <mat-option *ngFor="let option of group.categories" [value]="option">
           {{option.name}}
         </mat-option>
       </mat-optgroup>
@@ -18,7 +18,7 @@
   <mat-form-field>
     <mat-select placeholder="Contractor" formControlName="contractor" (selectionChange)="onChangeContractor($event)">
       <mat-option [value]="null">All contractors</mat-option>
-      <mat-option *ngFor="let option of contractorList" [value]="option.id">
+      <mat-option *ngFor="let option of contractorList" [value]="option">
         {{option.name}}
       </mat-option>
     </mat-select>
