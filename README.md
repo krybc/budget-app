@@ -28,7 +28,7 @@ This is a front-end of home budgeting app.
 - [ ] Feature: Statistics for accounts
 - [ ] Change dashboard stats to three months comparison
 - [ ] Add modals for delete operations confirmation
-- [ ] Responsive ennhancements on main menu
+- [ ] Responsive improvements on main menu
 
 ### 0.1.0
 
@@ -37,6 +37,6 @@ This is a front-end of home budgeting app.
 - [ ] Removing category
 - [x] Transactions list filtering by month
 - [ ] Travis CI and Coveralls integration
-- [ ] e2e testing for auth
-- [ ] unit testing for pages, components and services
+- [ ] e2e tests for auth
+- [ ] unit tests for pages, components and services
 

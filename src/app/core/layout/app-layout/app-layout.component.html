@@ -1,0 +1,34 @@
+<mat-sidenav-container class="example-container">
+  <mat-sidenav #sidenav mode="side" opened>
+    <app-sidebar [user]="user"></app-sidebar>
+  </mat-sidenav>
+
+  <mat-sidenav-content>
+    <header>
+      <mat-toolbar>
+        <mat-toolbar-row>
+          <button mat-icon-button (click)="sidenav.toggle()">
+            <fa-icon [icon]="['fas', 'bars']"></fa-icon>
+          </button>
+          <span style="flex: 1 1 auto;"></span>
+          <div class="user">
+            <button mat-button [matMenuTriggerFor]="profileMenu">
+              <fa-icon [icon]="['fas', 'user-circle']"></fa-icon>
+              {{ user.firstName }}
+            </button>
+            <mat-menu #profileMenu="matMenu">
+              <button mat-menu-item>Change password</button>
+              <button mat-menu-item (click)="logout()">
+                <fa-icon [icon]="['fas', 'sign-out-alt']"></fa-icon>
+                Logout
+              </button>
+            </mat-menu>
+          </div>
+        </mat-toolbar-row>
+      </mat-toolbar>
+    </header>
+
+    <router-outlet></router-outlet>
+
+  </mat-sidenav-content>
+</mat-sidenav-container>

@@ -1,0 +1,42 @@
+<ng-container *ngIf="loadingStatus === 'success'; else loading">
+  <mat-toolbar color="primary">
+    <mat-toolbar-row>
+      <h1>Contractors</h1>
+      <span style="flex: 1 1 auto"></span>
+      <button mat-raised-button color="accent" routerLink="/app/contractors/add">
+        <fa-icon [icon]="['fas', 'plus-circle']"></fa-icon>
+        <span> Add contractor</span>
+      </button>
+    </mat-toolbar-row>
+  </mat-toolbar>
+
+  <div class="p-16">
+    <mat-card>
+      <table mat-table [dataSource]="contractorList" style="width: 100%">
+        <ng-container matColumnDef="name">
+          <th mat-header-cell *matHeaderCellDef> Name </th>
+          <td mat-cell *matCellDef="let element">
+            <a [routerLink]="['/app/contractors', element.id, 'edit']">{{element.name}}</a>
+          </td>
+        </ng-container>
+
+        <ng-container matColumnDef="street">
+          <th mat-header-cell *matHeaderCellDef> Street </th>
+          <td mat-cell *matCellDef="let element"> {{element.street}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="city">
+          <th mat-header-cell *matHeaderCellDef> City </th>
+          <td mat-cell *matCellDef="let element"> {{element.city}} </td>
+        </ng-container>
+
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+      </table>
+    </mat-card>
+  </div>
+</ng-container>
+
+<ng-template #loading>
+  <app-loading></app-loading>
+</ng-template>

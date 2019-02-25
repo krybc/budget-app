@@ -1,0 +1,44 @@
+<ng-container *ngIf="isLoading === false; else loading">
+  <mat-toolbar color="primary">
+    <mat-toolbar-row>
+      <app-back></app-back>
+      <h1>Add account</h1>
+    </mat-toolbar-row>
+  </mat-toolbar>
+
+  <div class="p-16">
+    <div fxLayout="row" fxLayoutAlign="center start">
+      <div fxLayout="column" fxFlex="50" [fxFlex.sm]="80" [fxFlex.xs]="100">
+        <mat-card>
+          <form [formGroup]="form" (submit)="accountCreate()">
+            <mat-card-content>
+              <div class="row">
+                <div class="col">
+                  <mat-form-field class="full-width">
+                    <input matInput placeholder="Name" formControlName="name">
+                  </mat-form-field>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col">
+                  <mat-form-field class="full-width">
+                    <input matInput placeholder="Amount" formControlName="amount">
+                  </mat-form-field>
+                </div>
+              </div>
+            </mat-card-content>
+            <mat-card-actions>
+              <button mat-raised-button color="primary">
+                Add
+              </button>
+            </mat-card-actions>
+          </form>
+        </mat-card>
+      </div>
+    </div>
+  </div>
+</ng-container>
+
+<ng-template #loading>
+  <app-loading></app-loading>
+</ng-template>

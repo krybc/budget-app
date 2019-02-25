@@ -1,9 +1,6 @@
 //@import "assets/variables";
 @import '~ngx-toastr/toastr.css';
-@import "themes/violet-theme";
-$config: mat-typography-config();
-@import "app/layout/app-layout-footer/app-layout-footer-theme";
-@include app-footer-theme($violet-app-theme, $config);
+@import "themes/indigo-theme";
 
 @import "assets/app";
 
@@ -15,6 +12,10 @@ app-root {
   bottom: 0;
   left: 0;
   right: 0;
+}
+
+app-app-layout {
+  height: 100%;
 }
 
 a {

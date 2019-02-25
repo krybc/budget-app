@@ -25,13 +25,16 @@ import {
   MatTooltipModule
 } from '@angular/material';
 import {FlexLayoutModule} from '@angular/flex-layout';
-import {MatMomentDateModule} from '@angular/material-moment-adapter';
 import {BrowserAnimationsModule, NoopAnimationsModule} from '@angular/platform-browser/animations';
 import {ErrorsComponent} from './component/errors/errors.component';
+import { BackComponent } from './component/back/back.component';
+import { LoadingComponent } from './component/loading/loading.component';
 
 @NgModule({
   declarations: [
     ErrorsComponent,
+    BackComponent,
+    LoadingComponent,
   ],
   imports: [
     ResponsiveModule.forRoot(),
@@ -55,7 +58,6 @@ import {ErrorsComponent} from './component/errors/errors.component';
     MatTooltipModule,
     MatChipsModule,
     MatMenuModule,
-    MatMomentDateModule,
     MatListModule,
     MatDividerModule,
     MatDialogModule,
@@ -84,13 +86,14 @@ import {ErrorsComponent} from './component/errors/errors.component';
     MatTooltipModule,
     MatChipsModule,
     MatMenuModule,
-    MatMomentDateModule,
     MatListModule,
     MatDividerModule,
     MatDialogModule,
     MatAutocompleteModule,
     MatSidenavModule,
     ErrorsComponent,
+    BackComponent,
+    LoadingComponent,
   ],
   providers: [],
 })

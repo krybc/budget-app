@@ -1,0 +1,12 @@
+@mixin app-sidebar-theme($theme, $config) {
+  $primary: map-get($theme, primary);
+  $accent: map-get($theme, accent);
+  $font-family: mat-font-family($config);
+  $color: #ffffff;
+
+  app-sidebar {
+    background-color: mat-color($primary);
+    color: $color;
+    font-family: $font-family;
+  }
+}
