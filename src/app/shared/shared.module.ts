@@ -1,7 +1,6 @@
 import {NgModule} from '@angular/core';
 import {ResponsiveModule} from 'ngx-responsive';
 import {ToastrModule} from 'ngx-toastr';
-import {FontAwesomeModule} from '@fortawesome/angular-fontawesome';
 import {PieChartModule} from '@swimlane/ngx-charts';
 import {
   MatAutocompleteModule,
@@ -13,6 +12,7 @@ import {
   MatDividerModule,
   MatFormFieldModule,
   MatGridListModule,
+  MatIconModule,
   MatInputModule,
   MatListModule,
   MatMenuModule,
@@ -41,7 +41,6 @@ import { LoadingComponent } from './component/loading/loading.component';
     ToastrModule.forRoot(),
     NoopAnimationsModule,
     BrowserAnimationsModule,
-    FontAwesomeModule,
     PieChartModule,
     MatGridListModule,
     MatFormFieldModule,
@@ -63,13 +62,13 @@ import { LoadingComponent } from './component/loading/loading.component';
     MatDialogModule,
     MatAutocompleteModule,
     MatSidenavModule,
+    MatIconModule,
   ],
   exports: [
     ResponsiveModule,
     ToastrModule,
     NoopAnimationsModule,
     BrowserAnimationsModule,
-    FontAwesomeModule,
     PieChartModule,
     MatGridListModule,
     MatFormFieldModule,
@@ -91,6 +90,7 @@ import { LoadingComponent } from './component/loading/loading.component';
     MatDialogModule,
     MatAutocompleteModule,
     MatSidenavModule,
+    MatIconModule,
     ErrorsComponent,
     BackComponent,
     LoadingComponent,

@@ -15,8 +15,6 @@ import {FiltersStore} from './store/filters.store';
 import {AuthLoginPageComponent} from './page/auth/login/login.component';
 import {RouterModule, Routes} from '@angular/router';
 import {AuthGuardService} from './guard/auth-guard.service';
-import { library } from '@fortawesome/fontawesome-svg-core';
-import { fas } from '@fortawesome/free-solid-svg-icons';
 import {DashboardModule} from '../dashboard/dashboard.module';
 import {AccountModule} from '../account/account.module';
 import {TransactionModule} from '../transaction/transaction.module';
@@ -24,8 +22,7 @@ import {ContractorModule} from '../contractor/contractor.module';
 import {CategoryModule} from '../category/category.module';
 import {CategoryGroupModule} from '../category-group/category-group.module';
 import {SidebarComponent} from './layout/app-layout/component/sidebar/sidebar.component';
-
-library.add(fas);
+import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 
 export function tokenGetter() {
   return localStorage.getItem('auth-token');
@@ -63,6 +60,7 @@ const routes: Routes = [
   ],
   imports: [
     BrowserModule,
+    BrowserAnimationsModule,
     DashboardModule,
     TransactionModule,
     ContractorModule,

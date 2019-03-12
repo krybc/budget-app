@@ -27,16 +27,14 @@ This is a front-end of home budgeting app.
 - [ ] Feature: Statistics for contractors
 - [ ] Feature: Statistics for accounts
 - [ ] Change dashboard stats to three months comparison
-- [ ] Add modals for delete operations confirmation
-- [ ] Responsive improvements on main menu
+- [ ] Travis CI and Coveralls integration
+- [ ] e2e tests for auth
+- [ ] unit tests for pages, components and services
 
 ### 0.1.0
 
 - [ ] Removing transaction
 - [ ] Removing category group
 - [ ] Removing category
+- [ ] Add modals for delete operations confirmation
 - [x] Transactions list filtering by month
-- [ ] Travis CI and Coveralls integration
-- [ ] e2e tests for auth
-- [ ] unit tests for pages, components and services
-
