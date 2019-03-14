@@ -26,8 +26,18 @@ export class ResponseInterceptor implements HttpInterceptor {
         if (err instanceof HttpErrorResponse) {
           if (err.status === 401) {
             this.authService.logout();
+            this.toastrService.info('Incorrect login or password');
+            this.router.navigate(['/auth/login']);
+          }
+
+          if (err.status === 403) {
+            this.authService.logout();
             this.toastrService.info('Your session has been expired');
             this.router.navigate(['/auth/login']);
+          }
+
+          if (err.status === 400) {
+            this.toastrService.info('Validation error. You must correct the form');
           }
         }
       })

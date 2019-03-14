@@ -29,12 +29,14 @@ import {BrowserAnimationsModule, NoopAnimationsModule} from '@angular/platform-b
 import {ErrorsComponent} from './component/errors/errors.component';
 import { BackComponent } from './component/back/back.component';
 import { LoadingComponent } from './component/loading/loading.component';
+import { DialogComponent } from './component/dialog/dialog.component';
 
 @NgModule({
   declarations: [
     ErrorsComponent,
     BackComponent,
     LoadingComponent,
+    DialogComponent,
   ],
   imports: [
     ResponsiveModule.forRoot(),
@@ -94,6 +96,9 @@ import { LoadingComponent } from './component/loading/loading.component';
     ErrorsComponent,
     BackComponent,
     LoadingComponent,
+  ],
+  entryComponents: [
+    DialogComponent,
   ],
   providers: [],
 })

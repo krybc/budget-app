@@ -12,6 +12,8 @@ import {TransactionModel} from '../../../core/model/transaction.model';
 import {CategoryModel} from '../../../core/model/category.model';
 import {ContractorModel} from '../../../core/model/contractor.model';
 import {AccountModel} from '../../../core/model/account.model';
+import {MatDialog} from '@angular/material';
+import {DialogComponent} from '../../../shared/component/dialog/dialog.component';
 
 @Component({
   selector: 'app-transaction-list',
@@ -34,6 +36,7 @@ export class TransactionListComponent implements OnInit {
     private datePipe: DatePipe,
     private toastrService: ToastrService,
     private filtersStore: FiltersStore,
+    public dialog: MatDialog,
   ) { }
 
   ngOnInit() {
@@ -67,5 +70,24 @@ export class TransactionListComponent implements OnInit {
       .subscribe((result) => {
         this.transactionList = result;
       });
+  }
+
+  public delete(transaction: TransactionModel) {
+    const dialogRef = this.dialog.open(DialogComponent, {
+      data: {
+        content: 'Do you want to delete the transaction?',
+        model: transaction
+      }
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (result === true) {
+        this.transactionService.delete(transaction.id)
+          .subscribe(result => {
+            this.prepareTransactionList();
+            this.toastrService.success('Transaction has been deleted');
+          });
+      }
+    });
   }
 }

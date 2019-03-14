@@ -21,7 +21,6 @@ export class CategoryEditComponent implements OnInit {
     private route: ActivatedRoute,
     private router: Router,
     private toastrService: ToastrService,
-    private dialog: MatDialog,
   ) { }
 
   ngOnInit() {
@@ -50,32 +49,11 @@ export class CategoryEditComponent implements OnInit {
 
   categoryUpdate() {
     if (this.form.valid) {
-      this.categoryService.update({id: this.category.id, ...this.form.value})
+      this.categoryService.update(Object.assign(this.category, this.form.value))
         .subscribe((result) => {
           this.toastrService.success(`Category ${this.form.value.name} has been saved`);
           this.router.navigate(['app/budget']);
         });
     }
   }
-
-  categoryDelete() {
-    this.categoryService.delete(this.category.id)
-      .subscribe(result => {
-        this.toastrService.success(`Category ${this.category.name} has been deleted`);
-        this.router.navigate(['app/budget']);
-      });
-  }
-
-  // openDialog(): void {
-  //   const dialogRef = this.dialog.open(DialogOverviewExampleDialog, {
-  //     width: '250px',
-  //     data: {name: this.name, animal: this.animal}
-  //   });
-  //
-  //   dialogRef.afterClosed().subscribe(result => {
-  //     console.log('The dialog was closed');
-  //     this.animal = result;
-  //   });
-  // }
-
 }

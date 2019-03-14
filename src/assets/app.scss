@@ -1,5 +1,33 @@
 @import "margins";
 
+body {
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+}
+
+app-root {
+  display: flex;
+  flex-direction: column;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+}
+
+app-app-layout {
+  height: 100%;
+}
+
+a {
+  color: black;
+  text-decoration: none;
+}
+
+.button-row button,
+.button-row a {
+  margin-right: 8px;
+}
+
 .spacer {
   flex: 1 1 auto;
 }

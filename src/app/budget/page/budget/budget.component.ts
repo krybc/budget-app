@@ -6,6 +6,12 @@ import {TransactionService} from '../../../core/service/transaction.service';
 import {FiltersStore} from '../../../core/store/filters.store';
 import {FiltersState} from '../../../core/state/filters.state';
 import {DateTime} from 'luxon';
+import {CategoryGroupModel} from '../../../core/model/category-group.model';
+import {CategoryModel} from '../../../core/model/category.model';
+import {MatDialog} from '@angular/material';
+import {DialogComponent} from '../../../shared/component/dialog/dialog.component';
+import {CategoryGroupService} from '../../../core/service/category-group.service';
+import {ToastrService} from 'ngx-toastr';
 
 @Component({
   selector: 'app-page-budget',
@@ -21,9 +27,12 @@ export class BudgetPageComponent implements OnInit {
   };
 
   constructor(
+    public dialog: MatDialog,
+    private categoryGroupService: CategoryGroupService,
     private categoryService: CategoryService,
     private transactionService: TransactionService,
     private filtersStore: FiltersStore,
+    private toastrService: ToastrService,
   ) { }
 
   ngOnInit() {
@@ -48,6 +57,44 @@ export class BudgetPageComponent implements OnInit {
 
       this.budget = budget;
       this.budgetSummary = budgetSummary;
+    });
+  }
+
+  public deleteGroup(group: CategoryGroupModel) {
+    const dialogRef = this.dialog.open(DialogComponent, {
+      data: {
+        content: 'Do you want to delete the category group?',
+        model: group
+      }
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (result === true) {
+        this.categoryGroupService.delete(group.id)
+          .subscribe(result => {
+            this.prepareBudget();
+            this.toastrService.success('Category group has been deleted');
+          });
+      }
+    });
+  }
+
+  public deleteCategory(category: CategoryModel) {
+    const dialogRef = this.dialog.open(DialogComponent, {
+      data: {
+        content: 'Do you want to delete the category?',
+        model: category
+      }
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (result === true) {
+        this.categoryService.delete(category.id)
+          .subscribe(result => {
+            this.prepareBudget();
+            this.toastrService.success('Category has been deleted');
+          });
+      }
     });
   }
 

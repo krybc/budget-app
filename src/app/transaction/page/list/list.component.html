@@ -47,8 +47,17 @@
           <td mat-cell *matCellDef="let element"> {{element.description}} </td>
         </ng-container>
 
-        <tr mat-header-row *matHeaderRowDef="['date', 'income', 'expense', 'category', 'contractor', 'description']"></tr>
-        <tr mat-row *matRowDef="let row; columns: ['date', 'income', 'expense', 'category', 'contractor', 'description'];"></tr>
+        <ng-container matColumnDef="actions">
+          <th mat-header-cell *matHeaderCellDef></th>
+          <td mat-cell *matCellDef="let element">
+            <button mat-icon-button (click)="delete(element)">
+              <mat-icon>delete</mat-icon>
+            </button>
+          </td>
+        </ng-container>
+
+        <tr mat-header-row *matHeaderRowDef="['date', 'income', 'expense', 'category', 'contractor', 'description', 'actions']"></tr>
+        <tr mat-row *matRowDef="let row; columns: ['date', 'income', 'expense', 'category', 'contractor', 'description', 'actions'];"></tr>
       </table>
     </mat-card-content>
   </mat-card>

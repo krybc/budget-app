@@ -34,4 +34,8 @@ export class CategoryGroupService {
         map(result => plainToClass(CategoryGroupModel, result as Object))
       );
   }
+
+  delete(id: string): Observable<any> {
+    return this.http.delete(`categoryGroup/${id}`);
+  }
 }
