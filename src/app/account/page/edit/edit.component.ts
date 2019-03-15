@@ -49,7 +49,7 @@ export class AccountEditComponent implements OnInit {
 
   accountUpdate() {
     if (this.form.valid) {
-      this.accountService.update(plainToClass(AccountModel, {id: this.account.id, ...this.form.value} as Object))
+      this.accountService.update(Object.assign(this.account, ...this.form.value))
         .subscribe((result) => {
           this.snackBar.open(`Account ${result.name} has been saved`, 'Close');
           this.router.navigate(['app/accounts']);
