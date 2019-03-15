@@ -1,11 +1,10 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
-import {BehaviorSubject} from 'rxjs';
-import {ToastrService} from 'ngx-toastr';
 import {ActivatedRoute, Router} from '@angular/router';
 import {CategoryService} from '../../../core/service/category.service';
 import {CategoryGroupService} from '../../../core/service/category-group.service';
 import {CategoryGroupModel} from '../../../core/model/category-group.model';
+import {MatSnackBar} from '@angular/material';
 
 @Component({
   selector: 'app-category-add',
@@ -22,7 +21,7 @@ export class CategoryAddComponent implements OnInit {
     private categoryService: CategoryService,
     private route: ActivatedRoute,
     private router: Router,
-    private toastrService: ToastrService,
+    private snackBar: MatSnackBar,
   ) { }
 
   ngOnInit() {
@@ -59,7 +58,7 @@ export class CategoryAddComponent implements OnInit {
       this.categoryService.create(this.form.value)
         .subscribe(
           (result) => {
-            this.toastrService.success(`Category ${result.name} has been created`);
+            this.snackBar.open(`Category ${result.name} has been added`, 'Close');
             this.router.navigate(['app/budget']);
           }
         );

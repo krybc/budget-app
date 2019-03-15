@@ -1,9 +1,8 @@
 import {Component, OnInit} from '@angular/core';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
 import {ContractorService} from '../../../core/service/contractor.service';
-import {ToastrService} from 'ngx-toastr';
 import {Router} from '@angular/router';
-import {Location} from '@angular/common';
+import {MatSnackBar} from '@angular/material';
 
 @Component({
   selector: 'app-contractor-add',
@@ -15,9 +14,8 @@ export class ContractorAddComponent implements OnInit {
 
   constructor(
     private contractorService: ContractorService,
-    private toastrService: ToastrService,
+    private snackBar: MatSnackBar,
     private router: Router,
-    private location: Location,
   ) { }
 
   ngOnInit() {
@@ -39,14 +37,10 @@ export class ContractorAddComponent implements OnInit {
       this.contractorService.create(this.form.value)
         .subscribe(
           (result) => {
-            this.toastrService.success(`Contractor ${result.name} has been added`);
+            this.snackBar.open(`Contractor ${result.name} has been added`, 'Close');
             this.router.navigate(['app/contractors']);
           }
         );
     }
-  }
-
-  goBack() {
-    this.location.back();
   }
 }

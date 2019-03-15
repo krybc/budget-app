@@ -1,9 +1,8 @@
-import {Component, Input, OnInit, TemplateRef} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
 import {forkJoin, Observable} from 'rxjs';
 import {DatePipe} from '@angular/common';
 import {TransactionService} from '../../../core/service/transaction.service';
-import {ToastrService} from 'ngx-toastr';
 import {ActivatedRoute, Router} from '@angular/router';
 import {CategoryService} from '../../../core/service/category.service';
 import {ContractorService} from '../../../core/service/contractor.service';
@@ -15,6 +14,7 @@ import {AccountModel} from '../../../core/model/account.model';
 import {CategoryGroupModel} from '../../../core/model/category-group.model';
 import {LuxonDateAdapter} from '../../../shared/util/luxon-date-adapter';
 import {DateTime} from 'luxon';
+import {MatSnackBar} from '@angular/material';
 
 export const MY_FORMATS = {
   parse: {
@@ -56,7 +56,7 @@ export class TransactionAddComponent implements OnInit {
     private accountService: AccountService,
     private transactionService: TransactionService,
     private datePipe: DatePipe,
-    private toastrService: ToastrService,
+    private snackBar: MatSnackBar,
     private route: ActivatedRoute,
     private router: Router,
   ) { }
@@ -128,7 +128,7 @@ export class TransactionAddComponent implements OnInit {
         .subscribe(
           (result) => {
             const price = (result.income > 0) ? result.income : result.expense;
-            this.toastrService.success(`Transaction for ${price} has been created`);
+            this.snackBar.open(`Transaction for ${price} has been added`, 'Close');
             this.router.navigate(['app/transactions']);
           }
         );

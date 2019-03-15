@@ -1,10 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import {ToastrService} from 'ngx-toastr';
 import {ActivatedRoute, Router} from '@angular/router';
 import {AccountService} from '../../../core/service/account.service';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
 import {AccountModel} from '../../../core/model/account.model';
 import {plainToClass} from 'class-transformer';
+import {MatSnackBar} from '@angular/material';
 
 @Component({
   selector: 'app-account-edit',
@@ -20,7 +20,7 @@ export class AccountEditComponent implements OnInit {
     private accountService: AccountService,
     private route: ActivatedRoute,
     private router: Router,
-    private toastrService: ToastrService,
+    private snackBar: MatSnackBar,
   ) { }
 
   ngOnInit() {
@@ -51,7 +51,7 @@ export class AccountEditComponent implements OnInit {
     if (this.form.valid) {
       this.accountService.update(plainToClass(AccountModel, {id: this.account.id, ...this.form.value} as Object))
         .subscribe((result) => {
-          this.toastrService.success(`Account ${this.form.value.name} has been saved`);
+          this.snackBar.open(`Account ${result.name} has been saved`, 'Close');
           this.router.navigate(['app/accounts']);
         });
     }

@@ -1,6 +1,5 @@
 import {NgModule} from '@angular/core';
 import {ResponsiveModule} from 'ngx-responsive';
-import {ToastrModule} from 'ngx-toastr';
 import {PieChartModule} from '@swimlane/ngx-charts';
 import {
   MatAutocompleteModule,
@@ -19,7 +18,7 @@ import {
   MatProgressSpinnerModule,
   MatRadioModule,
   MatSelectModule,
-  MatSidenavModule,
+  MatSidenavModule, MatSnackBarModule,
   MatTableModule,
   MatToolbarModule,
   MatTooltipModule
@@ -40,7 +39,6 @@ import { DialogComponent } from './component/dialog/dialog.component';
   ],
   imports: [
     ResponsiveModule.forRoot(),
-    ToastrModule.forRoot(),
     NoopAnimationsModule,
     BrowserAnimationsModule,
     PieChartModule,
@@ -65,10 +63,10 @@ import { DialogComponent } from './component/dialog/dialog.component';
     MatAutocompleteModule,
     MatSidenavModule,
     MatIconModule,
+    MatSnackBarModule,
   ],
   exports: [
     ResponsiveModule,
-    ToastrModule,
     NoopAnimationsModule,
     BrowserAnimationsModule,
     PieChartModule,
@@ -96,6 +94,7 @@ import { DialogComponent } from './component/dialog/dialog.component';
     ErrorsComponent,
     BackComponent,
     LoadingComponent,
+    MatSnackBarModule,
   ],
   entryComponents: [
     DialogComponent,

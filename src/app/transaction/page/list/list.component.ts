@@ -1,10 +1,9 @@
-import {Component, OnInit, TemplateRef} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {TransactionService} from '../../../core/service/transaction.service';
 import {ActivatedRoute} from '@angular/router';
 import {DatePipe} from '@angular/common';
 import {CategoryService} from '../../../core/service/category.service';
 import {ContractorService} from '../../../core/service/contractor.service';
-import {ToastrService} from 'ngx-toastr';
 import {AccountService} from '../../../core/service/account.service';
 import {FiltersState} from '../../../core/state/filters.state';
 import {FiltersStore} from '../../../core/store/filters.store';
@@ -12,7 +11,7 @@ import {TransactionModel} from '../../../core/model/transaction.model';
 import {CategoryModel} from '../../../core/model/category.model';
 import {ContractorModel} from '../../../core/model/contractor.model';
 import {AccountModel} from '../../../core/model/account.model';
-import {MatDialog} from '@angular/material';
+import {MatDialog, MatSnackBar} from '@angular/material';
 import {DialogComponent} from '../../../shared/component/dialog/dialog.component';
 
 @Component({
@@ -34,7 +33,7 @@ export class TransactionListComponent implements OnInit {
     private accountService: AccountService,
     private route: ActivatedRoute,
     private datePipe: DatePipe,
-    private toastrService: ToastrService,
+    private snackBar: MatSnackBar,
     private filtersStore: FiltersStore,
     public dialog: MatDialog,
   ) { }
@@ -85,7 +84,7 @@ export class TransactionListComponent implements OnInit {
         this.transactionService.delete(transaction.id)
           .subscribe(result => {
             this.prepareTransactionList();
-            this.toastrService.success('Transaction has been deleted');
+            this.snackBar.open('Transaction has been deleted', 'Close');
           });
       }
     });

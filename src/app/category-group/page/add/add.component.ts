@@ -1,8 +1,8 @@
 import {Component, OnInit} from '@angular/core';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
 import {CategoryGroupService} from '../../../core/service/category-group.service';
-import {ToastrService} from 'ngx-toastr';
 import {Router} from '@angular/router';
+import {MatSnackBar} from '@angular/material';
 
 @Component({
   selector: 'app-category-group-add',
@@ -25,7 +25,7 @@ export class CategoryGroupAddComponent implements OnInit {
 
   constructor(
     private categoryGroupService: CategoryGroupService,
-    private toastrService: ToastrService,
+    private snackBar: MatSnackBar,
     private router: Router,
   ) { }
 
@@ -50,7 +50,7 @@ export class CategoryGroupAddComponent implements OnInit {
       this.categoryGroupService.create(this.form.value)
         .subscribe(
           (result) => {
-            this.toastrService.success(`Group ${result.name} has been created`);
+            this.snackBar.open(`Group ${result.name} has been added`, 'Close');
             this.router.navigate(['app/budget']);
           }
         );

@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {AuthService} from '../../../service/auth.service';
 import {Router} from '@angular/router';
+import {MatSnackBar} from '@angular/material';
 
 @Component({
   selector: 'app-page-auth-login',
@@ -14,7 +15,8 @@ export class AuthLoginPageComponent implements OnInit {
   constructor(
     private formBuilder: FormBuilder,
     private authService: AuthService,
-    private router: Router
+    private router: Router,
+    private snackBar: MatSnackBar,
   ) { }
 
   ngOnInit() {
@@ -33,11 +35,12 @@ export class AuthLoginPageComponent implements OnInit {
       this.authService.login(this.loginForm.value)
         .subscribe((response) => {
           if (response.token) {
+            this.snackBar.open(`Welcome back`, 'Close');
             this.router.navigate(['app/dashboard']);
           }
         });
     } else {
-     console.warn('invalid');
+      this.snackBar.open(`Login data is incorrect`, 'Close');
     }
   }
 

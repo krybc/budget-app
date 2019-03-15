@@ -2,7 +2,6 @@ import {Component, OnInit} from '@angular/core';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
 import {forkJoin} from 'rxjs';
 import {TransactionService} from '../../../core/service/transaction.service';
-import {ToastrService} from 'ngx-toastr';
 import {ActivatedRoute, Router} from '@angular/router';
 import {ContractorService} from '../../../core/service/contractor.service';
 import {CategoryService} from '../../../core/service/category.service';
@@ -13,6 +12,7 @@ import {ContractorModel} from '../../../core/model/contractor.model';
 import {AccountModel} from '../../../core/model/account.model';
 import {TransactionModel} from '../../../core/model/transaction.model';
 import {LuxonDateAdapter} from '../../../shared/util/luxon-date-adapter';
+import {MatSnackBar} from '@angular/material';
 
 export const MY_FORMATS = {
   parse: {
@@ -50,7 +50,7 @@ export class TransactionEditComponent implements OnInit {
     private transactionService: TransactionService,
     private route: ActivatedRoute,
     private router: Router,
-    private toastrService: ToastrService,
+    private snackBar: MatSnackBar,
   ) { }
 
   ngOnInit() {
@@ -106,7 +106,7 @@ export class TransactionEditComponent implements OnInit {
         .subscribe(
           (result) => {
             const price = (result.income > 0) ? result.income : result.expense;
-            this.toastrService.success(`Transaction for ${price} has been saved`);
+            this.snackBar.open(`Transaction for ${price} has been saved`, 'Close');
             this.router.navigate(['app/transactions']);
           }
         );

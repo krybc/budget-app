@@ -8,10 +8,9 @@ import {FiltersState} from '../../../core/state/filters.state';
 import {DateTime} from 'luxon';
 import {CategoryGroupModel} from '../../../core/model/category-group.model';
 import {CategoryModel} from '../../../core/model/category.model';
-import {MatDialog} from '@angular/material';
+import {MatDialog, MatSnackBar} from '@angular/material';
 import {DialogComponent} from '../../../shared/component/dialog/dialog.component';
 import {CategoryGroupService} from '../../../core/service/category-group.service';
-import {ToastrService} from 'ngx-toastr';
 
 @Component({
   selector: 'app-page-budget',
@@ -32,7 +31,7 @@ export class BudgetPageComponent implements OnInit {
     private categoryService: CategoryService,
     private transactionService: TransactionService,
     private filtersStore: FiltersStore,
-    private toastrService: ToastrService,
+    private snackBar: MatSnackBar,
   ) { }
 
   ngOnInit() {
@@ -73,7 +72,7 @@ export class BudgetPageComponent implements OnInit {
         this.categoryGroupService.delete(group.id)
           .subscribe(result => {
             this.prepareBudget();
-            this.toastrService.success('Category group has been deleted');
+            this.snackBar.open('Category group has been deleted', 'Close');
           });
       }
     });
@@ -92,7 +91,7 @@ export class BudgetPageComponent implements OnInit {
         this.categoryService.delete(category.id)
           .subscribe(result => {
             this.prepareBudget();
-            this.toastrService.success('Category has been deleted');
+            this.snackBar.open(`Category ${result.name} has been deleted`, 'Close');
           });
       }
     });

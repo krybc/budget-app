@@ -2,8 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
 import {CategoryService} from '../../../core/service/category.service';
 import {ActivatedRoute, Router} from '@angular/router';
-import {ToastrService} from 'ngx-toastr';
-import {MatDialog} from '@angular/material';
+import {MatDialog, MatSnackBar} from '@angular/material';
 import {CategoryModel} from '../../../core/model/category.model';
 
 @Component({
@@ -20,7 +19,7 @@ export class CategoryEditComponent implements OnInit {
     private categoryService: CategoryService,
     private route: ActivatedRoute,
     private router: Router,
-    private toastrService: ToastrService,
+    private snackBar: MatSnackBar,
   ) { }
 
   ngOnInit() {
@@ -51,7 +50,7 @@ export class CategoryEditComponent implements OnInit {
     if (this.form.valid) {
       this.categoryService.update(Object.assign(this.category, this.form.value))
         .subscribe((result) => {
-          this.toastrService.success(`Category ${this.form.value.name} has been saved`);
+          this.snackBar.open(`Category ${this.form.value.name} has been saved`, 'Close');
           this.router.navigate(['app/budget']);
         });
     }

@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import {AuthService} from '../../service/auth.service';
-import {ToastrService} from 'ngx-toastr';
 import {Router} from '@angular/router';
 import {UserModel} from '../../model/user.model';
+import {MatSnackBar} from '@angular/material';
 
 @Component({
   selector: 'app-app-layout',
@@ -14,8 +14,8 @@ export class AppLayoutComponent implements OnInit {
 
   constructor(
     public authService: AuthService,
-    private toastrServive: ToastrService,
     private router: Router,
+    private snackBar: MatSnackBar,
   ) { }
 
   ngOnInit() {
@@ -24,7 +24,7 @@ export class AppLayoutComponent implements OnInit {
 
   logout() {
     this.authService.logout();
-    this.toastrServive.success('You have been succesfuly logout');
+    this.snackBar.open('You have been succesfuly logout', 'Close');
     this.router.navigate(['auth/login']);
   }
 

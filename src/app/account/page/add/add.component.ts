@@ -1,10 +1,10 @@
 import {Component, OnInit} from '@angular/core';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
 import {AccountService} from '../../../core/service/account.service';
-import {ToastrService} from 'ngx-toastr';
 import {Router} from '@angular/router';
 import {AccountModel} from '../../../core/model/account.model';
 import {plainToClass} from 'class-transformer';
+import {MatSnackBar} from '@angular/material';
 
 @Component({
   selector: 'app-account-add',
@@ -17,7 +17,7 @@ export class AccountAddComponent implements OnInit {
 
   constructor(
     private accountService: AccountService,
-    private toastrService: ToastrService,
+    private snackBar: MatSnackBar,
     private router: Router,
   ) { }
 
@@ -43,7 +43,7 @@ export class AccountAddComponent implements OnInit {
       this.accountService.create(plainToClass(AccountModel, this.form.value as Object))
         .subscribe(
           (result) => {
-            this.toastrService.success(`Konto ${result.name} zostało dodane`);
+            this.snackBar.open(`Account ${result.name} has been added`, 'Close');
             this.router.navigate(['app/accounts']);
           }
         );

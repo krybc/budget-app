@@ -1,11 +1,9 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
-import {BehaviorSubject} from 'rxjs';
 import {CategoryGroupService} from '../../../core/service/category-group.service';
 import {ActivatedRoute, Router} from '@angular/router';
-import {ToastrService} from 'ngx-toastr';
 import {CategoryGroupModel} from '../../../core/model/category-group.model';
-import {plainToClass} from 'class-transformer';
+import {MatSnackBar} from '@angular/material';
 
 @Component({
   selector: 'app-category-group-edit',
@@ -21,7 +19,7 @@ export class CategoryGroupEditComponent implements OnInit {
     private categoryGroupService: CategoryGroupService,
     private route: ActivatedRoute,
     private router: Router,
-    private toastrService: ToastrService,
+    private snackBar: MatSnackBar,
   ) { }
 
   ngOnInit() {
@@ -58,7 +56,7 @@ export class CategoryGroupEditComponent implements OnInit {
       this.categoryGroupService.update(this.form.value)
         .subscribe(
           (result) => {
-            this.toastrService.success(`Group ${result.name} has been saved`);
+            this.snackBar.open(`Group ${result.name} has been saved`, 'Close');
             this.router.navigate(['app/budget']);
           }
         );
