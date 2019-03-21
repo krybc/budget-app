@@ -16,13 +16,13 @@ This is a front-end of home budgeting app.
 
 ## Roadmap
 
-### 0.3.0
+### 0.4.0
 
 - [ ] Feature: Monthly budget planning
 - [ ] Feature: Progress bar of monthly budget plan realisation on budget table
 - [ ] Feature: Current month plan realisation on dashboard
 
-### 0.2.0
+### 0.3.0
 
 - [ ] Feature: Statistics for contractors
 - [ ] Feature: Statistics for accounts
@@ -31,6 +31,10 @@ This is a front-end of home budgeting app.
 - [ ] Travis CI and Coveralls integration
 - [ ] e2e tests for auth
 - [ ] unit tests for pages, components and services
+
+### 0.2.0
+
+- [x] Enable serving app as PWA
 
 ### 0.1.0
 

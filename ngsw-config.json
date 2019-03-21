@@ -1,0 +1,37 @@
+{
+  "index": "/index.html",
+  "assetGroups": [
+    {
+      "name": "app",
+      "installMode": "prefetch",
+      "updateMode": "prefetch",
+      "resources": {
+        "files": [
+          "/index.html",
+          "/manifest.json",
+          "/assets/images/favicons/favicon.ico",
+          "/*.css",
+          "/*.js"
+        ],
+        "urls": [
+          "https://fonts.googleapis.com/**",
+          "https://fonts.gstatic.com/s/**"
+        ]
+      }
+    }
+  ],
+  "dataGroups": [
+    {
+      "name": "budget-api",
+      "urls": [
+        "https://api.budget.rybczynski.io"
+      ],
+      "cacheConfig": {
+        "strategy": "freshness",
+        "maxSize": 10000,
+        "maxAge": "6h",
+        "timeout": "5s"
+      }
+    }
+  ]
+}
