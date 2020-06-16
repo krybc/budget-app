@@ -8,7 +8,8 @@ import {FiltersState} from '../../../core/state/filters.state';
 import {DateTime} from 'luxon';
 import {CategoryGroupModel} from '../../../core/model/category-group.model';
 import {CategoryModel} from '../../../core/model/category.model';
-import {MatDialog, MatSnackBar} from '@angular/material';
+import {MatDialog} from '@angular/material/dialog';
+import {MatSnackBar} from '@angular/material/snack-bar';
 import {DialogComponent} from '../../../shared/component/dialog/dialog.component';
 import {CategoryGroupService} from '../../../core/service/category-group.service';
 

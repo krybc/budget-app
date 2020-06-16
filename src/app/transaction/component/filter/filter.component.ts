@@ -2,7 +2,7 @@ import {Component, Input, OnInit} from '@angular/core';
 import {FormControl, FormGroup} from '@angular/forms';
 import {DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE} from '@angular/material/core';
 import {MatDatepicker} from '@angular/material/datepicker';
-import {MatSelectChange} from '@angular/material';
+import {MatSelectChange} from '@angular/material/select';
 import {FiltersStore} from '../../../core/store/filters.store';
 import {FiltersState} from '../../../core/state/filters.state';
 import {LuxonDateAdapter} from '../../../shared/util/luxon-date-adapter';

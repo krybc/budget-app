@@ -14,8 +14,8 @@ export class AccountService {
     private http: HttpClient,
   ) { }
 
-  list(filters?: any): Observable<AccountModel[]> {
-    return this.http.get<AccountModel[]>('accounts', ...filters)
+  list(): Observable<AccountModel[]> {
+    return this.http.get<AccountModel[]>('accounts')
       .pipe(
         map(result => plainToClass(AccountModel, result as Object[], { strategy: 'excludeAll' }))
       );

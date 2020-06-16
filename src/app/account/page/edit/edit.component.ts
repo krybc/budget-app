@@ -3,8 +3,7 @@ import {ActivatedRoute, Router} from '@angular/router';
 import {AccountService} from '../../../core/service/account.service';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
 import {AccountModel} from '../../../core/model/account.model';
-import {plainToClass} from 'class-transformer';
-import {MatSnackBar} from '@angular/material';
+import {MatSnackBar} from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-account-edit',

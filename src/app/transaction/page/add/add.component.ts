@@ -14,7 +14,7 @@ import {AccountModel} from '../../../core/model/account.model';
 import {CategoryGroupModel} from '../../../core/model/category-group.model';
 import {LuxonDateAdapter} from '../../../shared/util/luxon-date-adapter';
 import {DateTime} from 'luxon';
-import {MatSnackBar} from '@angular/material';
+import {MatSnackBar} from '@angular/material/snack-bar';
 
 export const MY_FORMATS = {
   parse: {

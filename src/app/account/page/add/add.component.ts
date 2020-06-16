@@ -4,7 +4,7 @@ import {AccountService} from '../../../core/service/account.service';
 import {Router} from '@angular/router';
 import {AccountModel} from '../../../core/model/account.model';
 import {plainToClass} from 'class-transformer';
-import {MatSnackBar} from '@angular/material';
+import {MatSnackBar} from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-account-add',

@@ -11,7 +11,8 @@ import {TransactionModel} from '../../../core/model/transaction.model';
 import {CategoryModel} from '../../../core/model/category.model';
 import {ContractorModel} from '../../../core/model/contractor.model';
 import {AccountModel} from '../../../core/model/account.model';
-import {MatDialog, MatSnackBar} from '@angular/material';
+import {MatSnackBar} from '@angular/material/snack-bar';
+import {MatDialog} from '@angular/material/dialog';
 import {DialogComponent} from '../../../shared/component/dialog/dialog.component';
 
 @Component({

@@ -4,7 +4,7 @@ import { Injectable } from '@angular/core';
 import {AuthService} from '../service/auth.service';
 import {Router} from '@angular/router';
 import {tap} from 'rxjs/operators';
-import {MatSnackBar} from '@angular/material';
+import {MatSnackBar} from '@angular/material/snack-bar';
 
 @Injectable()
 export class ResponseInterceptor implements HttpInterceptor {

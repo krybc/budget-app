@@ -3,7 +3,7 @@ import {ContractorService} from '../../../core/service/contractor.service';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
 import {ActivatedRoute, Router} from '@angular/router';
 import {ContractorModel} from '../../../core/model/contractor.model';
-import {MatSnackBar} from '@angular/material';
+import {MatSnackBar} from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-contractor-edit',

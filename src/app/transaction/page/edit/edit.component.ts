@@ -12,7 +12,7 @@ import {ContractorModel} from '../../../core/model/contractor.model';
 import {AccountModel} from '../../../core/model/account.model';
 import {TransactionModel} from '../../../core/model/transaction.model';
 import {LuxonDateAdapter} from '../../../shared/util/luxon-date-adapter';
-import {MatSnackBar} from '@angular/material';
+import {MatSnackBar} from '@angular/material/snack-bar';
 
 export const MY_FORMATS = {
   parse: {

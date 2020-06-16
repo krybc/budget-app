@@ -1,5 +1,5 @@
 import { Inject, Injectable, Optional } from '@angular/core';
-import { DateAdapter, MAT_DATE_LOCALE } from '@angular/material';
+import { DateAdapter, MAT_DATE_LOCALE } from '@angular/material/core';
 import { DateTime, Info } from 'luxon';
 
 function range<T>(length: number, valueFunction: (index: number) => T): T[] {

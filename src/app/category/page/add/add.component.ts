@@ -4,7 +4,7 @@ import {ActivatedRoute, Router} from '@angular/router';
 import {CategoryService} from '../../../core/service/category.service';
 import {CategoryGroupService} from '../../../core/service/category-group.service';
 import {CategoryGroupModel} from '../../../core/model/category-group.model';
-import {MatSnackBar} from '@angular/material';
+import {MatSnackBar} from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-category-add',
