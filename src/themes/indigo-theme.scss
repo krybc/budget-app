@@ -1,7 +1,11 @@
 @import '~@angular/material/theming';
-@import "../app/budget/page/budget/budget.component.theme";
-@import "../app/core/layout/app-layout/app-layout.component.theme";
-@import "../app/core/layout/app-layout/component/sidebar/sidebar.component.theme";
+@import "../assets/theming/index";
+
+@import "../app/shared/layout/components/auth-layout/auth-layout.component.theme";
+@import "../app/shared/layout/containers/app-layout/app-layout.component.theme";
+@import "../app/shared/layout/components/sidebar/sidebar.component.theme";
+
+@import "../app/budget/components/budget-table/budget-table.component.theme";
 
 @include mat-core();
 $config: mat-typography-config();
@@ -13,6 +17,9 @@ $app-warn: mat-palette($mat-red);
 $app-theme: mat-light-theme($app-primary, $app-accent, $app-warn);
 
 @include angular-material-theme($app-theme);
-@include budget-theme($app-theme);
+@include app-angular-material-theme($app-theme);
+
+@include auth-layout-mixin($app-theme);
+@include budget-table-theme($app-theme);
 @include app-layout-theme($app-theme, $config);
 @include app-sidebar-theme($app-theme, $config);

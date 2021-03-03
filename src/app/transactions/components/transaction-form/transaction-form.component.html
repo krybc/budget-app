@@ -1,0 +1,81 @@
+<div class="p-16">
+  <div fxLayout="row" fxLayoutAlign="center start">
+    <div fxLayout="column" fxFlex="50" [fxFlex.sm]="80" [fxFlex.xs]="100">
+      <mat-card>
+        <form [formGroup]="form" (submit)="onSubmit()">
+          <mat-card-content>
+            <div class="row">
+              <div class="col">
+                <mat-form-field class="full-width">
+                  <mat-select placeholder="Account" formControlName="account">
+                    <mat-option *ngFor="let option of accounts" [value]="option">
+                      {{option.name}}
+                    </mat-option>
+                  </mat-select>
+                </mat-form-field>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col">
+                <mat-form-field class="full-width">
+                  <mat-select placeholder="Category" formControlName="category">
+                    <mat-optgroup *ngFor="let group of categoriesTree" [label]="group.name">
+                      <mat-option *ngFor="let option of group.children" [value]="option">
+                        {{option.name}}
+                      </mat-option>
+                    </mat-optgroup>
+                  </mat-select>
+                </mat-form-field>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col">
+                <mat-form-field class="full-width">
+                  <input type="text" placeholder="Contractor" aria-label="Number" matInput formControlName="contractor" [matAutocomplete]="contractorAutocomplete">
+                  <mat-autocomplete #contractorAutocomplete="matAutocomplete" [displayWith]="contractorAutocompleteDisplay">
+                    <mat-option *ngFor="let option of filteredContractors | async" [value]="option">
+                      {{option.name}}
+                    </mat-option>
+                  </mat-autocomplete>
+                </mat-form-field>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col">
+                <mat-form-field class="full-width">
+                  <input matInput [matDatepicker]="dp" placeholder="Date" formControlName="date">
+                  <mat-datepicker-toggle matSuffix [for]="dp"></mat-datepicker-toggle>
+                  <mat-datepicker #dp startView="month"></mat-datepicker>
+                </mat-form-field>
+              </div>
+            </div>
+            <div class="row" *ngIf="form.get('category').value?.type === 0">
+              <div class="col">
+                <mat-form-field class="full-width">
+                  <input matInput placeholder="Income" formControlName="income">
+                </mat-form-field>
+              </div>
+            </div>
+            <div class="row" *ngIf="form.get('category').value?.type === 1">
+              <div class="col">
+                <mat-form-field class="full-width">
+                  <input matInput placeholder="Expense" formControlName="expense">
+                </mat-form-field>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col">
+                <mat-form-field class="full-width">
+                  <input matInput placeholder="Description" formControlName="description">
+                </mat-form-field>
+              </div>
+            </div>
+            <button mat-raised-button color="primary">
+              Save
+            </button>
+          </mat-card-content>
+        </form>
+      </mat-card>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,27 @@
+
+<form [formGroup]="form">
+  <mat-form-field>
+    <input matInput [matDatepicker]="dp" placeholder="Month" formControlName="month">
+    <mat-datepicker-toggle matSuffix [for]="dp"></mat-datepicker-toggle>
+    <mat-datepicker #dp startView="year" (monthSelected)="onChangeMonth($event, dp)"></mat-datepicker>
+  </mat-form-field>
+  <mat-form-field>
+    <mat-select placeholder="Category" formControlName="category" (selectionChange)="onChangeCategory($event)">
+      <mat-option [value]="null">All categories</mat-option>
+      <mat-optgroup *ngFor="let group of categories" [label]="group.name">
+        <mat-option *ngFor="let option of group.children" [value]="option">
+          {{option.name}}
+        </mat-option>
+      </mat-optgroup>
+    </mat-select>
+  </mat-form-field>
+  <mat-form-field>
+    <mat-select placeholder="Contractor" formControlName="contractor" (selectionChange)="onChangeContractor($event)">
+      <mat-option [value]="null">All contractors</mat-option>
+      <mat-option *ngFor="let option of contractors" [value]="option">
+        {{option.name}}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+</form>
+

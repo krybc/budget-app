@@ -1,18 +1,16 @@
 import {NgModule} from '@angular/core';
 import {RouterModule, Routes} from '@angular/router';
-import {BudgetPageComponent} from './page/budget/budget.component';
-import {AppLayoutComponent} from '../core/layout/app-layout/app-layout.component';
-import {AuthGuardService} from '../core/guard/auth-guard.service';
+import {BudgetComponent} from './containers/budget/budget.component';
+import {BudgetShellComponent} from '@budget/shell.component';
 
 const routes: Routes = [
   {
-    path: 'app',
-    component: AppLayoutComponent,
-    canActivate: [AuthGuardService],
+    path: '',
+    component: BudgetShellComponent,
     children: [
       {
-        path: 'budget',
-        component: BudgetPageComponent,
+        path: '',
+        component: BudgetComponent,
       }
     ]
   }
@@ -26,4 +24,5 @@ const routes: Routes = [
     RouterModule,
   ]
 })
-export class BudgetRoutingModule { }
+export class BudgetRoutingModule {
+}

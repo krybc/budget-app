@@ -1,0 +1,14 @@
+:host {
+  display: block;
+  height: 200px;
+
+  ::ng-deep {
+    .ngx-charts {
+      .grid-panel.odd {
+        rect {
+          fill: none;
+        }
+      }
+    }
+  }
+}

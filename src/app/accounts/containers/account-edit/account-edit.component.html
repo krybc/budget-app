@@ -1,0 +1,13 @@
+<div [appSpinner]="!(accountsLoaded$ | async)">
+  <mat-toolbar color="primary">
+    <mat-toolbar-row>
+      <app-back></app-back>
+      <h1>Edit account <u>{{ (account$ | async)?.name }}</u></h1>
+    </mat-toolbar-row>
+  </mat-toolbar>
+
+  <app-account-form
+    [account]="account$ | async"
+    (changed)="onChange($event)"
+  ></app-account-form>
+</div>

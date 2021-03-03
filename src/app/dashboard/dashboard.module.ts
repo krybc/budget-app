@@ -1,24 +1,42 @@
 import {NgModule} from '@angular/core';
-import {RouterModule} from '@angular/router';
-import {SharedModule} from '../shared/shared.module';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
-import {DashboardPageComponent} from './page/dashboard/dashboard.component';
+import {CommonModule} from '@angular/common';
+
+import {BarChartModule} from '@swimlane/ngx-charts';
+
+import {DashboardComponent} from './containers/dashboard/dashboard.component';
 import {DashboardRoutingModule} from './dashboard-routing.module';
-import {DashboardStatsComponent} from './component/stats/stats.component';
+import { FlowSummaryComponent } from './components/flow-summary/flow-summary.component';
+import {DashboardDataAccessModule} from '@dashboard-data-access';
+import {ShellComponent} from './shell.component';
+import {MatCardModule} from '@angular/material/card';
+import {FlexLayoutModule} from '@angular/flex-layout';
+import {SharedSpinnerModule} from '@shared/spinner';
+import {MatTableModule} from '@angular/material/table';
+import {MatToolbarModule} from '@angular/material/toolbar';
+
+const uiModules = [
+  BarChartModule,
+  FlexLayoutModule,
+  MatCardModule,
+  MatTableModule,
+  MatToolbarModule,
+  SharedSpinnerModule
+];
 
 @NgModule({
   declarations: [
-    DashboardStatsComponent,
-    DashboardPageComponent,
+    ShellComponent,
+    DashboardComponent,
+    FlowSummaryComponent,
   ],
   imports: [
+    CommonModule,
     FormsModule,
     ReactiveFormsModule,
-    SharedModule,
-    DashboardRoutingModule
-  ],
-  exports: [
-    RouterModule,
+    DashboardRoutingModule,
+    DashboardDataAccessModule,
+    ...uiModules,
   ],
 })
 export class DashboardModule { }

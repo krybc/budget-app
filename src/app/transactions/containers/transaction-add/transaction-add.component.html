@@ -1,0 +1,14 @@
+<mat-toolbar color="primary">
+  <mat-toolbar-row>
+    <app-back></app-back>
+    <h1>Add transaction</h1>
+  </mat-toolbar-row>
+</mat-toolbar>
+
+<app-transaction-form
+  [accounts]="accounts$ | async"
+  [categories]="categories$ | async"
+  [contractors]="contractors$ | async"
+  [params]="params$ | async"
+  (changed)="onSave($event)"
+></app-transaction-form>

@@ -1,0 +1,10 @@
+<mat-toolbar color="primary">
+  <mat-toolbar-row>
+    <app-back></app-back>
+    <h1>Add account</h1>
+  </mat-toolbar-row>
+</mat-toolbar>
+
+<app-account-form
+  (changed)="onChange($event)"
+></app-account-form>

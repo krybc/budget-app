@@ -1,0 +1,11 @@
+<div [appSpinner]="!(contractorsLoaded$ | async)">
+  <mat-toolbar color="primary">
+    <app-back></app-back>
+    <h1>Edit contractor {{ (contractor$ | async)?.name }}</h1>
+  </mat-toolbar>
+
+  <app-contractor-form
+    [contractor]="contractor$ | async"
+    (changed)="onSave($event)"
+  ></app-contractor-form>
+</div>

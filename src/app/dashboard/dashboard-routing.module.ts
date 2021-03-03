@@ -1,18 +1,16 @@
 import {NgModule} from '@angular/core';
 import {RouterModule, Routes} from '@angular/router';
-import {DashboardPageComponent} from './page/dashboard/dashboard.component';
-import {AppLayoutComponent} from '../core/layout/app-layout/app-layout.component';
-import {AuthGuardService} from '../core/guard/auth-guard.service';
+import {DashboardComponent} from './containers/dashboard/dashboard.component';
+import {ShellComponent} from '@dashboard/shell.component';
 
 const routes: Routes = [
   {
-    path: 'app',
-    component: AppLayoutComponent,
-    canActivate: [AuthGuardService],
+    path: '',
+    component: ShellComponent,
     children: [
       {
-        path: 'dashboard',
-        component: DashboardPageComponent,
+        path: '',
+        component: DashboardComponent,
       }
     ]
   }
@@ -26,4 +24,5 @@ const routes: Routes = [
     RouterModule,
   ]
 })
-export class DashboardRoutingModule { }
+export class DashboardRoutingModule {
+}

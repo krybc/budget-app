@@ -1,0 +1,14 @@
+<div [appSpinner]="!(categoryLoaded$ | async)">
+  <mat-toolbar color="primary">
+    <mat-toolbar-row>
+      <app-back></app-back>
+      <h1>Edit category <u>{{ (category$ | async)?.name }}</u></h1>
+    </mat-toolbar-row>
+  </mat-toolbar>
+
+  <app-category-form
+    [rootCategories]="rootCategories$ | async"
+    [category]="category$ | async"
+    (changed)="onSave($event)"
+  ></app-category-form>
+</div>

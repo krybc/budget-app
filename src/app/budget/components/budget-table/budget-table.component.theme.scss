@@ -1,0 +1,50 @@
+@import '~@angular/material/theming';
+
+@mixin budget-table-theme($theme) {
+  $green: mat-color($mat-light-green, 600);
+  $accent: map-get($theme, accent);
+  $red: mat-color($mat-red, 600);
+  $green-text: $light-primary-text;
+  $red-text: $light-primary-text;
+
+  table.budget-table {
+    tr.mat-row, tr.mat-footer-row, tr.mat-header-row {
+      height: 48px;
+    }
+
+    td {
+      border-bottom-width: 0 !important;
+      background: none;
+    }
+
+    .mat-icon-button {
+      height: 40px;
+      width: 40px;
+      line-height: 40px;
+    }
+
+    .mat-row {
+      .mat-cell:first-child {
+        border-left: 8px solid transparent;
+      }
+    }
+
+    .mat-row.group-income {
+      .mat-cell:first-child {
+        border-left: 8px solid $green;
+      }
+    }
+
+    .mat-row.group-expense {
+      .mat-cell:first-child {
+        border-left: 8px solid $red;
+      }
+    }
+
+    .mat-footer-row.summary {
+      .mat-footer-cell:first-child {
+        border-left: 8px solid mat-color($accent);
+      }
+    }
+  }
+}

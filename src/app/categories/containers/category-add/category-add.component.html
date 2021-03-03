@@ -1,0 +1,12 @@
+<mat-toolbar color="primary">
+  <mat-toolbar-row>
+    <app-back></app-back>
+    <h1>Add category</h1>
+  </mat-toolbar-row>
+</mat-toolbar>
+
+<app-category-form
+  [rootCategories]="rootCategories$ | async"
+  [queryParams]="queryParams$ | async"
+  (changed)="onSave($event)"
+></app-category-form>

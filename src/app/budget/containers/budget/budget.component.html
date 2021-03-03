@@ -1,0 +1,28 @@
+<mat-toolbar color="primary">
+  <mat-toolbar-row>
+    <h1>Budget</h1>
+    <span style="flex: 1 1 auto;"></span>
+    <button mat-raised-button color="accent" routerLink="/app/categories/add">
+      <mat-icon>add_circle</mat-icon>
+      <span> Add category </span>
+    </button>
+  </mat-toolbar-row>
+</mat-toolbar>
+
+<div class="p-16">
+  <mat-card>
+    <mat-card-content>
+      <app-budget-filters
+        [params]="params$ | async"
+        (paramsChanged)="setParams($event)"
+      ></app-budget-filters>
+
+      <app-budget-table
+        [budget]="budget$ | async"
+        [budgetSummary]="budgetSummary$ | async"
+        (deleteCategory)="deleteCategory($event)"
+      ></app-budget-table>
+    </mat-card-content>
+  </mat-card>
+</div>
+

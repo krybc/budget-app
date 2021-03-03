@@ -8,13 +8,31 @@
     "moduleResolution": "node",
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
-    "target": "es5",
+    "target": "es2015",
     "typeRoots": [
       "node_modules/@types"
     ],
     "lib": [
-      "es2017",
+      "es2020",
       "dom"
-    ]
+    ],
+    "paths": {
+      "@accounts/*": ["src/app/accounts/*"],
+      "@accounts-data-access": ["src/app/accounts-data-access"],
+      "@api": ["src/app/api"],
+      "@auth": ["src/app/auth"],
+      "@budget/*": ["src/app/budget/*"],
+      "@budget-data-access": ["src/app/budget-data-access"],
+      "@categories/*": ["src/app/categories/*"],
+      "@categories-data-access": ["src/app/categories-data-access"],
+      "@contractors/*": ["src/app/contractors/*"],
+      "@contractors-data-access": ["src/app/contractors-data-access"],
+      "@dashboard/*": ["src/app/dashboard/*"],
+      "@dashboard-data-access": ["src/app/dashboard-data-access"],
+      "@data-access": ["src/app/data-access"],
+      "@shared/*": ["src/app/shared/*"],
+      "@transactions/*": ["src/app/transactions/*"],
+      "@transactions-data-access": ["src/app/transactions-data-access"]
+    }
   }
 }
