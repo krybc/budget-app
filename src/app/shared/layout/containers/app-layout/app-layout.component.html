@@ -10,19 +10,18 @@
           <button mat-icon-button (click)="sidenav.toggle()">
             <mat-icon>menu</mat-icon>
           </button>
-          <span style="flex: 1 1 auto;"></span>
           <div class="user">
-<!--            <button mat-button [matMenuTriggerFor]="profileMenu">-->
-<!--              <mat-icon>account_circle</mat-icon>-->
-<!--              {{ user.firstName }}-->
-<!--            </button>-->
-<!--            <mat-menu #profileMenu="matMenu">-->
-<!--              <button mat-menu-item>Change password</button>-->
-<!--              <button mat-menu-item (click)="logout()">-->
-<!--                <mat-icon>power_settings_new</mat-icon>-->
-<!--                Logout-->
-<!--              </button>-->
-<!--            </mat-menu>-->
+            <button mat-button [matMenuTriggerFor]="profileMenu">
+              <mat-icon>account_circle</mat-icon>
+              {{ user.firstName }}
+            </button>
+            <mat-menu #profileMenu="matMenu">
+              <button mat-menu-item>Change password</button>
+              <button mat-menu-item (click)="logout()">
+                <mat-icon>power_settings_new</mat-icon>
+                Logout
+              </button>
+            </mat-menu>
           </div>
         </mat-toolbar-row>
       </mat-toolbar>

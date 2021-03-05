@@ -14,6 +14,7 @@ import {CategoriesDataAccessModule} from '@categories-data-access';
 import {ContractorsDataAccessModule} from '@contractors-data-access';
 import {TransactionsDataAccessModule} from '@transactions-data-access';
 import {ResponsiveModule} from 'ngx-responsive';
+import {SharedLayoutModule} from '@shared/layout';
 
 export function tokenGetter() {
   return localStorage.getItem('auth-token');
@@ -28,6 +29,7 @@ export function tokenGetter() {
     BrowserAnimationsModule,
     RouterModule,
     ApiModule,
+    SharedLayoutModule,
     ResponsiveModule.forRoot(),
     ServiceWorkerModule.register('/ngsw-worker.js', { enabled: environment.production }),
     DataAccessModule.forRoot(environment.production),
