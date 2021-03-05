@@ -1,5 +1,5 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {UserModel} from '@auth';
+import {LoggedInUserModel} from '@auth';
 
 @Component({
   selector: 'app-sidebar',
@@ -7,7 +7,7 @@ import {UserModel} from '@auth';
   styleUrls: ['./sidebar.component.scss']
 })
 export class SidebarComponent implements OnInit {
-  @Input() user: UserModel;
+  @Input() user: LoggedInUserModel;
 
   constructor() { }
 

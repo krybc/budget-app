@@ -19,7 +19,7 @@ export class AuthApiService {
     this.isAuthenticated();
   }
 
-  login(user: UserApiModel): Observable<any> {
+  login(user: UserApiModel): Observable<UserApiModel> {
     return this.http.post<any>('auth/login', user)
       .pipe(
         tap((response) => {

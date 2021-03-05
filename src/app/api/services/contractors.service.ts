@@ -29,7 +29,7 @@ export class ContractorsApiService {
     return this.http.put<ContractorApiModel>(`${this.rootPath}/${item.id}`, item);
   }
 
-  delete(id: any): Observable<any> {
+  delete(id: any): Observable<unknown> {
     return this.http.delete(`${this.rootPath}/${id}`);
   }
 }

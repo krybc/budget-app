@@ -8,7 +8,7 @@ import {FlowSummaryItem} from '@dashboard-data-access';
 })
 export class FlowSummaryComponent implements OnInit {
   @Input() summary: FlowSummaryItem[];
-  view: any[] = [700, 400];
+  view: number[] = [700, 400];
 
   // options
   showXAxis = true;

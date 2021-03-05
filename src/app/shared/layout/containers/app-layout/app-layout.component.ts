@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import {AuthService, UserModel} from '@auth';
+import {AuthService, LoggedInUserModel} from '@auth';
 import {Router} from '@angular/router';
 import {MatSnackBar} from '@angular/material/snack-bar';
 
@@ -9,7 +9,7 @@ import {MatSnackBar} from '@angular/material/snack-bar';
   styleUrls: ['./app-layout.component.scss']
 })
 export class AppLayoutComponent implements OnInit {
-  public user: UserModel;
+  public user: LoggedInUserModel;
 
   constructor(
     public authService: AuthService,

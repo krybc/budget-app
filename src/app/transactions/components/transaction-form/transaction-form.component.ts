@@ -36,7 +36,7 @@ export class TransactionFormComponent implements OnInit {
   get params() {
     return this._params;
   }
-  set params(value: any) {
+  set params(value: QueryParams) {
     this._params = value;
   }
   private _params: QueryParams;

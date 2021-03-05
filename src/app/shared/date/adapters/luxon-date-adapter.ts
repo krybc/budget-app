@@ -79,7 +79,7 @@ export class LuxonDateAdapter extends DateAdapter<DateTime> {
     return DateTime.local();
   }
 
-  format(date: DateTime, displayFormat: any): string {
+  format(date: DateTime, displayFormat: string): string {
     return date.toFormat(displayFormat);
   }
 
@@ -99,7 +99,7 @@ export class LuxonDateAdapter extends DateAdapter<DateTime> {
     return date.toISO();
   }
 
-  isDateInstance(obj: any): boolean {
+  isDateInstance(obj: unknown): boolean {
     return (obj instanceof DateTime);
   }
 
