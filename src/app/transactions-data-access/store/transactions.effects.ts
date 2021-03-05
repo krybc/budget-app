@@ -78,14 +78,18 @@ export class TransactionsEffects {
 
   setFilters$ = createEffect(() =>
     combineLatest([
-      this.actions$.pipe(ofType(TransactionsActions.setFilters)),
-      this.transactionsFacade.filters$.pipe(
-        distinctUntilChanged((prev, curr) => {
-          return prev.month.equals(curr.month);
-        })
-      )
+      this.actions$.pipe(
+        ofType(TransactionsActions.setFilters),
+        withLatestFrom(
+          this.transactionsFacade.filters$.pipe(
+            distinctUntilChanged((prev, curr) => {
+              return prev.month.equals(curr.month);
+            })
+          ),
+        )
+      ),
     ]).pipe(
-      map(() => TransactionsActions.loadTransactions())
+      mapTo(TransactionsActions.loadTransactions())
     )
   );
 
