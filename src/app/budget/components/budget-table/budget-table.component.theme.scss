@@ -25,25 +25,25 @@
 
     .mat-row {
       .mat-cell:first-child {
-        border-left: 8px solid transparent;
+        border-left: 4px solid transparent;
       }
     }
 
     .mat-row.group-income {
       .mat-cell:first-child {
-        border-left: 8px solid $green;
+        border-left: 4px solid $green;
       }
     }
 
     .mat-row.group-expense {
       .mat-cell:first-child {
-        border-left: 8px solid $red;
+        border-left: 4px solid $red;
       }
     }
 
     .mat-footer-row.summary {
       .mat-footer-cell:first-child {
-        border-left: 8px solid mat-color($accent);
+        border-left: 4px solid mat-color($accent);
       }
     }
   }

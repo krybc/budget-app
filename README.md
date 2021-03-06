@@ -48,12 +48,13 @@ Handle `build` directory by web server (eg. Nginx or Apache).
 
 - [ ] Feature: Statistics for contractors
 - [ ] Feature: Statistics for accounts
+- [ ] Travis CI and Coveralls integration
+- [ ] Unit tests for NGRX store
 
 ### 0.4.0
 
+- [ ] Feature: Categories order edition
 - [ ] Feature: Quarterly expenses by categories chart on dashboard
-- [ ] Travis CI and Coveralls integration
-- [ ] Unit tests for NGRX store
 
 ### 0.3.0
 
