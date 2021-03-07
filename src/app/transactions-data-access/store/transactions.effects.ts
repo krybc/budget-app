@@ -100,7 +100,7 @@ export class TransactionsEffects {
       map(([action, accounts, categories, contractors]) => ({...action, accounts, categories, contractors})),
       mergeMap((action) => this.transactionsApiService.create(TransactionsFactories.createToApiRequest(action.transaction))
         .pipe(
-          tap((transaction) => this.snackBar.open(`Transaction for ${transaction.income ?? transaction.expense} has been added`, 'Close')),
+          tap((transaction) => this.snackBar.open(`Transaction for ${transaction.income > 0 ? transaction.income : transaction.expense} has been added`, 'Close')),
           map((result) => {
             const transaction = TransactionsFactories.createFromApiResponse(result, action.accounts, action.categories, action.contractors);
             return TransactionsActions.createTransactionSuccess({transaction});
@@ -135,9 +135,7 @@ export class TransactionsEffects {
       mergeMap((action) => this.transactionsApiService.delete(TransactionsFactories.createToApiRequest(action.transaction))
         .pipe(
           tap((transaction) => this.snackBar.open(`Transaction for ${transaction.income > 0 ? transaction.income : transaction.expense} has been removed`, 'Close')),
-          map((transaction) => {
-            return TransactionsActions.deleteTransactionSuccess({transaction});
-          }),
+          map((transaction) => TransactionsActions.deleteTransactionSuccess({transaction})),
           catchError((error) => of(TransactionsActions.deleteTransactionFailure({error})))
         )
       )

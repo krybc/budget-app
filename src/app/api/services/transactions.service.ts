@@ -37,7 +37,10 @@ export class TransactionsApiService {
   }
 
   delete(transaction: TransactionApiModel): Observable<any> {
-    return this.http.delete(`${this.rootPath}/${transaction.id}`);
+    return this.http.delete(`${this.rootPath}/${transaction.id}`)
+      .pipe(
+        map(it => ({ ...transaction }))
+      );
   }
 
   prepareParams(filters?: TransactionsQueryParams, sort: any = null, limit: number = null) {

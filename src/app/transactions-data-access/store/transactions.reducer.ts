@@ -57,6 +57,10 @@ const transactionsReducer = createReducer(
     ...state,
     transactions: transactionsAdapter.setOne(transaction, state.transactions)
   })),
+  on(TransactionsActions.deleteTransactionSuccess, (state, {transaction}) => ({
+    ...state,
+    transactions: transactionsAdapter.removeOne(transaction.id, state.transactions)
+  })),
 );
 
 export function reducer(state: State | undefined, action: Action) {

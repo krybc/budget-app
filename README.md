@@ -55,6 +55,7 @@ Handle `build` directory by web server (eg. Nginx or Apache).
 
 - [ ] Feature: Categories order edition
 - [ ] Feature: Quarterly expenses by categories chart on dashboard
+- [ ] Feature: Many categories to one transaction
 
 ### 0.3.0
 
