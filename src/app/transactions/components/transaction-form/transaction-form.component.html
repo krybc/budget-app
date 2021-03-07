@@ -52,14 +52,14 @@
             <div class="row" *ngIf="form.get('category').value?.type === 0">
               <div class="col">
                 <mat-form-field class="full-width">
-                  <input matInput placeholder="Income" formControlName="income">
+                  <input matInput type="number" step="2" placeholder="Income" formControlName="income">
                 </mat-form-field>
               </div>
             </div>
             <div class="row" *ngIf="form.get('category').value?.type === 1">
               <div class="col">
                 <mat-form-field class="full-width">
-                  <input matInput placeholder="Expense" formControlName="expense">
+                  <input matInput type="number" step="2" placeholder="Expense" formControlName="expense">
                 </mat-form-field>
               </div>
             </div>
