@@ -1,5 +1,5 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
-import {FormControl, FormGroup, Validators} from '@angular/forms';
+import {FormGroup} from '@angular/forms';
 import {DateTime} from 'luxon';
 import {Observable} from 'rxjs';
 import {map, startWith} from 'rxjs/operators';
@@ -7,6 +7,7 @@ import {categoriesFactories, Category} from '@categories-data-access';
 import {Account} from '@accounts-data-access';
 import {Contractor} from '@contractors-data-access';
 import {Transaction} from '@transactions-data-access';
+import {TransactionForm} from '@transactions/forms/transaction.form';
 
 interface QueryParams {
   category: number;
@@ -16,10 +17,12 @@ interface QueryParams {
 @Component({
   selector: 'app-transaction-form',
   templateUrl: './transaction-form.component.html',
-  styleUrls: ['./transaction-form.component.scss']
+  styleUrls: ['./transaction-form.component.scss'],
+  providers: [TransactionForm]
 })
 export class TransactionFormComponent implements OnInit {
   @Input() accounts: Account[];
+
   @Input()
   get categories() {
     return this._categories;
@@ -36,25 +39,28 @@ export class TransactionFormComponent implements OnInit {
   get params() {
     return this._params;
   }
+
   set params(value: QueryParams) {
     this._params = value;
   }
+
   private _params: QueryParams;
 
   @Input()
   set transaction(value: Transaction) {
     this.model = value;
-    this.form.patchValue(value);
+    this.transactionForm.patchValue(this.model);
   }
 
   @Output() changed = new EventEmitter<Transaction>();
   filteredContractors: Observable<Contractor[]>;
   categoriesTree: Category[];
   model: Transaction;
-  form: FormGroup;
+  form: FormGroup = this.transactionForm.form;
 
-  constructor() {
-    this.createForm();
+  constructor(
+    private transactionForm: TransactionForm,
+  ) {
   }
 
   ngOnInit(): void {
@@ -66,34 +72,9 @@ export class TransactionFormComponent implements OnInit {
       );
   }
 
-  createForm() {
-    this.form = new FormGroup({
-      category: new FormControl(null, [
-        Validators.required
-      ]),
-      account: new FormControl(null, [
-        Validators.required
-      ]),
-      contractor: new FormControl(null, [
-        Validators.required,
-      ]),
-      date: new FormControl(DateTime.local(), [
-        Validators.required
-      ]),
-      income: new FormControl(0),
-      expense: new FormControl(0),
-      description: new FormControl(null)
-    });
-  }
-
   onSubmit() {
-    if (this.form.valid) {
-      this.changed.emit({
-        ...this.model,
-        ...this.form.value,
-        income: parseFloat(this.form.get('income').value),
-        expense: parseFloat(this.form.get('expense').value)
-      });
+    if (this.transactionForm.isValid) {
+      this.changed.emit(this.transactionForm.value);
     }
   }
 

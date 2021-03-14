@@ -25,6 +25,7 @@ import {MatDialogModule} from '@angular/material/dialog';
 import {MatDatepickerModule} from '@angular/material/datepicker';
 import {MatAutocompleteModule} from '@angular/material/autocomplete';
 import {SharedUiModule} from '@shared/ui';
+import {SharedFormsModule} from '@shared/forms';
 
 const uiModules = [
   FlexLayoutModule,
@@ -60,6 +61,7 @@ const uiModules = [
     TransactionsDataAccessModule,
     ...uiModules,
     SharedDateModule,
+    SharedFormsModule,
   ],
   exports: [
     RouterModule,
