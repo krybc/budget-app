@@ -1,70 +1,17 @@
-$table-budget-green-bg-light: #83CB1E;
-$table-budget-green-bg-dark: #53A319;
-$table-budget-red-bg-light: #ED362C;
-$table-budget-red-bg-dark: #C51E1B;
-$table-budget-summary-bg: #ffa908;
+.empty {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
 
-.table-budget {
+  .mat-icon {
+    width: 64px;
+    height: 64px;
+    font-size: 64px;
+    display: block;
+  }
 
-}
-
-
-
-.table-budget th {
-  border: 0;
-}
-.table-budget th.actions {
-  width: 5%;
-}
-.table-budget td {
-  color: #ffffff;
-}
-.table-budget td .btn-group {
-  display: none !important;
-}
-.table-budget td:hover .btn-group {
-  display: inline-flex !important;
-}
-.table-budget td  a{
-  color: #ffffff;
-}
-
-.table-budget td a:hover {
-  color: #ffffff;
-  text-decoration: none;
-}
-
-.table-budget tbody {
-  border: 0;
-}
-
-.table-budget .budget-group-green {
-  background: $table-budget-green-bg-light;
-  background-size: 250% 250%;
-}
-
-.table-budget .budget-group-green td {
-  border-top: 1px solid #83CB1E;
-}
-
-.table-budget .budget-group-green tr.budget-group td {
-  background: $table-budget-green-bg-dark;
-}
-
-.table-budget .budget-group-red {
-  background: $table-budget-red-bg-light;
-  background-size: 250% 250%;
-}
-
-.table-budget .budget-group-red td {
-  border-top: 1px solid $table-budget-red-bg-light;
-}
-
-.table-budget .budget-group-red tr.budget-group td {
-  background: $table-budget-red-bg-dark;
-}
-
-.table-budget .budget-summary td {
-  background: $table-budget-summary-bg;
-  border-top: 1px solid $table-budget-summary-bg;
+  p {
+    font-size: 1.5rem;
+  }
 }

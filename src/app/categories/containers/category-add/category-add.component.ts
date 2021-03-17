@@ -22,6 +22,6 @@ export class CategoryAddComponent implements OnInit {
 
   onSave(category: Category) {
     this.categoriesFacade.createCategory(category);
-    this.router.navigate(['app/budget']);
+    this.router.navigate(['/app/budget']);
   }
 }

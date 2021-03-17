@@ -1,0 +1,30 @@
+:host {
+  display: block;
+  height: 200px;
+
+  .summary-container {
+    display: flex;
+
+    .item {
+      width: 30%;
+
+      .chart {
+        height: 150px;
+
+        ::ng-deep {
+          .ngx-charts {
+            .grid-panel.odd {
+              rect {
+                fill: none;
+              }
+            }
+          }
+        }
+      }
+
+      .month-name {
+        text-align: center;
+      }
+    }
+  }
+}

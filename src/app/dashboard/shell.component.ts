@@ -20,7 +20,6 @@ export class ShellComponent implements OnInit {
     this.accountsFacade.loadAccounts();
     this.categoriesFacade.loadCategories();
     this.contractorsFacade.loadContractors();
-    this.dashboardFacade.loadFlowSummary();
-    this.dashboardFacade.loadLatestTransactions();
+    this.dashboardFacade.initLatestTransactions();
   }
 }

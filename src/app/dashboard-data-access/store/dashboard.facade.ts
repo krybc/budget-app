@@ -10,7 +10,9 @@ import { dashboardActions } from './dashboard.actions';
 export class DashboardFacade {
   flowSummary$ = this.store.pipe(select(DashboardSelectors.getFlowSummary));
   flowSummaryLoaded$ = this.store.pipe(select(DashboardSelectors.isFlowSummaryLoaded));
-  params$ = this.store.pipe(select(DashboardSelectors.getParams));
+  categoriesSummary$ = this.store.pipe(select(DashboardSelectors.getCategoriesSummary));
+  categoriesSummaryLoaded$ = this.store.pipe(select(DashboardSelectors.isCategoriesSummaryLoaded));
+  latestTransactionsParams$ = this.store.pipe(select(DashboardSelectors.getLatestTransactionsParams));
   latestTransactions$ = this.store.pipe(select(DashboardSelectors.getLatestTransactions));
   latestTransactionsLoaded$ = this.store.pipe(select(DashboardSelectors.isLatestTransactionsLoaded));
 
@@ -19,11 +21,7 @@ export class DashboardFacade {
   ) {
   }
 
-  loadFlowSummary() {
-    this.store.dispatch(dashboardActions.loadFlowSummary());
-  }
-
-  loadLatestTransactions() {
-    this.store.dispatch(dashboardActions.loadLatestTransactions());
+  initLatestTransactions() {
+    this.store.dispatch(dashboardActions.initLatestTransactions());
   }
 }

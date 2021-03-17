@@ -1,0 +1,15 @@
+<div class="summary-container">
+  <div class="item" *ngFor="let chart of summary">
+    <div class="chart">
+      <ngx-charts-pie-chart
+        [results]="chart.series"
+        [scheme]="colorScheme"
+        [doughnut]="true"
+      ></ngx-charts-pie-chart>
+    </div>
+
+    <p class="month-name">
+      {{ chart.name }}
+    </p>
+  </div>
+</div>

@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {DashboardFacade} from '../../../dashboard-data-access/store/dashboard.facade';
+import {DashboardFacade} from '@dashboard-data-access';
 
 @Component({
   selector: 'app-dashboard',
@@ -9,6 +9,8 @@ import {DashboardFacade} from '../../../dashboard-data-access/store/dashboard.fa
 export class DashboardComponent implements OnInit {
   flowSummary$ = this.dashboardFacade.flowSummary$;
   flowSummaryLoaded$ = this.dashboardFacade.flowSummaryLoaded$;
+  categoriesSummary$ = this.dashboardFacade.categoriesSummary$;
+  categoriesSummaryLoaded$ = this.dashboardFacade.categoriesSummaryLoaded$;
   latestTransactions$ = this.dashboardFacade.latestTransactions$;
   latestTransactionsLoaded$ = this.dashboardFacade.latestTransactionsLoaded$;
 

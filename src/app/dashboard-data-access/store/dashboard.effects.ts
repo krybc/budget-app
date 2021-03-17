@@ -1,8 +1,10 @@
 import {Injectable} from '@angular/core';
 
 import {
-  catchError, filter,
-  map, mapTo,
+  catchError,
+  filter,
+  map,
+  mapTo,
   mergeMap,
   withLatestFrom
 } from 'rxjs/operators';
@@ -12,7 +14,6 @@ import {Actions, createEffect, ofType} from '@ngrx/effects';
 import {TransactionsApiService} from '@api';
 
 import * as DashboardActions from './dashboard.actions';
-import {createFlowSummary} from './dashboard.factories';
 import {DashboardFacade} from './dashboard.facade';
 import {createFromApiListResponse} from '@transactions-data-access';
 import {AccountsFacade} from '@accounts-data-access';
@@ -21,27 +22,6 @@ import {ContractorsFacade} from '@contractors-data-access';
 
 @Injectable()
 export class DashboardEffects {
-
-  loadFlowSummary$ = createEffect(() =>
-    this.actions$.pipe(
-      ofType(DashboardActions.loadFlowSummary),
-      withLatestFrom(
-        this.dashboardFacade.params$
-      ),
-      map(([action,  params]) => ({...action, params})),
-      mergeMap((action) => {
-          return this.transactionsApiService.list(action.params)
-            .pipe(
-              map(result => {
-                const flowSummary = createFlowSummary(action.params, result);
-                return DashboardActions.loadFlowSummarySuccess({flowSummary});
-              }),
-              catchError((error) => of(DashboardActions.loadFlowSummaryFailure({error})))
-            );
-        }
-      )
-    )
-  );
 
   initLatestTransactions$ = createEffect(() =>
     combineLatest([
@@ -64,13 +44,14 @@ export class DashboardEffects {
     this.actions$.pipe(
       ofType(DashboardActions.loadLatestTransactions),
       withLatestFrom(
+        this.dashboardFacade.latestTransactionsParams$,
         this.accountsFacade.accounts$,
         this.categoriesFacade.categories$,
         this.contractorsFacade.contractors$,
       ),
-      map(([action, accounts, categories, contractors]) => ({...action, accounts, categories, contractors})),
+      map(([action, params, accounts, categories, contractors]) => ({...action, params, accounts, categories, contractors})),
       mergeMap((action) => {
-          return this.transactionsApiService.list(null, null, 10)
+          return this.transactionsApiService.list(action.params)
             .pipe(
               map(result => {
                 const latestTransactions = createFromApiListResponse(result, action.accounts, action.categories, action.contractors);

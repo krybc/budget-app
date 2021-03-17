@@ -3,54 +3,54 @@ import {Category} from './categories.models';
 
 export const loadCategories = createAction('[App] Load Categories');
 export const loadCategoriesSuccess = createAction(
-  '[App] Load Categories Success',
+  '[Categories] Load Categories Success',
   props<{ categories: Category[] }>()
 );
 export const loadCategoriesFailure = createAction(
-  '[App] Load Categories Failure',
+  '[Categories] Load Categories Failure',
   props<{ error: any }>()
 );
 
 export const selectCategory = createAction(
-  '[App] Select Category',
+  '[Categories] Select Category',
   props<{ id: number }>()
 );
 
 export const createCategory = createAction(
-  '[App] Create Category',
+  '[Categories] Create Category',
   props<{ category: Category }>()
 );
 export const createCategorySuccess = createAction(
-  '[App] Create Category Success',
+  '[Categories] Create Category Success',
   props<{ category: Category }>()
 );
 export const createCategoryFailure = createAction(
-  '[App] Create Category Failure',
+  '[Categories] Create Category Failure',
   props<{ error: any }>()
 );
 
 export const updateCategory = createAction(
-  '[App] Update Category',
+  '[Categories] Update Category',
   props<{ category: Category }>()
 );
 export const updateCategorySuccess = createAction(
-  '[App] Update Category Success',
+  '[Categories] Update Category Success',
   props<{ category: Category }>()
 );
 export const updateCategoryFailure = createAction(
-  '[App] Update Category Failure',
+  '[Categories] Update Category Failure',
   props<{ error: any }>()
 );
 
 export const deleteCategory = createAction(
-  '[App] Delete Category',
+  '[Categories] Delete Category',
   props<{ category: Category }>()
 );
 export const deleteCategorySuccess = createAction(
-  '[App] Delete Category Success',
+  '[Categories] Delete Category Success',
   props<{ category: Category }>()
 );
 export const deleteCategoryFailure = createAction(
-  '[App] Delete Category Failure',
+  '[Categories] Delete Category Failure',
   props<{ error: any }>()
 );

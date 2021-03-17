@@ -48,17 +48,18 @@ Handle `build` directory by web server (eg. Nginx or Apache).
 
 - [ ] Feature: Statistics for contractors
 - [ ] Feature: Statistics for accounts
+- [ ] Feature: Many categories to one transaction
 - [ ] Travis CI and Coveralls integration
 - [ ] Unit tests for NGRX store
 
 ### 0.4.0
 
 - [ ] Feature: Categories order edition
-- [ ] Feature: Quarterly expenses by categories chart on dashboard
-- [ ] Feature: Many categories to one transaction
+- [ ] Feature: Add icons to categories
 
 ### 0.3.0
 
+- [x] Feature: Quarterly expenses by categories chart on dashboard
 - [x] Feature: Quarterly cash flow chart on dashboard
 - [x] Refactoring: NGRX for state management
 - [x] Upgrade Angular to v11
