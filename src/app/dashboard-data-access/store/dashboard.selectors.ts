@@ -7,41 +7,46 @@ export const getDashboardState = createFeatureSelector<DashboardPartialState, St
   DASHBOARD_FEATURE_KEY
 );
 
-export const getLatestTransactionsParams = createSelector(
+export const getTransactionsToSummaryParams = createSelector(
   getDashboardState,
-  (state: State) => state.latestTransactionsParams
+  (state: State) => state.transactionsToSummaryParams
+);
+
+export const getTransactionsToSummary = createSelector(
+  getDashboardState,
+  (state: State) => transactionsSelectors.selectAll(state.transactionsToSummary)
 );
 
 export const getLatestTransactions = createSelector(
-  getDashboardState,
-  (state: State) => transactionsSelectors
-    .selectAll(state.latestTransactions)
+  getTransactionsToSummary,
+  (state: Transaction[]) => state
     .sort((a, b) => b.date.toMillis() - a.date.toMillis())
+    .slice(0, 10)
 );
 
-export const isLatestTransactionsLoaded = createSelector(
+export const isTransactionsToSummaryLoaded = createSelector(
   getDashboardState,
-  (state: State) => state.latestTransactionsLoaded
+  (state: State) => state.transactionsToSummaryLoaded
 );
 
 export const getFlowSummary = createSelector(
-  getLatestTransactionsParams, getLatestTransactions,
+  getTransactionsToSummaryParams, getTransactionsToSummary,
   (params, transactions: Transaction[]) => createFlowSummary(params, transactions)
 );
 
 export const isFlowSummaryLoaded = createSelector(
   getDashboardState,
-  (state: State) => state.latestTransactionsLoaded
+  (state: State) => state.transactionsToSummaryLoaded
 );
 
 export const getCategoriesSummary = createSelector(
-  getLatestTransactionsParams, getLatestTransactions,
+  getTransactionsToSummaryParams, getTransactionsToSummary,
   (params, transactions) => createCategoriesSummary(params, transactions)
 );
 
 export const isCategoriesSummaryLoaded = createSelector(
   getDashboardState,
-  (state: State) => state.latestTransactionsLoaded
+  (state: State) => state.transactionsToSummaryLoaded
 );
 
 

@@ -11,9 +11,9 @@ import {LatestTransactionsParams} from './dashboard.models';
 export const DASHBOARD_FEATURE_KEY = 'dashboard';
 
 export interface State {
-  latestTransactionsParams: LatestTransactionsParams;
-  latestTransactions: Transactions;
-  latestTransactionsLoaded: boolean;
+  transactionsToSummaryParams: LatestTransactionsParams;
+  transactionsToSummary: Transactions;
+  transactionsToSummaryLoaded: boolean;
 }
 
 export interface DashboardPartialState {
@@ -28,17 +28,17 @@ const initialLatestTransactionsParams: LatestTransactionsParams = {
 };
 
 export const initialState: State = {
-  latestTransactionsParams: initialLatestTransactionsParams,
-  latestTransactions: transactionsAdapter.getInitialState(),
-  latestTransactionsLoaded: false,
+  transactionsToSummaryParams: initialLatestTransactionsParams,
+  transactionsToSummary: transactionsAdapter.getInitialState(),
+  transactionsToSummaryLoaded: false,
 };
 
 const dashboardReducer = createReducer(
   initialState,
-  on(DashboardActions.loadLatestTransactionsSuccess, (state, {latestTransactions}) => ({
+  on(DashboardActions.loadTransactionsToSummarySuccess, (state, {transactionsToSummary}) => ({
     ...state,
-    latestTransactions: transactionsAdapter.setAll(latestTransactions, state.latestTransactions),
-    latestTransactionsLoaded: true
+    transactionsToSummary: transactionsAdapter.setAll(transactionsToSummary, state.transactionsToSummary),
+    transactionsToSummaryLoaded: true
   })),
 );
 

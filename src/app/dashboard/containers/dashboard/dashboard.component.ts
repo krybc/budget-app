@@ -11,8 +11,9 @@ export class DashboardComponent implements OnInit {
   flowSummaryLoaded$ = this.dashboardFacade.flowSummaryLoaded$;
   categoriesSummary$ = this.dashboardFacade.categoriesSummary$;
   categoriesSummaryLoaded$ = this.dashboardFacade.categoriesSummaryLoaded$;
+  transactionsToSummary$ = this.dashboardFacade.transactionsToSummary$;
+  transactionsToSummaryLoaded$ = this.dashboardFacade.transactionsToSummaryLoaded$;
   latestTransactions$ = this.dashboardFacade.latestTransactions$;
-  latestTransactionsLoaded$ = this.dashboardFacade.latestTransactionsLoaded$;
 
   constructor(
     private dashboardFacade: DashboardFacade,

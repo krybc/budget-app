@@ -13,19 +13,20 @@ import {Actions, createEffect, ofType} from '@ngrx/effects';
 
 import {TransactionsApiService} from '@api';
 
-import * as DashboardActions from './dashboard.actions';
-import {DashboardFacade} from './dashboard.facade';
 import {createFromApiListResponse} from '@transactions-data-access';
 import {AccountsFacade} from '@accounts-data-access';
 import {CategoriesFacade} from '@categories-data-access';
 import {ContractorsFacade} from '@contractors-data-access';
 
+import * as DashboardActions from './dashboard.actions';
+import {DashboardFacade} from './dashboard.facade';
+
 @Injectable()
 export class DashboardEffects {
 
-  initLatestTransactions$ = createEffect(() =>
+  initTransactionsToSummary$ = createEffect(() =>
     combineLatest([
-      this.actions$.pipe(ofType(DashboardActions.initLatestTransactions)),
+      this.actions$.pipe(ofType(DashboardActions.initTransactionsToSummary)),
       this.accountsFacade.accountsLoaded$.pipe(
         filter(it => it !== false)
       ),
@@ -36,15 +37,15 @@ export class DashboardEffects {
         filter(it => it !== false)
       ),
     ]).pipe(
-      mapTo(DashboardActions.loadLatestTransactions())
+      mapTo(DashboardActions.loadTransactionsToSummary())
     )
   );
 
   loadLatestTransactions$ = createEffect(() =>
     this.actions$.pipe(
-      ofType(DashboardActions.loadLatestTransactions),
+      ofType(DashboardActions.loadTransactionsToSummary),
       withLatestFrom(
-        this.dashboardFacade.latestTransactionsParams$,
+        this.dashboardFacade.transactionsToSummaryParams$,
         this.accountsFacade.accounts$,
         this.categoriesFacade.categories$,
         this.contractorsFacade.contractors$,
@@ -54,10 +55,10 @@ export class DashboardEffects {
           return this.transactionsApiService.list(action.params)
             .pipe(
               map(result => {
-                const latestTransactions = createFromApiListResponse(result, action.accounts, action.categories, action.contractors);
-                return DashboardActions.loadLatestTransactionsSuccess({latestTransactions});
+                const transactionsToSummary = createFromApiListResponse(result, action.accounts, action.categories, action.contractors);
+                return DashboardActions.loadTransactionsToSummarySuccess({transactionsToSummary});
               }),
-              catchError((error) => of(DashboardActions.loadLatestTransactionsFailure({error})))
+              catchError((error) => of(DashboardActions.loadTransactionsToSummaryFailure({error})))
             );
         }
       )

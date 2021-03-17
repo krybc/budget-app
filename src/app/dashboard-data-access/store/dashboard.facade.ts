@@ -12,16 +12,17 @@ export class DashboardFacade {
   flowSummaryLoaded$ = this.store.pipe(select(DashboardSelectors.isFlowSummaryLoaded));
   categoriesSummary$ = this.store.pipe(select(DashboardSelectors.getCategoriesSummary));
   categoriesSummaryLoaded$ = this.store.pipe(select(DashboardSelectors.isCategoriesSummaryLoaded));
-  latestTransactionsParams$ = this.store.pipe(select(DashboardSelectors.getLatestTransactionsParams));
+  transactionsToSummaryParams$ = this.store.pipe(select(DashboardSelectors.getTransactionsToSummaryParams));
+  transactionsToSummary$ = this.store.pipe(select(DashboardSelectors.getLatestTransactions));
+  transactionsToSummaryLoaded$ = this.store.pipe(select(DashboardSelectors.isTransactionsToSummaryLoaded));
   latestTransactions$ = this.store.pipe(select(DashboardSelectors.getLatestTransactions));
-  latestTransactionsLoaded$ = this.store.pipe(select(DashboardSelectors.isLatestTransactionsLoaded));
 
   constructor(
     private store: Store<fromDashboard.DashboardPartialState>
   ) {
   }
 
-  initLatestTransactions() {
-    this.store.dispatch(dashboardActions.initLatestTransactions());
+  initTransactionsToSummary() {
+    this.store.dispatch(dashboardActions.initTransactionsToSummary());
   }
 }
