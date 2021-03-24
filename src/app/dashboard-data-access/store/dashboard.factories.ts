@@ -43,34 +43,34 @@ export const createCategoriesSummary = (params: LatestTransactionsParams, transa
   transactions
     .filter(it => it.expense > 0)
     .forEach(it => {
-    const monthStart = it.date.startOf('month');
+      const monthStart = it.date.startOf('month');
 
-    const resultItem = result.find(res => res.id.equals(monthStart));
-    if (resultItem) {
-      const resultCategory = resultItem.series.find(cat => cat.id === it.category.id);
-      if (resultCategory) {
-        resultCategory.value = it.expense;
-      } else {
-        resultItem.series.push({
-          id: it.category.id,
-          name: it.category.name,
-          value: it.expense
-        });
-      }
-    } else {
-      result.push({
-        id: monthStart,
-        name: monthStart.toFormat('yyyy MMMM'),
-        series: [
-          {
+      const resultItem = result.find(res => res.id.equals(monthStart));
+      if (resultItem) {
+        const resultCategory = resultItem.series.find(cat => cat.id === it.category.id);
+        if (resultCategory) {
+          resultCategory.value += it.expense;
+        } else {
+          resultItem.series.push({
             id: it.category.id,
             name: it.category.name,
             value: it.expense
-          },
-        ]
-      });
-    }
-  });
+          });
+        }
+      } else {
+        result.push({
+          id: monthStart,
+          name: monthStart.toFormat('yyyy MMMM'),
+          series: [
+            {
+              id: it.category.id,
+              name: it.category.name,
+              value: it.expense
+            },
+          ]
+        });
+      }
+    });
 
   return result;
 };
