@@ -39,7 +39,6 @@ export class BudgetTableComponent implements OnInit {
   }
 
   public onListDrop(event: CdkDragDrop<Category>) {
-    console.log(event);
     if (event.currentIndex !== event.previousIndex) {
       const item = { ...event.item.data };
       item.order = event.currentIndex + 1;
