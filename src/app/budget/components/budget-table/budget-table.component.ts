@@ -3,6 +3,7 @@ import {Category} from '@categories-data-access';
 import {DialogComponent} from '@shared/ui';
 import {BudgetCategory, BudgetSummary} from '@budget-data-access';
 import {MatDialog} from '@angular/material/dialog';
+import {CdkDragDrop} from '@angular/cdk/drag-drop';
 
 @Component({
   selector: 'app-budget-table',
@@ -13,8 +14,8 @@ export class BudgetTableComponent implements OnInit {
   @Input() budget: BudgetCategory[];
   @Input() budgetSummary: BudgetSummary;
   @Output() deleteCategory = new EventEmitter<Category>();
+  @Output() changeOrder = new EventEmitter<Category>();
 
-  tableColumns = ['name', 'income', 'expense', 'actions'];
   constructor(
     public dialog: MatDialog,
   ) { }
@@ -35,5 +36,14 @@ export class BudgetTableComponent implements OnInit {
         this.deleteCategory.emit(category);
       }
     });
+  }
+
+  public onListDrop(event: CdkDragDrop<Category>) {
+    console.log(event);
+    if (event.currentIndex !== event.previousIndex) {
+      const item = { ...event.item.data };
+      item.order = event.currentIndex + 1;
+      this.changeOrder.emit(item);
+    }
   }
 }

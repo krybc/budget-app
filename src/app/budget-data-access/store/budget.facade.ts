@@ -19,11 +19,9 @@ export class BudgetFacade {
   ) {
   }
 
-  initBudget() {
-    this.store.dispatch(BudgetActions.initBudget());
-  }
-
   setParams(params: BudgetParams) {
     this.store.dispatch(BudgetActions.setParams({params}));
   }
+
+
 }

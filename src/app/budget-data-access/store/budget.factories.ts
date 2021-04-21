@@ -20,11 +20,12 @@ const createBudget = (apiCategories: Category[], transactions: TransactionApiMod
 
       group.income = children.reduce((sum, curr) => sum + curr.income, 0);
       group.expense = children.reduce((sum, curr) => sum + curr.expense, 0);
-      budget.push(group);
 
       children.forEach(it => {
-        budget.push(it);
+        group.children.push(it);
       });
+
+      budget.push(group);
     });
 
   return budget;

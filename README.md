@@ -34,17 +34,17 @@ Handle `build` directory by web server (eg. Nginx or Apache).
 
 ## Roadmap
 
-### 0.7.0
+### 0.8.0
 
 - [ ] Feature: Change password
 
-### 0.6.0
+### 0.7.0
 
 - [ ] Feature: Monthly budget planning
 - [ ] Feature: Progress bar of monthly budget plan realisation on budget table
 - [ ] Feature: Current month plan realisation on dashboard
 
-### 0.5.0
+### 0.6.0
 
 - [ ] Feature: Statistics for contractors
 - [ ] Feature: Statistics for accounts
@@ -52,10 +52,13 @@ Handle `build` directory by web server (eg. Nginx or Apache).
 - [ ] Travis CI and Coveralls integration
 - [ ] Unit tests for NGRX store
 
+### 0.5.0
+
+- [ ] Feature: Add icons to categories
+
 ### 0.4.0
 
-- [ ] Feature: Categories order edition
-- [ ] Feature: Add icons to categories
+- [x] Feature: Categories order changing by drag'n'drop
 
 ### 0.3.0
 

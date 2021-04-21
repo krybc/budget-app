@@ -9,6 +9,7 @@ import { CategoryApiModel } from '../models';
 })
 export class CategoriesApiService {
   private readonly rootPath = 'categories';
+  private readonly patchOrderPath = 'order';
 
   constructor(
     private http: HttpClient,
@@ -32,5 +33,9 @@ export class CategoriesApiService {
 
   delete(item: CategoryApiModel): Observable<any> {
     return this.http.delete(`${this.rootPath}/${item.id}`);
+  }
+
+  patchOrder(item: CategoryApiModel): Observable<any> {
+    return this.http.patch(`${this.rootPath}/${item.id}/${this.patchOrderPath}/${item.order}`, { order: item.order });
   }
 }

@@ -27,4 +27,8 @@ export class BudgetComponent implements OnInit {
   deleteCategory(category: Category) {
     this.categoriesFacade.deleteCategory(category);
   }
+
+  changeOrder(category: Category) {
+    this.categoriesFacade.changeOrder(category);
+  }
 }

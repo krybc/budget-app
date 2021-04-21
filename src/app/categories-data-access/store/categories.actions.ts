@@ -54,3 +54,16 @@ export const deleteCategoryFailure = createAction(
   '[Categories] Delete Category Failure',
   props<{ error: any }>()
 );
+
+export const setOrder = createAction(
+  '[Categories] Set Order',
+  props<{ category: Category }>()
+);
+export const setOrderSuccess = createAction(
+  '[Categories] Set Order Success',
+  props<{ result: boolean }>()
+);
+export const setOrderFailure = createAction(
+  '[Categories] Set Order Failure',
+  props<{ error: any }>()
+);

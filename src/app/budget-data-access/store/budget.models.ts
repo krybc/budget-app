@@ -1,7 +1,9 @@
 import {DateTime} from 'luxon';
+import {CategoryType} from '@api';
 
 export interface BudgetCategory {
   id: number;
+  type: CategoryType;
   parentId: number;
   name: string;
   income: number;

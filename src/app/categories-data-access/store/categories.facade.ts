@@ -3,7 +3,7 @@ import {Category} from './categories.models';
 import {select, Store} from '@ngrx/store';
 import * as CategoriesSelectors from './categories.selectors';
 import * as fromCategories from './categories.reducer';
-import {createCategory, deleteCategory, loadCategories, selectCategory, updateCategory } from './categories.actions';
+import {createCategory, deleteCategory, loadCategories, selectCategory, setOrder, updateCategory} from './categories.actions';
 
 @Injectable({
   providedIn: 'root'
@@ -17,6 +17,7 @@ export class CategoriesFacade {
   constructor(
     private store: Store<fromCategories.CategoriesPartialState>
   ) {
+    this.categories$.subscribe(value => console.log(value));
   }
 
   loadCategories() {
@@ -37,5 +38,9 @@ export class CategoriesFacade {
 
   deleteCategory(category: Category) {
     this.store.dispatch(deleteCategory({category}));
+  }
+
+  changeOrder(category: Category) {
+    this.store.dispatch(setOrder({ category }));
   }
 }

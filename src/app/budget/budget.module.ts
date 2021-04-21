@@ -24,12 +24,14 @@ import {MatFormFieldModule} from '@angular/material/form-field';
 import {MatInputModule} from '@angular/material/input';
 import {MatSelectModule} from '@angular/material/select';
 import {SharedDateModule} from '@shared/date';
+import {DragDropModule} from '@angular/cdk/drag-drop';
 
 const uiModules = [
   FlexLayoutModule,
   MatButtonModule,
   MatCardModule,
   MatDatepickerModule,
+  DragDropModule,
   MatSelectModule,
   MatDialogModule,
   MatFormFieldModule,

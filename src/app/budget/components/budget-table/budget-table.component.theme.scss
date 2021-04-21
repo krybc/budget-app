@@ -8,13 +8,51 @@
   $red-text: $light-primary-text;
 
   table.budget-table {
+    width: 100%;
+
     tr.mat-row, tr.mat-footer-row, tr.mat-header-row {
       height: 48px;
+
+      &.children {
+        & > td {
+          padding: 0;
+        }
+
+        table {
+          width: 100%;
+        }
+      }
+
+      &:nth-child(odd) {
+        .mat-cell {
+          background: #fff;
+        }
+      }
     }
 
-    td {
+    td, th {
       border-bottom-width: 0 !important;
       background: none;
+
+      &.name {
+        width: 50%;
+        padding-left: 24px;
+      }
+
+      &.income {
+        width: 10%;
+        text-align: center;
+      }
+
+      &.expense {
+        width: 10%;
+        text-align: center;
+      }
+
+      &.actions {
+        width: 10%;
+        text-align: center;
+      }
     }
 
     .mat-icon-button {
@@ -29,21 +67,66 @@
       }
     }
 
-    .mat-row.group-income {
-      .mat-cell:first-child {
-        border-left: 4px solid $green;
+    .budget-body {
+
+      .group-row {
+
+        .group-cell {
+          .group-table {
+            width: 100%;
+
+            .group-header {
+              .mat-header-cell {
+                background: #f5f5f5;
+                font-size: 14px;
+                font-weight: 500;
+
+                &.name {
+                  border-top-left-radius: 8px;
+                  border-bottom-left-radius: 8px;
+                  text-align: left;
+                }
+              }
+            }
+
+            tbody {
+
+              .mat-cell {
+                font-size: 12px;
+                font-weight: 500;
+                color: rgba(0, 0, 0, 0.54);
+
+                a {
+                  color: rgba(0, 0, 0, 0.54);
+                }
+              }
+
+            }
+          }
+        }
+
+        &.group-income-row {
+          .mat-header-cell:first-child {
+            border-left: 4px solid $green;
+          }
+        }
+
+        &.group-expense-row {
+          .mat-header-cell:first-child {
+            border-left: 4px solid $red;
+          }
+        }
+
       }
     }
 
-    .mat-row.group-expense {
-      .mat-cell:first-child {
-        border-left: 4px solid $red;
-      }
-    }
-
-    .mat-footer-row.summary {
+    .mat-footer-row {
       .mat-footer-cell:first-child {
         border-left: 4px solid mat-color($accent);
+
+        &.name {
+          font-weight: bold;
+        }
       }
     }
   }

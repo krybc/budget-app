@@ -24,10 +24,10 @@ export class BudgetEffects {
 
   initBudget$ = createEffect(() =>
     combineLatest([
-      this.actions$.pipe(ofType(BudgetActions.initBudget)),
       this.categoriesFacade.categoriesLoaded$.pipe(
         filter(it => it !== false)
       ),
+      this.categoriesFacade.categories$,
     ]).pipe(
       mapTo(BudgetActions.loadBudget())
     )

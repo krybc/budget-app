@@ -13,7 +13,7 @@ import {Router} from '@angular/router';
 export class CategoriesEffects {
   loadCategories$ = createEffect(() =>
     this.actions$.pipe(
-      ofType(CategoriesActions.loadCategories),
+      ofType(CategoriesActions.loadCategories, CategoriesActions.setOrderSuccess),
       mergeMap(() => this.categoriesApiService.list()
         .pipe(
           map(categories => CategoriesActions.loadCategoriesSuccess({categories})),
@@ -60,6 +60,19 @@ export class CategoriesEffects {
           }),
           tap(_ => this.router.navigate(['app/budget'])),
           catchError((error) => of(CategoriesActions.deleteCategoryFailure({error})))
+        )
+      )
+    )
+  );
+
+  setOrder$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(CategoriesActions.setOrder),
+      mergeMap((action) => this.categoriesApiService.patchOrder(action.category)
+        .pipe(
+          tap((_) => this.snackBar.open(`Category has been moved`, 'Close')),
+          map((_) => CategoriesActions.setOrderSuccess({ result: true })),
+          catchError((error) => of(CategoriesActions.setOrderFailure({ error})))
         )
       )
     )

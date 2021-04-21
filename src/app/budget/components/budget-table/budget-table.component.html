@@ -1,55 +1,78 @@
-<table mat-table [dataSource]="budget" class="budget-table" style="width: 100%">
-
-  <!-- Name Column -->
-  <ng-container matColumnDef="name">
-    <th mat-header-cell *matHeaderCellDef> Name </th>
-    <td mat-cell *matCellDef="let element">
-      <a [routerLink]="['/app/transactions']" [queryParams]="{category: element._id}">{{element.name}}</a>
-    </td>
-    <td mat-footer-cell *matFooterCellDef> Summary </td>
-  </ng-container>
-
-  <ng-container matColumnDef="income">
-    <th mat-header-cell *matHeaderCellDef> Income </th>
-    <td mat-cell *matCellDef="let element"> {{element.income | number: '1.2'}} </td>
-    <td mat-footer-cell *matFooterCellDef> {{ budgetSummary.income | number:'1.2' }} </td>
-  </ng-container>
-
-  <ng-container matColumnDef="expense">
-    <th mat-header-cell *matHeaderCellDef> Expense </th>
-    <td mat-cell *matCellDef="let element"> {{element.expense | number: '1.2'}} </td>
-    <td mat-footer-cell *matFooterCellDef> {{ budgetSummary.expense | number:'1.2' }} </td>
-  </ng-container>
-
-  <ng-container matColumnDef="actions" stickyEnd>
-    <th mat-header-cell *matHeaderCellDef></th>
-    <td mat-cell *matCellDef="let element">
-      <button *ngIf="element.id" mat-icon-button [matMenuTriggerFor]="menu">
-        <mat-icon>more_vert</mat-icon>
-      </button>
-      <mat-menu #menu="matMenu">
-        <button mat-menu-item [routerLink]="['/app/categories', element.id, 'edit']">
-          <mat-icon>edit</mat-icon>
-          <span>Edit category</span>
-        </button>
-        <button *ngIf="element.parentId === null" mat-menu-item [routerLink]="['/app/categories/add']" [queryParams]="{parent: element.id}">
-          <mat-icon>add_circle</mat-icon>
-          <span>Add subcategory</span>
-        </button>
-        <button mat-menu-item (click)="onDeleteCategory(element)">
-          <mat-icon>delete</mat-icon>
-          <span>Delete category</span>
-        </button>
-        <button *ngIf="element.parentId !== null" mat-menu-item [routerLink]="['/app/transactions/add']" [queryParams]="{category: element.id}">
-          <mat-icon>add_circle</mat-icon>
-          <span>Add transaction</span>
-        </button>
-      </mat-menu>
-    </td>
-    <td mat-footer-cell *matFooterCellDef></td>
-  </ng-container>
-
-  <tr mat-header-row *matHeaderRowDef="tableColumns"></tr>
-  <tr mat-row *matRowDef="let row; columns: tableColumns;" [ngClass]="{'group-income': row.parentId === null && row.type === 0, 'group-expense': row.parentId === null && row.type === 1, 'category-income': row.parentId !== null && row.type === 0, 'category-expense': row.parentId !== null && row.type === 1}"></tr>
-  <tr mat-footer-row class="summary" *matFooterRowDef="tableColumns"></tr>
+<table class="budget-table mat-table">
+  <thead class="mat-header">
+  <tr class="mat-header-row">
+    <th class="mat-header-cell">Name</th>
+    <th class="mat-header-cell">Income</th>
+    <th class="mat-header-cell">Expense</th>
+    <th class="mat-header-cell"></th>
+  </tr>
+  </thead>
+  <tbody cdkDropList (cdkDropListDropped)="onListDrop($event)" class="budget-body">
+    <tr *ngFor="let group of budget" cdkDrag [cdkDragData]="group" class="mat-row group-row" [ngClass]="{'group-income-row': group.type === 0, 'group-expense-row': group.type === 1}">
+      <td class="mat-cell group-cell" colspan="4">
+        <table class="group-table">
+          <thead class="mat-header group-header">
+            <tr class="mat-header-row">
+              <th class="mat-header-cell name"><a [routerLink]="['/app/transactions']" [queryParams]="{category: group.id}">{{group.name}}</a></th>
+              <th class="mat-header-cell income">{{ group.income | number: '1.2' }}</th>
+              <th class="mat-header-cell expense">{{ group.expense | number: '1.2' }}</th>
+              <th class="mat-header-cell actions">
+                <button *ngIf="group.id" mat-icon-button [matMenuTriggerFor]="menu">
+                  <mat-icon>more_vert</mat-icon>
+                </button>
+                <mat-menu #menu="matMenu">
+                  <button mat-menu-item [routerLink]="['/app/categories', group.id, 'edit']">
+                    <mat-icon>edit</mat-icon>
+                    <span>Edit category</span>
+                  </button>
+                  <button mat-menu-item [routerLink]="['/app/categories/add']" [queryParams]="{parent: group.id}">
+                    <mat-icon>add_circle</mat-icon>
+                    <span>Add subcategory</span>
+                  </button>
+                  <button mat-menu-item (click)="onDeleteCategory(group)">
+                    <mat-icon>delete</mat-icon>
+                    <span>Delete category</span>
+                  </button>
+                </mat-menu>
+              </th>
+            </tr>
+          </thead>
+          <tbody cdkDropList (cdkDropListDropped)="onListDrop($event)">
+          <tr class="mat-row category-row" cdkDrag [cdkDragData]="category" [ngClass]="{'category-income-row': category.type === 0, 'category-expense-row': category.type === 1}" *ngFor="let category of group.children">
+            <td class="mat-cell name"><a [routerLink]="['/app/transactions']" [queryParams]="{category: category.id}">{{category.name}}</a></td>
+            <td class="mat-cell income">{{ category.income | number: '1.2' }}</td>
+            <td class="mat-cell expense">{{ category.expense | number: '1.2' }}</td>
+            <td class="mat-cell actions">
+              <button *ngIf="category.id" mat-icon-button [matMenuTriggerFor]="menu">
+                <mat-icon>more_vert</mat-icon>
+              </button>
+              <mat-menu #menu="matMenu">
+                <button mat-menu-item [routerLink]="['/app/categories', category.id, 'edit']">
+                  <mat-icon>edit</mat-icon>
+                  <span>Edit category</span>
+                </button>
+                <button mat-menu-item (click)="onDeleteCategory(category)">
+                  <mat-icon>delete</mat-icon>
+                  <span>Delete category</span>
+                </button>
+                <button mat-menu-item [routerLink]="['/app/transactions/add']" [queryParams]="{category: category.id}">
+                  <mat-icon>add_circle</mat-icon>
+                  <span>Add transaction</span>
+                </button>
+              </mat-menu>
+            </td>
+          </tr>
+          </tbody>
+        </table>
+      </td>
+    </tr>
+  </tbody>
+  <tfoot>
+  <tr class="mat-footer-row">
+    <td class="mat-footer-cell name">Summary</td>
+    <td class="mat-footer-cell income">{{ budgetSummary.income }}</td>
+    <td class="mat-footer-cell expense">{{ budgetSummary.expense }}</td>
+    <td class="mat-footer-cell actions"></td>
+  </tr>
+  </tfoot>
 </table>

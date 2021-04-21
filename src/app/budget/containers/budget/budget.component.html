@@ -21,6 +21,7 @@
         [budget]="budget$ | async"
         [budgetSummary]="budgetSummary$ | async"
         (deleteCategory)="deleteCategory($event)"
+        (changeOrder)="changeOrder($event)"
       ></app-budget-table>
     </mat-card-content>
   </mat-card>
