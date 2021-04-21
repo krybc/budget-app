@@ -1,8 +1,8 @@
-import { Injectable } from '@angular/core';
+import {Injectable} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {Observable} from 'rxjs';
-import {tap} from 'rxjs/internal/operators';
-import { JwtHelperService } from '@auth0/angular-jwt';
+import {tap} from 'rxjs/operators';
+import {JwtHelperService} from '@auth0/angular-jwt';
 import {LoggedInUserModel} from '../models/logged-in-user.model';
 import {LoginResponseModel} from '../models/login.response.model';
 

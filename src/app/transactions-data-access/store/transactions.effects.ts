@@ -5,13 +5,13 @@ import {
   catchError,
   distinctUntilChanged,
   filter,
+  tap,
   map,
   mapTo,
   mergeMap,
   withLatestFrom
 } from 'rxjs/operators';
 import {combineLatest, of} from 'rxjs';
-import {tap} from 'rxjs/internal/operators';
 import {Actions, createEffect, ofType} from '@ngrx/effects';
 
 import {TransactionsApiService} from '@api';
