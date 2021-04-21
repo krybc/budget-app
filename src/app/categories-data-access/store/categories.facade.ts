@@ -17,7 +17,6 @@ export class CategoriesFacade {
   constructor(
     private store: Store<fromCategories.CategoriesPartialState>
   ) {
-    this.categories$.subscribe(value => console.log(value));
   }
 
   loadCategories() {
