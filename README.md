@@ -64,10 +64,10 @@ Handle `build` directory by web server (eg. Nginx or Apache).
 
 ### 0.4.1
 
-- [ ] Fix: Unselectable categories select input on params of the transaction list
-- [ ] Fix: Month and category query params not handled on transaction list
-- [ ] Fix: Category query param handling on add transaction
-- [ ] Fix: Parent query param handling add category
+- [x] Fix: Unselectable categories select input on params of the transaction list
+- [x] Fix: Month and category query params not handled on transaction list
+- [x] Fix: Category query param handling on add transaction
+- [x] Fix: Parent query param handling add category
 
 ### 0.4.0
 
