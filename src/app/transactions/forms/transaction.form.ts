@@ -12,15 +12,15 @@ export class TransactionForm extends BaseForm<Transaction> {
     super(_formBuilder);
   }
 
-  protected initForm(): FormGroup {
+  protected initForm(value?: Partial<Transaction>): FormGroup {
     return this._formBuilder.group({
-      category: [null, [Validators.required]],
-      account: [null, [Validators.required]],
-      contractor: [null, [Validators.required,]],
-      date: [DateTime.local(), [Validators.required]],
-      income: [0],
-      expense: [0],
-      description: [null]
+      category: [value && value.category ? value.category : null, [Validators.required]],
+      account: [value && value.account ? value.account : null, [Validators.required]],
+      contractor: [value && value.contractor ? value.contractor : null, [Validators.required,]],
+      date: [value && value.date ? value.date : DateTime.local(), [Validators.required]],
+      income: [value && value.income ? value.income : 0],
+      expense: [value && value.expense ? value.expense : 0],
+      description: [value && value.description ? value.description : null]
     });
   }
 

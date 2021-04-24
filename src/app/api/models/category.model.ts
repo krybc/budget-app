@@ -8,5 +8,5 @@ export interface CategoryApiModel {
   parentId: number;
   name: string;
   type: CategoryType;
-  order: number;
+  sequence: number;
 }

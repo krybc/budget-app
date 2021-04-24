@@ -1,6 +1,8 @@
 import {Component, OnInit} from '@angular/core';
 import {ActivatedRoute, Router} from '@angular/router';
 import {CategoriesFacade, Category} from '@categories-data-access';
+import {combineLatest} from 'rxjs';
+import {map} from 'rxjs/operators';
 
 @Component({
   selector: 'app-category-add',
@@ -10,6 +12,16 @@ import {CategoriesFacade, Category} from '@categories-data-access';
 export class CategoryAddComponent implements OnInit {
   rootCategories$ = this.categoriesFacade.rootCategories$;
   queryParams$ = this.route.queryParams;
+
+  props$ = combineLatest([
+    this.categoriesFacade.rootCategories$,
+    this.route.queryParams
+  ]).pipe(
+    map(([rootCategories, queryParams]) => ({
+      rootCategories,
+      queryParams
+    })),
+  );
 
   constructor(
     private router: Router,

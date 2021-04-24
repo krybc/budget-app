@@ -6,7 +6,6 @@
 </mat-toolbar>
 
 <app-category-form
-  [rootCategories]="rootCategories$ | async"
-  [queryParams]="queryParams$ | async"
+  [props]="props$ | async"
   (changed)="onSave($event)"
 ></app-category-form>

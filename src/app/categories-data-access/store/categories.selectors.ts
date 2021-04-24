@@ -15,7 +15,7 @@ export const getCategories = createSelector(
 
 export const getRootCategories = createSelector(
   getCategoriesState,
-  (state: State) => categoriesSelectors.selectAll(state.categories).filter(item => item.parentId === null)
+  (state: State) => categoriesSelectors.selectAll(state.categories).filter(item => item.parent === null)
 );
 
 export const isCategoriesLoaded = createSelector(

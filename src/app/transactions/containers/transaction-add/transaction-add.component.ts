@@ -4,6 +4,8 @@ import {Transaction, TransactionsFacade} from '@transactions-data-access';
 import {AccountsFacade} from '@accounts-data-access';
 import {CategoriesFacade} from '@categories-data-access';
 import {ContractorsFacade} from '@contractors-data-access';
+import {combineLatest} from 'rxjs';
+import {map} from 'rxjs/operators';
 
 @Component({
   selector: 'app-transaction-add',
@@ -11,10 +13,20 @@ import {ContractorsFacade} from '@contractors-data-access';
   styleUrls: ['./transaction-add.component.scss'],
 })
 export class TransactionAddComponent implements OnInit {
-  params$ = this.route.queryParams;
-  accounts$ = this.accountsFacade.accounts$;
-  categories$ = this.categoriesFacade.categories$;
-  contractors$ = this.contractorsFacade.contractors$;
+
+  props$ = combineLatest([
+    this.accountsFacade.accounts$,
+    this.categoriesFacade.categories$,
+    this.contractorsFacade.contractors$,
+    this.route.queryParams
+  ]).pipe(
+    map(([accounts, categories, contractors, queryParams]) => ({
+      accounts,
+      categories,
+      contractors,
+      queryParams
+    }))
+  );
 
   constructor(
     private router: Router,

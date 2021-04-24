@@ -3,7 +3,7 @@ import {FormControl, FormGroup} from '@angular/forms';
 import {MatDatepicker} from '@angular/material/datepicker';
 import {MatSelectChange} from '@angular/material/select';
 import {DateTime} from 'luxon';
-import {Category} from '@categories-data-access';
+import {CategoriesFactories, Category} from '@categories-data-access';
 import {Contractor} from '@contractors-data-access';
 import {TransactionsFilters} from '@transactions-data-access';
 import {MAT_DATE_FORMATS} from '@angular/material/core';
@@ -19,9 +19,16 @@ import {MONTH_FORMATS} from '@shared/date';
   ]
 })
 export class TransactionsFiltersComponent implements OnInit {
-  @Input() categories: Category[];
   @Input() contractors: Contractor[];
   @Input() accounts: Account[];
+
+  @Input()
+  get categories() { return this._categories; }
+  set categories(value: Category[]) {
+    this._categories = value;
+    this.categoriesTree = CategoriesFactories.createTree(value);
+  }
+  private _categories: Category[];
 
   @Input()
   get filters() {
@@ -35,6 +42,7 @@ export class TransactionsFiltersComponent implements OnInit {
 
   @Output() filtersChanged = new EventEmitter<TransactionsFilters>();
   form: FormGroup;
+  categoriesTree: Category[];
 
   constructor(
   ) {
@@ -53,6 +61,7 @@ export class TransactionsFiltersComponent implements OnInit {
   }
 
   onChangeMonth(month: DateTime, datepicker: MatDatepicker<DateTime>): void {
+    console.log(month);
     if (this.form.valid) {
       this.form.get('month').setValue(month);
       datepicker.close();

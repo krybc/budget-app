@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import {Settings} from 'luxon';
 
 @Component({
   selector: 'app-root',
@@ -7,4 +8,8 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'app';
+
+  constructor() {
+    Settings.defaultZoneName = 'UTC';
+  }
 }
