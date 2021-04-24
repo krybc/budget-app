@@ -6,6 +6,9 @@ import {TransactionsFilters} from '@transactions-data-access';
 import {AccountsFacade} from '@accounts-data-access';
 import {CategoriesFacade} from '@categories-data-access';
 import {ContractorsFacade} from '@contractors-data-access';
+import {ActivatedRoute} from '@angular/router';
+import {DateTime} from 'luxon';
+import {combineLatest} from 'rxjs';
 
 @Component({
   selector: 'app-transaction-list',
@@ -25,9 +28,28 @@ export class TransactionListComponent implements OnInit {
     private contractorsFacade: ContractorsFacade,
     private transactionsFacade: TransactionsFacade,
     public dialog: MatDialog,
+    private route: ActivatedRoute,
   ) { }
 
   ngOnInit() {
+    combineLatest(([
+      this.route.queryParams,
+      this.categoriesFacade.categories$,
+    ]))
+      .subscribe(([queryParams, categories]) => {
+        let filters = null;
+        if (queryParams.month) {
+          filters = { ...filters, month: DateTime.fromISO(queryParams.month) };
+        }
+        if (queryParams.category) {
+          filters = { ...filters, category: categories.find(it => it.id === parseInt(queryParams.category, 10)) };
+        }
+
+        if (filters) {
+          this.transactionsFacade.setFilters(filters);
+        }
+        console.log(queryParams, filters);
+      });
   }
 
   onFiltersChange(filters: TransactionsFilters) {

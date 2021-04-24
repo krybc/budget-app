@@ -8,7 +8,7 @@
   <mat-form-field>
     <mat-select placeholder="Category" formControlName="category" (selectionChange)="onChangeCategory($event)">
       <mat-option [value]="null">All categories</mat-option>
-      <mat-optgroup *ngFor="let group of categories" [label]="group.name">
+      <mat-optgroup *ngFor="let group of categoriesTree" [label]="group.name">
         <mat-option *ngFor="let option of group.children" [value]="option">
           {{option.name}}
         </mat-option>

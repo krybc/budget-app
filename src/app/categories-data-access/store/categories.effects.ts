@@ -1,12 +1,13 @@
 import {Injectable} from '@angular/core';
 import {Actions, createEffect, ofType} from '@ngrx/effects';
 import * as CategoriesActions from './categories.actions';
-import {catchError, map, mergeMap} from 'rxjs/operators';
+import {catchError, map, mergeMap, withLatestFrom, tap} from 'rxjs/operators';
 import {of} from 'rxjs';
-import {tap} from 'rxjs/internal/operators';
 import {CategoriesApiService} from '@api';
 import {MatSnackBar} from '@angular/material/snack-bar';
 import {Router} from '@angular/router';
+import {CategoriesFacade} from '../store/categories.facade';
+import {CategoriesFactories} from '../store/categories.factories';
 
 
 @Injectable()
@@ -16,7 +17,7 @@ export class CategoriesEffects {
       ofType(CategoriesActions.loadCategories, CategoriesActions.setOrderSuccess),
       mergeMap(() => this.categoriesApiService.list()
         .pipe(
-          map(categories => CategoriesActions.loadCategoriesSuccess({categories})),
+          map(categories => CategoriesActions.loadCategoriesSuccess({ categories: CategoriesFactories.createFromApiListResponse(categories) })),
           catchError((error) => of(CategoriesActions.loadCategoriesFailure({ error})))
         )
       )
@@ -26,10 +27,12 @@ export class CategoriesEffects {
   createCategory$ = createEffect(() =>
     this.actions$.pipe(
       ofType(CategoriesActions.createCategory),
-      mergeMap((action) => this.categoriesApiService.create(action.category)
+      withLatestFrom(this.categoriesFacade.categories$),
+      map(([action, categories]) => ({ ...action, categories })),
+      mergeMap((action) => this.categoriesApiService.create(CategoriesFactories.createToApiRequest(action.category))
         .pipe(
           tap((category) => this.snackBar.open(`Category ${category.name} has been added`, 'Close')),
-          map((category) => CategoriesActions.createCategorySuccess({category})),
+          map((category) => CategoriesActions.createCategorySuccess({ category: CategoriesFactories.createFromApiResponse(category, action.categories) })),
           catchError((error) => of(CategoriesActions.createCategoryFailure({ error})))
         )
       )
@@ -39,10 +42,12 @@ export class CategoriesEffects {
   updateCategory$ = createEffect(() =>
     this.actions$.pipe(
       ofType(CategoriesActions.updateCategory),
-      mergeMap((action) => this.categoriesApiService.update(action.category)
+      withLatestFrom(this.categoriesFacade.categories$),
+      map(([action, categories]) => ({ ...action, categories })),
+      mergeMap((action) => this.categoriesApiService.update(CategoriesFactories.createToApiRequest(action.category))
         .pipe(
           tap((category) => this.snackBar.open(`Category ${category.name} has been updated`, 'Close')),
-          map((category) => CategoriesActions.updateCategorySuccess({category})),
+          map((category) => CategoriesActions.updateCategorySuccess({category: CategoriesFactories.createFromApiResponse(category, action.categories)})),
           catchError((error) => of(CategoriesActions.updateCategoryFailure({ error})))
         )
       )
@@ -52,7 +57,7 @@ export class CategoriesEffects {
   deleteCategory$ = createEffect(() =>
     this.actions$.pipe(
       ofType(CategoriesActions.deleteCategory),
-      mergeMap((action) => this.categoriesApiService.delete(action.category)
+      mergeMap((action) => this.categoriesApiService.delete(CategoriesFactories.createToApiRequest(action.category))
         .pipe(
           tap((category) => this.snackBar.open(`Category ${category.name} has been removed`, 'Close')),
           map((category) => {
@@ -68,7 +73,7 @@ export class CategoriesEffects {
   setOrder$ = createEffect(() =>
     this.actions$.pipe(
       ofType(CategoriesActions.setOrder),
-      mergeMap((action) => this.categoriesApiService.patchOrder(action.category)
+      mergeMap((action) => this.categoriesApiService.patchOrder(CategoriesFactories.createToApiRequest(action.category))
         .pipe(
           tap((_) => this.snackBar.open(`Category has been moved`, 'Close')),
           map((_) => CategoriesActions.setOrderSuccess({ result: true })),
@@ -80,6 +85,7 @@ export class CategoriesEffects {
 
   constructor(
     private actions$: Actions,
+    private categoriesFacade: CategoriesFacade,
     private categoriesApiService: CategoriesApiService,
     private snackBar: MatSnackBar,
     private router: Router,

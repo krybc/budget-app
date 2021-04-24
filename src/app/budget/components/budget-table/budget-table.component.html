@@ -13,7 +13,7 @@
         <table class="group-table">
           <thead class="mat-header group-header">
             <tr class="mat-header-row">
-              <th class="mat-header-cell name"><a [routerLink]="['/app/transactions']" [queryParams]="{category: group.id}">{{group.name}}</a></th>
+              <th class="mat-header-cell name"><a [routerLink]="['/app/transactions']" [queryParams]="{month: budgetParams.month, category: group.id}">{{group.name}}</a></th>
               <th class="mat-header-cell income">{{ group.income | number: '1.2' }}</th>
               <th class="mat-header-cell expense">{{ group.expense | number: '1.2' }}</th>
               <th class="mat-header-cell actions">
@@ -39,7 +39,7 @@
           </thead>
           <tbody cdkDropList (cdkDropListDropped)="onListDrop($event)">
           <tr class="mat-row category-row" cdkDrag [cdkDragData]="category" [ngClass]="{'category-income-row': category.type === 0, 'category-expense-row': category.type === 1}" *ngFor="let category of group.children">
-            <td class="mat-cell name"><a [routerLink]="['/app/transactions']" [queryParams]="{category: category.id}">{{category.name}}</a></td>
+            <td class="mat-cell name"><a [routerLink]="['/app/transactions']" [queryParams]="{month: budgetParams.month, category: category.id}">{{category.name}}</a></td>
             <td class="mat-cell income">{{ category.income | number: '1.2' }}</td>
             <td class="mat-cell expense">{{ category.expense | number: '1.2' }}</td>
             <td class="mat-cell actions">

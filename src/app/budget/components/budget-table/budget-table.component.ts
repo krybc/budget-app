@@ -1,7 +1,7 @@
 import {Component, Input, OnInit, Output, EventEmitter} from '@angular/core';
 import {Category} from '@categories-data-access';
 import {DialogComponent} from '@shared/ui';
-import {BudgetCategory, BudgetSummary} from '@budget-data-access';
+import {BudgetCategory, BudgetParams, BudgetSummary} from '@budget-data-access';
 import {MatDialog} from '@angular/material/dialog';
 import {CdkDragDrop} from '@angular/cdk/drag-drop';
 
@@ -12,6 +12,7 @@ import {CdkDragDrop} from '@angular/cdk/drag-drop';
 })
 export class BudgetTableComponent implements OnInit {
   @Input() budget: BudgetCategory[];
+  @Input() budgetParams: BudgetParams;
   @Input() budgetSummary: BudgetSummary;
   @Output() deleteCategory = new EventEmitter<Category>();
   @Output() changeOrder = new EventEmitter<Category>();

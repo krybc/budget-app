@@ -34,6 +34,10 @@ Handle `build` directory by web server (eg. Nginx or Apache).
 
 ## Roadmap
 
+## 0.9.0
+
+- [ ] Feature: Order contractors by transaction's interval by default
+
 ### 0.8.0
 
 - [ ] Feature: Change password
@@ -55,6 +59,15 @@ Handle `build` directory by web server (eg. Nginx or Apache).
 ### 0.5.0
 
 - [ ] Feature: Add icons to categories
+- [ ] Feature: Add color to parent categories
+- [ ] Feature: Show categories on charts of dashboard in selected color
+
+### 0.4.1
+
+- [ ] Fix: Unselectable categories select input on params of the transaction list
+- [ ] Fix: Month and category query params not handled on transaction list
+- [ ] Fix: Category query param handling on add transaction
+- [ ] Fix: Parent query param handling add category
 
 ### 0.4.0
 

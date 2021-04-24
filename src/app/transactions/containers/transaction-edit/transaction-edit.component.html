@@ -7,11 +7,7 @@
   </mat-toolbar>
 
   <app-transaction-form
-    [transaction]="transaction$ | async"
-    [accounts]="accounts$ | async"
-    [categories]="categories$ | async"
-    [contractors]="contractors$ | async"
-    [params]="params$ | async"
+    [props]="props$ | async"
     (changed)="onSave($event)"
   ></app-transaction-form>
 </div>

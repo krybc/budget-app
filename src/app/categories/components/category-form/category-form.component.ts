@@ -1,35 +1,36 @@
-import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
-import {FormControl, FormGroup, Validators} from '@angular/forms';
+import {Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges} from '@angular/core';
+import {FormGroup} from '@angular/forms';
 import {Params} from '@angular/router';
 import {Category} from '@categories-data-access';
+import {CategoryForm} from '../../forms/category.form';
+
+interface Props {
+  rootCategories: Category[];
+  queryParams?: Params;
+  category?: Category;
+}
 
 @Component({
   selector: 'app-category-form',
   templateUrl: './category-form.component.html',
-  styleUrls: ['./category-form.component.scss']
+  styleUrls: ['./category-form.component.scss'],
+  providers: [CategoryForm]
 })
-export class CategoryFormComponent implements OnInit {
+export class CategoryFormComponent implements OnChanges {
   @Input()
+  set props(value: Props) {
+    this.handleProps(value);
+  }
+
   get rootCategories() {
     return this._rootCategories;
   }
-  set rootCategories(value: Category[]) {
-    this._rootCategories = value;
-    this.applyQueryParams();
-  }
   private _rootCategories: Category[];
 
-  @Input()
-  set category(value: Category) {
-    this.model = value;
-    this.form.patchValue(value);
-    this.form.get('parent').setValue(this._rootCategories.find(it => it.id === value.parentId));
-  }
-
-  @Input()
   set queryParams(value: Params) {
-    this._queryParams = value;
-    this.applyQueryParams();
+    if (value.parent) {
+      this._queryParams = { ...this._queryParams, parent: parseInt(value.parent, 10) };
+    }
   }
   private _queryParams: Params;
 
@@ -37,47 +38,45 @@ export class CategoryFormComponent implements OnInit {
   @Output() changed = new EventEmitter<Category>();
   form: FormGroup;
 
-  constructor() {
-    this.createForm();
+  constructor(
+    private categoryForm: CategoryForm,
+  ) {
   }
 
-  ngOnInit(): void {
-  }
+  ngOnChanges(changes: SimpleChanges) {
+    if (this._rootCategories) {
+      this.applyQueryParams();
 
-  createForm() {
-    this.form = new FormGroup({
-      parent: new FormControl(null),
-      type: new FormControl(1, [
-        Validators.required
-      ]),
-      name: new FormControl(null, [
-        Validators.required
-      ]),
-      order: new FormControl(1, [
-        Validators.required,
-      ]),
-    });
+      this.form = this.categoryForm.init(this.model);
+    }
   }
 
   onSubmit() {
-    if (this.form.valid) {
-      const item = {
-        ...this.model
-        , ...this.form.value
-        , parentId: this.form.get('parent').value ? this.form.get('parent').value.id : null
-      };
-      delete item.parent;
-      this.changed.emit(item);
+    if (this.categoryForm.isValid) {
+      this.changed.emit(this.categoryForm.value);
     }
   }
 
   private applyQueryParams() {
-    if (this.rootCategories && this._queryParams && this._queryParams.parent) {
-      const parent = this.rootCategories.find(it => it.id === parseInt(this._queryParams.parent, 10));
-      if (parent) {
-        this.form.get('parent').setValue(parent);
-        this.form.get('type').setValue(parent.type);
-      }
+    if (this._queryParams && this._queryParams.parent) {
+      const parent = this.rootCategories.find(it => it.id === this._queryParams.parent);
+      this.model = {
+        ...this.model,
+        parent: parent ? parent : null,
+        type: parent ? parent.type : null,
+      };
+    }
+  }
+
+  private handleProps(value: Props): void {
+    if (value.rootCategories) {
+      this._rootCategories = value.rootCategories;
+    }
+    if (value.queryParams) {
+      this.queryParams = value.queryParams;
+    }
+    if (value.category) {
+      this.model = value.category;
     }
   }
 }

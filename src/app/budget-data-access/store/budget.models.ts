@@ -8,7 +8,7 @@ export interface BudgetCategory {
   name: string;
   income: number;
   expense: number;
-  order: number;
+  sequence: number;
   children?: BudgetCategory[];
 }
 

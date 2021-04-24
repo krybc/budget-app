@@ -18,6 +18,13 @@ export abstract class BaseForm<T> {
     this.initFormValueObserver();
   }
 
+  public init(value?: Partial<T>): FormGroup {
+    this._form = this.initForm(value);
+    this.initFormValueObserver();
+
+    return this._form;
+  }
+
   protected initFormValueObserver(): void {
     this._form.valueChanges
       .pipe(untilDestroyed(this))
@@ -26,7 +33,7 @@ export abstract class BaseForm<T> {
       });
   }
 
-  protected abstract initForm(): FormGroup;
+  protected abstract initForm(value?: Partial<T>): FormGroup;
 
   public patchValue(value: T): void {
     if (!isEqual(toPlainObject(value), toPlainObject(this.value)) && Object(value) !== this.value) {

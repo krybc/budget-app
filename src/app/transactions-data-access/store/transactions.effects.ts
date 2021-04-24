@@ -89,7 +89,7 @@ export class TransactionsEffects {
         )
       ),
     ]).pipe(
-      mapTo(TransactionsActions.loadTransactions())
+      mapTo(TransactionsActions.initTransactions())
     )
   );
 

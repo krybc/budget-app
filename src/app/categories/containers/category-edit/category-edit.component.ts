@@ -1,7 +1,8 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
 import {ActivatedRoute, Router} from '@angular/router';
-import {Subscription} from 'rxjs';
+import {combineLatest, Subscription} from 'rxjs';
 import {CategoriesFacade, Category} from '@categories-data-access';
+import {map} from 'rxjs/operators';
 
 @Component({
   selector: 'app-category-edit',
@@ -12,6 +13,18 @@ export class CategoryEditComponent implements OnInit, OnDestroy {
   category$ = this.categoriesFacade.selectedCategory$;
   categoryLoaded$ = this.categoriesFacade.categoriesLoaded$;
   rootCategories$ = this.categoriesFacade.rootCategories$;
+
+  props$ = combineLatest([
+    this.categoriesFacade.rootCategories$,
+    this.route.queryParams,
+    this.categoriesFacade.selectedCategory$,
+  ]).pipe(
+    map(([rootCategories, queryParams, category]) => ({
+      rootCategories,
+      queryParams,
+      category
+    })),
+  );
 
   private paramsSubscription$: Subscription;
 

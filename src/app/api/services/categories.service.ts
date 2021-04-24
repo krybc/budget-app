@@ -36,6 +36,6 @@ export class CategoriesApiService {
   }
 
   patchOrder(item: CategoryApiModel): Observable<any> {
-    return this.http.patch(`${this.rootPath}/${item.id}/${this.patchOrderPath}/${item.order}`, { order: item.order });
+    return this.http.patch(`${this.rootPath}/${item.id}/${this.patchOrderPath}/${item.sequence}`, { order: item.sequence });
   }
 }

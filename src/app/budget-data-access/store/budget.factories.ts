@@ -2,8 +2,8 @@ import {TransactionApiModel} from '@api';
 import {BudgetCategory} from './budget.models';
 import {Category} from '@categories-data-access';
 
-const createBudget = (apiCategories: Category[], transactions: TransactionApiModel[]): BudgetCategory[] => {
-  const categories = apiCategories.map(item => ({...item, income: 0, expense: 0, children: []} as BudgetCategory));
+const createBudget = (inputCategories: Category[], transactions: TransactionApiModel[]): BudgetCategory[] => {
+  const categories = inputCategories.map(item => ({id: item.id, name: item.name, type: item.type, parentId: item.parent ? item.parent.id : null, sequence: item.sequence, income: 0, expense: 0, children: []} as BudgetCategory));
   const budget = [];
 
   categories

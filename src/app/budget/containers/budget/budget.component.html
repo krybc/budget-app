@@ -19,6 +19,7 @@
 
       <app-budget-table
         [budget]="budget$ | async"
+        [budgetParams]="params$ | async"
         [budgetSummary]="budgetSummary$ | async"
         (deleteCategory)="deleteCategory($event)"
         (changeOrder)="changeOrder($event)"
