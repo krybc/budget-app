@@ -19,6 +19,7 @@ export abstract class BaseForm<T> {
   }
 
   public init(value?: Partial<T>): FormGroup {
+    this.value = value as T;
     this._form = this.initForm(value);
     this.initFormValueObserver();
 
