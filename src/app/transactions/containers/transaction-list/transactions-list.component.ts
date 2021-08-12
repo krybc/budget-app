@@ -1,14 +1,16 @@
 import {Component, OnInit} from '@angular/core';
 import {MatDialog} from '@angular/material/dialog';
+import {ActivatedRoute} from '@angular/router';
+
+import {DateTime} from 'luxon';
+import {combineLatest} from 'rxjs';
+
 import {DialogComponent} from '@shared/ui';
 import {Transaction, TransactionsFacade} from '@transactions-data-access';
 import {TransactionsFilters} from '@transactions-data-access';
 import {AccountsFacade} from '@accounts-data-access';
 import {CategoriesFacade} from '@categories-data-access';
 import {ContractorsFacade} from '@contractors-data-access';
-import {ActivatedRoute} from '@angular/router';
-import {DateTime} from 'luxon';
-import {combineLatest} from 'rxjs';
 
 @Component({
   selector: 'app-transaction-list',
@@ -48,7 +50,6 @@ export class TransactionListComponent implements OnInit {
         if (filters) {
           this.transactionsFacade.setFilters(filters);
         }
-        console.log(queryParams, filters);
       });
   }
 

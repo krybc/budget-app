@@ -1,6 +1,7 @@
 import {createFeatureSelector, createSelector} from '@ngrx/store';
 import {State, TRANSACTIONS_FEATURE_KEY, transactionsAdapter, TransactionsPartialState} from './transactions.reducer';
 import {Transaction, TransactionsFilters} from './transactions.models';
+import {Settings} from 'luxon';
 
 export const getTransactionsState = createFeatureSelector<TransactionsPartialState, State>(
   TRANSACTIONS_FEATURE_KEY
@@ -23,6 +24,10 @@ export const getFilteredTransactions = createSelector(
   (transactions: Transaction[], filters: TransactionsFilters) => {
     return transactions
       .filter(item => {
+        if (filters.month && item.date.year !== filters.month.year && item.date.month !== filters.month.month) {
+          return false;
+        }
+
         if (filters.account && item.account.id !== filters.account.id) {
           return false;
         }
@@ -36,7 +41,8 @@ export const getFilteredTransactions = createSelector(
         }
 
         return true;
-      });
+      })
+      .sort((a, b) => a.date > b.date ? 1 : -1);
   }
 );
 

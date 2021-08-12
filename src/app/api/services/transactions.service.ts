@@ -25,15 +25,24 @@ export class TransactionsApiService {
   }
 
   get(id: string): Observable<TransactionApiModel> {
-    return this.http.get<TransactionApiModel>(`${this.rootPath}/${id}`);
+    return this.http.get<TransactionApiModel>(`${this.rootPath}/${id}`)
+      .pipe(
+        map(result => TransactionFactory.createFromResponse(result))
+      );
   }
 
   create(transaction: TransactionApiModel): Observable<TransactionApiModel> {
-    return this.http.post<TransactionApiModel>(`${this.rootPath}`, transaction);
+    return this.http.post<TransactionApiModel>(`${this.rootPath}`, transaction)
+      .pipe(
+        map(result => TransactionFactory.createFromResponse(result))
+      );
   }
 
   update(transaction: TransactionApiModel): Observable<TransactionApiModel> {
-    return this.http.put<TransactionApiModel>(`${this.rootPath}/${transaction.id}`, transaction);
+    return this.http.put<TransactionApiModel>(`${this.rootPath}/${transaction.id}`, transaction)
+      .pipe(
+        map(result => TransactionFactory.createFromResponse(result))
+      );
   }
 
   delete(transaction: TransactionApiModel): Observable<any> {
