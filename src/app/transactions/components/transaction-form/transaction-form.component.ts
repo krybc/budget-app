@@ -42,16 +42,7 @@ export class TransactionFormComponent implements OnChanges {
   }
 
   accounts: Account[];
-
-  get categories() {
-    return this._categories;
-  }
-  set categories(value: Category[]) {
-    this._categories = value;
-    this.categoriesTree = CategoriesFactories.createTree(value);
-  }
-  private _categories: Category[];
-
+  categories: Category[];
   contractors: Contractor[];
 
   get queryParams() {
@@ -115,6 +106,7 @@ export class TransactionFormComponent implements OnChanges {
 
     if (value.categories) {
       this.categories = value.categories;
+      this.categoriesTree = CategoriesFactories.createTree(value.categories);
     }
 
     if (value.contractors) {
